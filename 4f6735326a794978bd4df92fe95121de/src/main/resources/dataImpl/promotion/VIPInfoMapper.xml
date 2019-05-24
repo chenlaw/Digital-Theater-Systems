@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cinema.data.promotion.VIPInfoMapper">
+    <insert id = "insertOneVIPInfo" parameterType="com.example.cinema.po.VIPInfo"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into vip_info(description,price,minimum_charge,extra_charge)
+        values(#{description}, #{price},#{minimumCharge},#{extraCharge})
+    </insert>
+
+    <select id="selectVIPInfoById" resultMap="VIPInfo">
+        select * from vip_Info where id=#{id}
+    </select>
+    
+    <select id="selectVIPInfoByDescription" resultMap="VIPInfo">
+    	select * from vip_Info where description=#{description}
+    </select>
+
+    <update id="updateVIPInfo" parameterType="com.example.cinema.po.VIPInfo">update vip_Info set 
+        description = #{description},
+        price = #{price},
+        minimum_charge = #{minimumCharge}
+        extra_charge = #{extraCharge}
+        where id = #{id}
+    </update>
+    
+    <resultMap id="VIPInfo" parameterType="com.example.cinema.po.VIPInfo">
+        <id column="id" property="id"></id>
+        <result column="description" property="description"></result>
+        <result column="price" property="price"></result>
+        <result column="minimum_charge" property="minimumCharge"></result>
+        <result column="extra_charge" property="extraCharge"></result>
+    </resultMap>
+</mapper>
