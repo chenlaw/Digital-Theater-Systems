@@ -8,11 +8,12 @@ import java.sql.Timestamp;
  */
 
 public class VIPCard {
-
-    public static final double price = 25;
-
-    public static final String description="满200送30";
-
+	
+    /**
+     * VIP信息
+     */
+    private int VIPInfoId;
+    
     /**
      * 用户id
      */
@@ -75,4 +76,13 @@ public class VIPCard {
         return (int)(amount/200)*30+amount;
 
     }
+    
+    public void setVIPInfoId(int vIPInfoId) {
+		VIPInfoId = vIPInfoId;
+	}
+    
+    public int getVIPInfoId() {
+		return VIPInfoId;
+	}
+    
 }

@@ -1,13 +1,9 @@
-package com.example.cinema.vo;
+package com.example.cinema.po;
 
+import com.example.cinema.vo.VIPInfoVO;
 
-
-/**
- * Created by liying on 2019/4/15.
- */
-public class VIPInfoVO {
-	
-	private int id;
+public class VIPInfo {
+private int id;
 	
 	/**
 	 * 会员卡简介
@@ -34,6 +30,16 @@ public class VIPInfoVO {
      */
     private double extraCharge;
 
+    public VIPInfo(VIPInfoVO v) {
+    	this.description = v.getDescription();
+    	this.price = v.getPrice();
+    	this.extraCharge = v.getExtraCharge();
+    	this.name = v.getName();
+    	this.minimumCharge = v.getMinimumCharge();
+    	this.id = v.getId();
+		// TODO Auto-generated constructor stub
+	}
+    
     public String getDescription() {
         return description;
     }
@@ -81,4 +87,15 @@ public class VIPInfoVO {
     public String getName() {
 		return name;
 	}
+    
+    public VIPInfoVO getVO(){
+    	VIPInfoVO v = new VIPInfoVO();
+    	v.setDescription(this.description);
+    	v.setExtraCharge(this.extraCharge);
+    	v.setId(this.id);
+    	v.setMinimumCharge(this.minimumCharge);
+    	v.setName(this.name);
+    	v.setPrice(this.price);
+    	return v;
+    }
 }

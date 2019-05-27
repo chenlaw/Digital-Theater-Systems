@@ -2,12 +2,17 @@ package com.example.cinema.blImpl.promotion;
 
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.data.promotion.VIPCardMapper;
+import com.example.cinema.data.promotion.VIPInfoMapper;
 import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.po.VIPCard;
+import com.example.cinema.po.VIPInfo;
 import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.VIPInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,7 +22,39 @@ import org.springframework.stereotype.Service;
 public class VIPServiceImpl implements VIPService {
     @Autowired
     VIPCardMapper vipCardMapper;
+    VIPInfoMapper vipInfoMapper;
 
+    @Override
+    public ResponseVO getAllVIPInfo() {
+        try {
+            List<VIPInfo> vipInfoList = vipInfoMapper.selectALLVIPInfo();
+            List<VIPInfoVO> vipInfoVOList = new ArrayList<VIPInfoVO>();
+            for (VIPInfo v:vipInfoList
+            ) {
+                vipInfoVOList.add(v.getVO());
+            }
+            return ResponseVO.buildSuccess(vipInfoVOList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+    
+    
+    @Override
+    //增加会员卡种类
+    public ResponseVO addVIPInfo(VIPInfoVO vipInfoVO) {
+    	try {
+            VIPInfo v= new VIPInfo(vipInfoVO);
+            vipInfoMapper.insertVIPInfo(v);
+            ResponseVO responseVO = getAllVIPInfo();
+            return ResponseVO.buildSuccess(responseVO.getContent());
+        }catch (Exception e){
+    	    e.printStackTrace();
+    	    return  ResponseVO.buildFailure("失败");
+        }
+    }
+    
     @Override
     public ResponseVO addVIPCard(int userId) {
         VIPCard vipCard = new VIPCard();
@@ -43,13 +80,28 @@ public class VIPServiceImpl implements VIPService {
     }
 
     @Override
-    public ResponseVO getVIPInfo() {
-        VIPInfoVO vipInfoVO = new VIPInfoVO();
-        vipInfoVO.setDescription(VIPCard.description);
-        vipInfoVO.setPrice(VIPCard.price);
-        return ResponseVO.buildSuccess(vipInfoVO);
+    public ResponseVO getVIPInfoByName(String name) {
+        try {
+            VIPInfoVO v = vipInfoMapper.selectVIPInfoByName(name).getVO();
+            return ResponseVO.buildSuccess(v);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  ResponseVO.buildFailure("失败");
+        }
+
     }
 
+    @Override
+    public ResponseVO getVIPInfoByUserId(int id) {
+        try {
+            VIPInfoVO v = vipInfoMapper.selectVIPInfoById(id).getVO();
+            return ResponseVO.buildSuccess(v);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  ResponseVO.buildFailure("失败");
+        }
+    }
+    
     @Override
     public ResponseVO charge(VIPCardForm vipCardForm) {
 
@@ -82,5 +134,16 @@ public class VIPServiceImpl implements VIPService {
         }
     }
 
-
+    @Override
+    public ResponseVO updateYIPInfo(VIPInfoVO vipinfovo) {
+        //todo
+        try {
+            VIPInfo v = new VIPInfo(vipinfovo);
+            vipInfoMapper.updateVIPInfo(v);
+            return ResponseVO.buildSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
 }

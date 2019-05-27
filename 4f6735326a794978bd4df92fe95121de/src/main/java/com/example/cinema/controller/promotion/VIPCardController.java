@@ -2,6 +2,7 @@ package com.example.cinema.controller.promotion;
 
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.vo.VIPCardForm;
+import com.example.cinema.vo.VIPInfoVO;
 import com.example.cinema.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +25,31 @@ public class VIPCardController {
         return vipService.getCardByUserId(userId);
     }
 
-    @GetMapping("/getVIPInfo")
-    public ResponseVO getVIPInfo(){
-        return vipService.getVIPInfo();
+    @GetMapping("/getVIPInfo/{name}")
+    public ResponseVO getVIPInfo(@PathVariable String name){
+        return vipService.getVIPInfoByName(name);
     }
 
+    @GetMapping("/getVIPInfo/{userId}")
+    public ResponseVO getVIPInfoById(@PathVariable int userId){
+        return vipService.getVIPInfoByUserId(userId);
+    }
+    
+    @GetMapping("/getAllVIPInfo")
+    public ResponseVO getAllVIPInfo(){
+        return vipService.getAllVIPInfo();
+    }
+    
+    
     @PostMapping("/charge")
     public ResponseVO charge(@RequestBody VIPCardForm vipCardForm){
         return vipService.charge(vipCardForm);
     }
-
+    
+    @PostMapping("/addVIPInfo")
+    public ResponseVO addVIPInfo(@RequestBody VIPInfoVO vipInfoVO){
+        return vipService.addVIPInfo(vipInfoVO);
+    }
 
 
 

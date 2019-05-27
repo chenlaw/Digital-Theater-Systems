@@ -40,6 +40,11 @@ public class ViewController {
         return "adminPromotionManage";
     }
 
+    @RequestMapping(value = "/admin/vipInfo/manage")
+    public String getAdminVIPInfoManage() {
+        return "adminVIPInfoManage";
+    }
+
     @RequestMapping(value = "/admin/cinema/statistic")
     public String getAdminCinemaStatistic() {
         return "adminCinemaStatistic";
