@@ -1,16 +1,22 @@
 package com.example.cinema.data.promotion;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.example.cinema.po.Coupon;
 import com.example.cinema.po.VIPInfo;
 @Mapper
 public interface VIPInfoMapper {
-	void insertOneVIPInfo(VIPInfo vipInfo);
+	int insertVIPInfo(VIPInfo vipInfo);
 
-	VIPInfo selectVIPInfoById(@Param("id") int id);
-	
-	VIPInfo selectVIPInfoByDescription(@Param("description")String description);
-	
+	List<VIPInfo> selectALLVIPInfo();
+
+	VIPInfo selectVIPInfoByName(String name);
+
+	VIPInfo selectVIPInfoById(int userId);
+
 	void updateVIPInfo(VIPInfo vipInfo);
 
 }
