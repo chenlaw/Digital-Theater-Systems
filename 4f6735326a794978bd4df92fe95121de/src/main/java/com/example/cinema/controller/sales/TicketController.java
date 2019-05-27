@@ -44,7 +44,10 @@ public class TicketController {
     public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId){
         return ticketService.cancelTicket(ticketId);
     }
-
+    @GetMapping("/withdraw")
+    public ResponseVO withdrawTicket(@RequestParam int ticketId){
+        return ticketService.withdrawTicket(ticketId);
+    }
 
 
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cinema.data.sales.WithdrawMapper">
+
+    <insert id="insertWithdrawInfo" parameterType="com.example.cinema.po.WithdrawInfo"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into withdraw(withdraw_description, close_time, schedule_id, discount)
+        values(#{withdrawDescription},#{closeTime},#{scheduleId},#{discount})
+    </insert>
+
+    <select id="selectWithdrawInfoByScheduleId" resultMap="WithdrawInfo">
+        select * from withdraw where schedule_id=#{scheduleId}
+    </select>
+
+    <resultMap id="WithdrawInfo" type="com.example.cinema.po.WithdrawInfo">
+        <result column="schedule_id" property="scheduleId"></result>
+        <result column="id" property="id"></result>
+        <result column="withdraw_description" property="withdrawDescription"></result>
+        <result column="close_time" property="closeTime"></result>
+        <result column="discount" property="discount"></result>
+    </resultMap>
+
+</mapper>
