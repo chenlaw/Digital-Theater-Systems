@@ -1,0 +1,10 @@
+.content-header {
+    display: flex;
+    justify-content: space-between;
+}
+.vipInfo-item {
+    list-style: none;
+    display: flex;
+    margin-top: 20px;
+    border-bottom: 1px solid #ccc;
+}

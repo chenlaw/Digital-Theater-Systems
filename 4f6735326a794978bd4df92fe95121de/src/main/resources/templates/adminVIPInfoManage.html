@@ -6,6 +6,8 @@
 
     <!-- 引入css样式文件 -->
     <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/adminVIP.css"/>
+
     <!-- Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <!-- font-asesome图标库 -->
@@ -34,15 +36,69 @@
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
             <li role="presentation" class="active"><a href="/admin/vipInfo/manage"><i class="icon-credit-card"></i> 会员卡管理</a></li>
         </ul>
-        <div class="content-container">
-            <div class="content-item">
+    </div>
+    <div class="content-container">
+        <div class="content-header">
+            <span class="title gray-text">已发布会员卡</span>
+            <button type="button" class="btn btn-primary" data-backdrop="static"
+                    data-toggle="modal"
+                    data-target="#vipInfoModal">
+                <i class="icon-plus-sign"></i> 发布会员卡
+            </button>
+        </div>
+        <ul class="vipInfo-list">
 
+        </ul>
+    </div>
+</div>
+<div class="modal fade" id="vipInfoModal" tabindex="-1" role="dialog" aria-labelledby="VIPInfoModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="movieModalLabel">新增会员卡</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfo-name-input"><span class="error-text">*</span>会员卡名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="vipInfo-name-input" placeholder="请输入会员卡名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfo-description-input"><span class="error-text">*</span>会员卡信息</label>
+                        <div class="col-sm-10">
+                            <textarea row="3" class="form-control" id="vipInfo-description-input" placeholder="请输入会员卡信息"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfo-price-input"><span class="error-text">*</span>会员卡价格</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="0" class="form-control" id="vipInfo-price-input" placeholder="请输入会员卡价格">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfo-extraCharge-input"><span class="error-text">*</span>会员卡充值优惠价格</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="0" class="form-control" id="vipInfo-extraCharge-input" placeholder="请输入会员卡充值优惠价格"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfo-minimunCharge-input"><span class="error-text">*</span>会员卡充值优惠底价</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="0" class="form-control" id="vipInfo-minimumCharge-input" placeholder="请输入会员卡充值优惠底价">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="vipInfo-form-btn">确认</button>
             </div>
         </div>
+
     </div>
-
-
 </div>
-
 </body>
 </html>

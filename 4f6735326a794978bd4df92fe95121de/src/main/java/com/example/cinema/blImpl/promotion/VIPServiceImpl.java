@@ -44,11 +44,10 @@ public class VIPServiceImpl implements VIPService {
     @Override
     //增加会员卡种类
     public ResponseVO addVIPInfo(VIPInfoVO vipInfoVO) {
-    	try {
+        try {
             VIPInfo v= new VIPInfo(vipInfoVO);
             vipInfoMapper.insertVIPInfo(v);
-            ResponseVO responseVO = getAllVIPInfo();
-            return ResponseVO.buildSuccess(responseVO.getContent());
+            return ResponseVO.buildSuccess();
         }catch (Exception e){
     	    e.printStackTrace();
     	    return  ResponseVO.buildFailure("失败");
