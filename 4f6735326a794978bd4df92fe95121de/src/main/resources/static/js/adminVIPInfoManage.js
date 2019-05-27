@@ -1,24 +1,22 @@
 $(document).ready(function () {
-    getAllVIPInfo()
+    //getAllVIPInfo();
     $("#vipInfo-form-btn").click(function () {
         var formData = getVIPInfoForm();
         if(!validateVIPInfoForm(formData)){
-            alert("输入有误")
+            alert("输入有误");
             return;
         }
         postRequest(
-            "/addVIPInfo",
+            "/vip/addVIPInfo",
             formData,
             function (res) {
-                $('#vipInfoModal').hide()
-                //todo 出现错误没进来
+                $('#vipInfoModal').modal('hide');
             },
             function (error) {
-                alert(error)
+                alert(error);
             }
-        )
-    })
-    
+        );
+    });
     function validateVIPInfoForm(data) {
         var isValidate = true;
         if(!data.name) {
@@ -28,8 +26,6 @@ $(document).ready(function () {
         }
         if(!data.description) {
             isValidate = false;
-
-
             $('#vipInfo-description-input').parent('.form-group').addClass('has-error');
         }
         if(!data.price) {
@@ -46,7 +42,6 @@ $(document).ready(function () {
         }
         return isValidate;
     }
-    
     function getVIPInfoForm() {
         return{
             price:$('#vipInfo-price-input').val(),
@@ -66,7 +61,7 @@ $(document).ready(function () {
             function (error) {
                 alert(error);
             }
-        )
+        );
     }
 
     function renderVIPInfoList(list) {
@@ -76,8 +71,8 @@ $(document).ready(function () {
             vipinfo.description = vipinfo.description || '';
             vipinfoDomStr +=
                 "<li class='vipInfo-item card'>"
-            +"</li>";
+                +"</li>";
         });
         $('.vipInfo-list').append(vipinfoDomStr);
     }
-})
+});

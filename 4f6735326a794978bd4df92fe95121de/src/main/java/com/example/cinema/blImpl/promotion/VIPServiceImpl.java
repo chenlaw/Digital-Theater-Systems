@@ -22,6 +22,7 @@ import java.util.List;
 public class VIPServiceImpl implements VIPService {
     @Autowired
     VIPCardMapper vipCardMapper;
+    @Autowired
     VIPInfoMapper vipInfoMapper;
 
     @Override

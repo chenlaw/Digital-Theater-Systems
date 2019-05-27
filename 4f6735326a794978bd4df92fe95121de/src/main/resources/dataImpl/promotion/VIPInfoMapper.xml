@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.cinema.data.promotion.VIPInfoMapper">
 	<insert id="insertVIPInfo" parameterType="com.example.cinema.po.VIPInfo" useGeneratedKeys="true"
-		keyProperty="id">insert into vip_info(description,price,card_name,extra_charge,minimum_charge) values(#{description},#{price},#{name},#{extraCharge},#{minimumCharge})</insert>
+		keyProperty="id">
+insert into vip_info(description,price,card_name,extra_charge,minimum_charge)
+values(#{description},#{price},#{name},#{extraCharge},#{minimumCharge})</insert>
 	<select id="selectALLVIPInfo" resultMap="VIPInfo">
 		select * from vip_info
 	</select>
