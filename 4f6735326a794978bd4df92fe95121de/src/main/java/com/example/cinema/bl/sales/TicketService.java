@@ -58,4 +58,7 @@ public interface TicketService {
      * @return
      */
     ResponseVO cancelTicket(List<Integer> id);
+
+
+    ResponseVO withdrawTicket(int ticketId);
 }

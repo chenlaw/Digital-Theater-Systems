@@ -11,6 +11,7 @@ import com.example.cinema.data.promotion.ActivityMapper;
 import com.example.cinema.data.promotion.CouponMapper;
 import com.example.cinema.data.promotion.VIPCardMapper;
 import com.example.cinema.data.sales.TicketMapper;
+import com.example.cinema.data.sales.WithdrawMapper;
 import com.example.cinema.po.*;
 import com.example.cinema.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by liying on 2019/4/16.
  */
 @Service
-public class TicketServiceImpl implements TicketService {
+public class  TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketMapper ticketMapper;
@@ -44,6 +46,8 @@ public class TicketServiceImpl implements TicketService {
     ActivityMapper activityMapper;
     @Autowired
     ScheduleMapper scheduleMapper;
+    @Autowired
+    WithdrawMapper withdrawMapper;
 
     @Override
     @Transactional
@@ -246,6 +250,24 @@ public class TicketServiceImpl implements TicketService {
         }
         Collections.reverse(TicketWithScheduleVOList);
         return TicketWithScheduleVOList;
+    }
+
+    @Override
+    public ResponseVO withdrawTicket(int id){
+        Ticket ticket = ticketMapper.selectTicketById(id);
+        ScheduleItem scheduleItem = scheduleMapper.selectScheduleById(ticket.getScheduleId());
+        //Date startTime=scheduleItem.getStartTime();
+        double fare = scheduleItem.getFare();
+        WithdrawInfo withdrawInfo = withdrawMapper.selectWithdrawInfoByScheduleId(ticket.getScheduleId());
+        Date closeTime=withdrawInfo.getCloseTime();
+        Date currentTime = new Date();
+        if(currentTime.after(closeTime)){
+            return ResponseVO.buildFailure("已超过退票时间！");
+        }
+        else{
+            ticketMapper.updateTicketState(id,2);
+            return ResponseVO.buildSuccess();
+        }
     }
 
 }
