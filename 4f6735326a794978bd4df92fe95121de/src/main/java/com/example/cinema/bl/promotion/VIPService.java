@@ -28,5 +28,5 @@ public interface VIPService {
 
 	ResponseVO getAllVIPInfo();//取得所有会员卡
 
-    ResponseVO updateYIPInfo(VIPInfoVO vipInfoVO);//修改卡信息
+    ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO);//修改卡信息
 }

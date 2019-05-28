@@ -47,7 +47,6 @@
             </button>
         </div>
         <ul class="vipInfo-list">
-
         </ul>
     </div>
 </div>
@@ -56,10 +55,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="movieModalLabel">新增会员卡</h4>
+                <h4 class="modal-title" id="vipInfoLabel">新增会员卡</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
+                    <param id="vipInfoId" name = 'id' value="0">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="vipInfo-name-input"><span class="error-text">*</span>会员卡名称</label>
                         <div class="col-sm-10">
@@ -95,6 +95,55 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="vipInfo-form-btn">确认</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="vipInfoUpdateModal" tabindex="-1" role="dialog" aria-labelledby="VIPInfoModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="vipInfoUpdateModalLabel">修改会员卡</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfoUpdate-name-input"><span class="error-text">*</span>会员卡名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="vipInfoUpdate-name-input" placeholder="请输入会员卡名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfoUpdate-description-input"><span class="error-text">*</span>会员卡信息</label>
+                        <div class="col-sm-10">
+                            <textarea row="3" class="form-control" id="vipInfoUpdate-description-input" placeholder="请输入会员卡信息"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfoUpdate-price-input"><span class="error-text">*</span>会员卡价格</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="0" class="form-control" id="vipInfoUpdate-price-input" placeholder="请输入会员卡价格">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfoUpdate-extraCharge-input"><span class="error-text">*</span>会员卡充值优惠价格</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="0" class="form-control" id="vipInfoUpdate-extraCharge-input" placeholder="请输入会员卡充值优惠价格"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vipInfoUpdate-minimumCharge-input"><span class="error-text">*</span>会员卡充值优惠底价</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="0" class="form-control" id="vipInfoUpdate-minimumCharge-input" placeholder="请输入会员卡充值优惠底价">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="vipInfoUpdate-form-btn">确认</button>
             </div>
         </div>
 

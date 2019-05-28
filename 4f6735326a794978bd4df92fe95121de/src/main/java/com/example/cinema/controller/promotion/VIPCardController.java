@@ -51,6 +51,11 @@ public class VIPCardController {
         return vipService.addVIPInfo(vipInfoVO);
     }
 
+    @PostMapping("/update")
+    public ResponseVO updateVIPInfo(@RequestBody VIPInfoVO vipInfoVO){
+        return  vipService.updateVIPInfo(vipInfoVO);
+    }
+
 
 
 }

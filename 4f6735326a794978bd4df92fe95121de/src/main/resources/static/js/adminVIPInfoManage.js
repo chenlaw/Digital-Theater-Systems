@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //getAllVIPInfo();
+    getAllVIPInfo();
     $("#vipInfo-form-btn").click(function () {
         var formData = getVIPInfoForm();
         if(!validateVIPInfoForm(formData)){
@@ -10,7 +10,40 @@ $(document).ready(function () {
             "/vip/addVIPInfo",
             formData,
             function (res) {
+                getAllVIPInfo();
                 $('#vipInfoModal').modal('hide');
+            },
+            function (error) {
+                alert(error);
+            }
+        );
+    });
+
+
+    $("#vipInfoUpdateModal").on("show.bs.modal",function (e) {
+        var test = $(e.relatedTarget).data("vipinfoid");
+        window.sessionStorage.setItem("vipinfoid",test);
+    });
+    $("#vipInfoUpdate-form-btn").on("hidden.bs.modal", function() {
+        $(this).removeData("bs.modal");
+    });
+    $("#vipInfo-form-btn").on("hidden.bs.modal", function() {
+        $(this).removeData("bs.modal");
+    });
+    $("#vipInfoUpdate-form-btn").click(function () {
+        var id = window.sessionStorage.getItem("vipinfoid");
+        alert(id);
+        var formData = getVIPInfoUpdateForm(id);
+        if(!validateVIPInfoForm(formData)){
+            alert("输入有误");
+            return;
+        }
+        postRequest(
+            "/vip/update",
+            formData,
+            function (res) {
+                getAllVIPInfo();
+                $('#vipInfoUpdateModal').modal('hide');
             },
             function (error) {
                 alert(error);
@@ -51,10 +84,20 @@ $(document).ready(function () {
             description:$('#vipInfo-description-input').val()
         };
     }
+    function getVIPInfoUpdateForm(id) {
+        return{
+            id:id,
+            price:$('#vipInfoUpdate-price-input').val(),
+            name:$('#vipInfoUpdate-name-input').val(),
+            minimumCharge:$('#vipInfoUpdate-minimumCharge-input').val(),
+            extraCharge:$('#vipInfoUpdate-extraCharge-input').val(),
+            description:$('#vipInfoUpdate-description-input').val()
+        };
+    }
 
     function getAllVIPInfo() {
         getRequest(
-            "/getAllVIPInfo",
+            "/vip/getAllVIPInfo",
             function (res) {
                 renderVIPInfoList(res.content);
             },
@@ -66,13 +109,29 @@ $(document).ready(function () {
 
     function renderVIPInfoList(list) {
         $('.vipInfo-list').empty();
-        var vipinfoDomStr = '';
+        var vipInfoDomStr = '';
+        var vipinfoid = "vipinfoid";
         list.forEach(function (vipinfo) {
-            vipinfo.description = vipinfo.description || '';
-            vipinfoDomStr +=
-                "<li class='vipInfo-item card'>"
-                +"</li>";
+            vipInfoDomStr +=
+                "<div class='vipInfo-container'>" +
+                "    <div class='vipInfo-card card'>" +
+                "       <div class='vipInfo-line' >" +
+                "           <span class='primary-text title'>"+vipinfo.name+"</span>" +
+                "       </div>" +
+                "       <div class='vipInfo-line' >" +
+                "           <span class='gray-text'>"+vipinfo.description+"</span>" +
+                "       </div>" +
+                "    </div>" +
+                "    <div class='vipInfo-main primary-bg'>" +
+                "        <span class='title'>VIP卡名称："+vipinfo.name+"</span>" +
+                "        <span class='title'>满"+vipinfo.minimumCharge+"减<span class='error-text title'>"+vipinfo.extraCharge+"</span></span>" +
+                "        <span class='gray-text'>"+vipinfo.description+"</span>" +
+                "        <button data-vipinfoid ="+vipinfo.id+" class='btn btn-primary'data-backdrop='static' data-toggle='modal'data-target='#vipInfoUpdateModal'>修改</button>" +
+                "    </div>" +
+                "</div>"
         });
-        $('.vipInfo-list').append(vipinfoDomStr);
+
+        $('.vipInfo-list').append(vipInfoDomStr);
     }
+
 });

@@ -26,6 +26,18 @@ public class VIPServiceImpl implements VIPService {
     VIPInfoMapper vipInfoMapper;
 
     @Override
+    public ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO) {
+        try {
+            VIPInfo v= new VIPInfo(vipInfoVO);
+            vipInfoMapper.updateVIPInfo(v);
+            return ResponseVO.buildSuccess();
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseVO.buildFailure("失败");
+        }
+    }
+
+    @Override
     public ResponseVO getAllVIPInfo() {
         try {
             List<VIPInfo> vipInfoList = vipInfoMapper.selectALLVIPInfo();
@@ -134,16 +146,4 @@ public class VIPServiceImpl implements VIPService {
         }
     }
 
-    @Override
-    public ResponseVO updateYIPInfo(VIPInfoVO vipinfovo) {
-        //todo
-        try {
-            VIPInfo v = new VIPInfo(vipinfovo);
-            vipInfoMapper.updateVIPInfo(v);
-            return ResponseVO.buildSuccess();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
-    }
 }

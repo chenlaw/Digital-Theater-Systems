@@ -39,8 +39,11 @@ private int id;
     	this.id = v.getId();
 		// TODO Auto-generated constructor stub
 	}
-    
-    public String getDescription() {
+
+	public VIPInfo() {
+	}
+
+	public String getDescription() {
         return description;
     }
 
