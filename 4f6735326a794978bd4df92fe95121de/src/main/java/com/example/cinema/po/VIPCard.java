@@ -81,6 +81,8 @@ public class VIPCard {
     }
 
     public double calculate(double amount,double minimumCharge,double extraCharge) {
+        System.out.println((int)(amount/minimumCharge)*extraCharge);
+        System.out.println(amount);
         return (int)(amount/minimumCharge)*extraCharge+amount;
 
     }

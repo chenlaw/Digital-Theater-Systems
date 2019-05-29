@@ -124,9 +124,15 @@ public class VIPServiceImpl implements VIPService {
         }
         VIPInfo vipInfo = vipInfoMapper.selectVIPInfoById(vipCard.getVipInfoId());
         double balance = vipCard.calculate(vipCardForm.getAmount(),vipInfo.getMinimumCharge(),vipInfo.getExtraCharge());
-        vipCard.setBalance(vipCard.getBalance() + balance);
+        System.out.println(balance);
+        System.out.println(vipCard.getBalance());
+        double amount = vipCard.getBalance() + balance;
+        vipCard.setBalance(amount);
+        vipCard.getBalance();
         try {
+            System.out.println("id"+vipCardForm.getVipId());
             vipCardMapper.updateCardBalance(vipCardForm.getVipId(), vipCard.getBalance());
+            System.out.println(vipCardMapper.selectCardById(vipCardForm.getVipId()).getBalance());
             return ResponseVO.buildSuccess(vipCard);
         } catch (Exception e) {
             e.printStackTrace();

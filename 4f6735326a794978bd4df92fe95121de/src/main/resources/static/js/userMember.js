@@ -2,6 +2,7 @@ $(document).ready(function () {
     var isBuyState = true;
     var vipCardId;
     getVIP();
+    getCoupon();
 
     //getCoupon();
 
@@ -15,7 +16,6 @@ $(document).ready(function () {
                     $("#member-card").css("display", "");
                     $("#nonmember-card").css("display", "none");
                     var vipCard = res.content;
-
                     vipCardId = vipCard.id;
                     $("#member-id").text(res.content.id);
                     $("#member-balance").text("¥" + res.content.balance.toFixed(2));
@@ -25,7 +25,7 @@ $(document).ready(function () {
                         function (res) {
                             if (res.success) {
                                 $("#member-cardName").text(res.content.name);
-                                $("#member-discount").text("充值优惠：满" + res.content.minimumCharge + "减" + res.content.extraCharge);
+                                $("#member-discount").text("充值优惠：满" + res.content.minimumCharge + "赠" + res.content.extraCharge);
                                 $("#member-description").text(res.content.description);
                             } else {
                                 alert("没有会员卡信息");
@@ -83,7 +83,7 @@ $(document).ready(function () {
                 function (res) {
                     if (res.success) {
                         $("#member-buy-price").text(res.content.price);
-                        $("#member-buy-description").text("充值优惠：满" + res.content.minimumCharge + "减" + res.content.extraCharge + "。永久有效");
+                        $("#member-buy-description").text("充值优惠：满" + res.content.minimumCharge + "赠" + res.content.extraCharge + "。永久有效");
                         $("#member-description").text(res.content.description);
                     } else {
                         alert(res.content);
@@ -143,7 +143,7 @@ $(document).ready(function () {
                         function (res) {
                             $('#buyModal').modal('hide');
                             alert("充值成功");
-                            getVIP();
+                            window.location.href="/user/member";
                         },
                         function (error) {
                             alert(error);
