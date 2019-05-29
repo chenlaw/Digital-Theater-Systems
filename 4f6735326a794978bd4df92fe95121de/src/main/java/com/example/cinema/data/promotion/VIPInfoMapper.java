@@ -15,7 +15,7 @@ public interface VIPInfoMapper {
 
 	VIPInfo selectVIPInfoByName(String name);
 
-	VIPInfo selectVIPInfoById(int id);
+	VIPInfo selectVIPInfoById(int userId);
 
 	void updateVIPInfo(VIPInfo vipInfo);
 

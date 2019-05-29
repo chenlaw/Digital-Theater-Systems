@@ -20,7 +20,6 @@
         <result column="id" property="id"></result>
         <result column="user_id" property="userId"></result>
         <result column="balance" property="balance"></result>
-        <result column="vip_info_id" property="vipInfoId"></result>
     </resultMap>
 
     <update id="updateCardBalance" >
