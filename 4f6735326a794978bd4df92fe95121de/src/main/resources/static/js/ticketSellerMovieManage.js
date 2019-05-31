@@ -81,7 +81,7 @@ $(document).ready(function(){
                 "<div class='movie-description dark-text'><span>" + movie.description + "</span></div>" +
                 "<div>类型：" + movie.type + "</div>" +
                 "<div style='display: flex'><span>导演：" + movie.director + "</span><span style='margin-left: 30px;'>主演：" + movie.starring + "</span>" +
-                "<div class='movie-operation'><a href='/admin/movieDetail?id="+ movie.id +"'>详情</a></div></div>" +
+                "<div class='movie-operation'><a href='/ticketSeller/movieDetail?id="+ movie.id +"'>详情</a></div></div>" +
                 "</div>"+
                 "</li>";
         });

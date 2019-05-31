@@ -20,38 +20,40 @@ public class ViewController {
         return "signUp";
     }
 
-    @RequestMapping(value = "/admin/movie/manage")
-    public String getAdminMovieManage() {
-        return "adminMovieManage";
-    }
-
-    @RequestMapping(value = "/admin/session/manage")
-    public String getAdminSessionManage() {
-        return "adminScheduleManage";
-    }
-
-    @RequestMapping(value = "/admin/cinema/manage")
-    public String getAdminCinemaManage() {
-        return "adminCinemaManage";
-    }
-
-    @RequestMapping(value = "/admin/promotion/manage")
-    public String getAdminPromotionManage() {
-        return "adminPromotionManage";
-    }
-
     @RequestMapping(value = "/admin/vipInfo/manage")
     public String getAdminVIPInfoManage() {
         return "adminVIPInfoManage";
     }
 
-    @RequestMapping(value = "/admin/cinema/statistic")
-    public String getAdminCinemaStatistic() {
-        return "adminCinemaStatistic";
+    @RequestMapping(value = "/ticketSeller/movie/manage")
+    public String getTicketSellerMovieManage() {
+        return "ticketSellerMovieManage";
     }
 
-    @RequestMapping(value = "/admin/movieDetail")
-    public String getAdminMovieDetail(@RequestParam int id) { return "adminMovieDetail"; }
+    @RequestMapping(value = "/ticketSeller/session/manage")
+    public String getTicketSellerSessionManage() {
+        return "ticketSellerScheduleManage";
+    }
+
+    @RequestMapping(value = "/ticketSeller/cinema/manage")
+    public String getTicketSellerCinemaManage() {
+        return "adminCinemaManage";
+    }
+
+    @RequestMapping(value = "/ticketSeller/promotion/manage")
+    public String getTicketSellerPromotionManage() {
+        return "ticketSellerPromotionManage";
+    }
+
+
+
+    @RequestMapping(value = "/ticketSeller/cinema/statistic")
+    public String getTicketSellerCinemaStatistic() {
+        return "ticketSellerCinemaStatistic";
+    }
+
+    @RequestMapping(value = "/ticketSeller/movieDetail")
+    public String getTicketSellerMovieDetail(@RequestParam int id) { return "ticketSellerMovieDetail"; }
 
     @RequestMapping(value = "/user/home")
     public String getUserHome() {

@@ -8,6 +8,15 @@ public class User {
     private Integer id;
     private String username;
     private String password;
+    private int level;
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public Integer getId() {
         return id;
