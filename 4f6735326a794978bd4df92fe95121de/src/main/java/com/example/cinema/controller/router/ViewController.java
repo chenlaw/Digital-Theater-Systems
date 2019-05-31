@@ -35,8 +35,8 @@ public class ViewController {
         return "ticketSellerScheduleManage";
     }
 
-    @RequestMapping(value = "/ticketSeller/cinema/manage")
-    public String getTicketSellerCinemaManage() {
+    @RequestMapping(value = "/admin/cinema/manage")
+    public String getAdminSellerCinemaManage() {
         return "adminCinemaManage";
     }
 
