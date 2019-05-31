@@ -266,6 +266,14 @@ public class  TicketServiceImpl implements TicketService {
         }
         else{
             ticketMapper.updateTicketState(id,2);
+            int userId=ticket.getUserId();
+            VIPCard vipCard=vipCardMapper.selectCardByUserId(userId);
+            if(vipCard!=null){
+                double balance=vipCard.getBalance();
+                double discount=withdrawInfo.getDiscount();
+                balance+=discount*fare;
+                vipCardMapper.updateCardBalance(vipCard.getId(),balance);
+            }
             return ResponseVO.buildSuccess();
         }
     }
