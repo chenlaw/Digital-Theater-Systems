@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @Service
 public class AdminServiceImpl implements AdminService {
     @Autowired
-    AccountMapper accountMapper;
+    private AccountMapper accountMapper;
     @Override
     public ResponseVO getAllUser() {
         ArrayList<UserVO> userVOArrayList = new ArrayList<UserVO>();

@@ -25,6 +25,9 @@ public class ViewController {
         return "adminVIPInfoManage";
     }
 
+    @RequestMapping(value = "/admin/staff/manage")
+    public String getAdminStaffManage() {return  "adminStaffManage";}
+
     @RequestMapping(value = "/ticketSeller/movie/manage")
     public String getTicketSellerMovieManage() {
         return "ticketSellerMovieManage";

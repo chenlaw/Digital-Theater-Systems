@@ -3,12 +3,13 @@ package com.example.cinema.controller.user;
 import com.example.cinema.bl.user.AdminService;
 import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.UserVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/staff")
 public class adminController {
-
+    @Autowired
     private AdminService adminService;
     @PostMapping("/add/user")
     public ResponseVO addUser(@RequestBody UserVO userVO){

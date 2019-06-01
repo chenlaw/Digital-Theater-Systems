@@ -6,12 +6,10 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/cinemaHall.css"/>
 
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/request.js"></script>
-    <script src="/js/adminCinemaManage.js"></script>
 
 </head>
 <body>
@@ -29,24 +27,27 @@
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
             -->
             <li role="presentation"><a href="/admin/vipInfo/manage"><i class="icon-credit-card"></i> 会员卡管理</a></li>
-            <li role="presentation" class="active"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation" class="active"><a href="/admin/staff/manage"><i class="icon-cogs"></i> 用户管理</a></li>
-
         </ul>
     </div>
     <div class="content-container">
-        <div class="content-item">
-            <span class="title gray-text">常规设置</span>
-            <div class="content-card card">
-                <span class="">用户可见排片日期：</span><span id="can-see-num"></span>
-                <a style="margin-left: 20px;" class="primary-text" id="canview-modify-btn">修改</a>
-                <input type="number" class="form-control" id="canview-set-input" style="display: none;width: 200px;">
-                <a style="display: none" class="primary-text" id="canview-confirm-btn">确认</a>
-            </div>
+        <div class="content-header">
+            <span class="title gray-text">用户管理</span>
         </div>
-        <div class="content-item">
-            <span class="title gray-text">影厅管理</span>
-            <div class="content-card card" id="hall-card">
+        <div class="card" style="margin:20px 0;padding:20px;">
+            <div style="display: flex;justify-content: space-between">
+                <div>
+                    <span>查询：</span>
+                    <input type="number" class="form-control" id="user-searchInfo-input" style="display: inline-block;width: 80px;">
+                    <select id="user-search-way" style="margin:20px;width: 80px">
+                        <option id="user-id">用户id</option>
+                        <option id="user-name">用户名</option>
+                    </select>
+                </div>
+                <div>
+                    <button id="add-user">新增用户</button>
+                </div>
             </div>
         </div>
     </div>
