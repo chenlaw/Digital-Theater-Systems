@@ -8,8 +8,7 @@
         values(#{withdrawDescription},#{closeTime},#{scheduleId},#{discount})
     </insert>
     
-    <select id=""
-    
+
     <select id="selectWithdrawInfoByScheduleId" resultMap="WithdrawInfo">
         select * from withdraw where schedule_id=#{scheduleId}
     </select>

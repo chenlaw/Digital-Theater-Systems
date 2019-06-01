@@ -16,7 +16,7 @@
 <div class="main-container">
     <div class="nav-left-container">
         <div class="nav-user-container" style="margin-bottom: 50px;">
-            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg"/>
             <p class="title">Admin</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
@@ -37,20 +37,112 @@
         </div>
         <div class="card" style="margin:20px 0;padding:20px;">
             <div style="display: flex;justify-content: space-between">
-                <div>
+                <div style="display: flex;justify-content: space-between;-webkit-align-items: center;">
                     <span>查询：</span>
-                    <input type="number" class="form-control" id="user-searchInfo-input" style="display: inline-block;width: 80px;">
-                    <select id="user-search-way" style="margin:20px;width: 80px">
+                    <input type="number" class="form-control" id="user-searchInfo-input"
+                           style="display: inline-block;width: 80px;">
+                    <select id="user-search-way" style="margin:20px;width: 80px;display: inline-block">
                         <option id="user-id">用户id</option>
                         <option id="user-name">用户名</option>
                     </select>
                 </div>
-                <div>
-                    <button id="add-user">新增用户</button>
+                <div style="display: flex;justify-content: space-between;-webkit-align-items: center;">
+                    <button id="add-user" class="btn btn-primary">新增用户</button>
                 </div>
+            </div>
+            <ul id="user-list">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="userModalLabel">新增用户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="user-id-input"><span
+                                class="error-text">*</span>用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="user-id-input" placeholder="请输入用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="user-password-input"><span
+                                class="error-text">*</span>用户密码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="user-password-input" placeholder="请输入用户密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="user-level-input">用户权限</label>
+                        <div class="col-sm-10">
+                            <select id="user-level-input">
+                                <option value="0">普通用户</option>
+                                <option value="1">员工</option>
+                                <option value="2">经理</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="add-btn">确认</button>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="userUpdateModal" tabindex="-1" role="dialog" aria-labelledby="userUpdateModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="userUpdateModalLabel">新增用户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="userUpdate-id-input"><span
+                                class="error-text">*</span>用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userUpdate-id-input" placeholder="请输入用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="userUpdate-password-input"><span
+                                class="error-text">*</span>用户密码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userUpdate-password-input"
+                                   placeholder="请输入用户密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="userUpdate-level-input">用户权限</label>
+                        <div class="col-sm-10">
+                            <select id="userUpdate-level-input">
+                                <option value="0">普通用户</option>
+                                <option value="1">员工</option>
+                                <option value="2">经理</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="modify-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
