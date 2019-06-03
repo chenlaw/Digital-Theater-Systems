@@ -84,6 +84,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public ResponseVO addUser(UserVO userVO) {
         try {
+            System.out.println("?");
             accountMapper.addUser(userVO.getUsername(),userVO.getPassword(),userVO.getLevel());
             return ResponseVO.buildSuccess();
         }catch (Exception e){

@@ -26,6 +26,9 @@ public class UserVO {
         this.password = user.getPassword();
         this.level = user.getLevel();
     }
+    public UserVO(){
+
+    }
 
     public Integer getId() {
         return id;
