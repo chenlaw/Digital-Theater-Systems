@@ -278,4 +278,99 @@ public class  TicketServiceImpl implements TicketService {
         }
     }
 
+
+
+    @Override
+    public ResponseVO getAllWithdrawInfo(){
+        try {
+            return ResponseVO.buildSuccess(WithdrawInfo2withdrawVO(withdrawMapper.selectAllWithdrawInfo()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    private List<WithdrawVO> WithdrawInfo2withdrawVO(List<WithdrawInfo> withdrawInfoList){
+        List<WithdrawVO> withdrawVOList = new ArrayList<>();
+        for(WithdrawInfo withdrawInfo:withdrawInfoList){
+            WithdrawVO vo = new WithdrawVO();
+            vo.setId(withdrawInfo.getId());
+            vo.setWithdrawDescription(withdrawInfo.getWithdrawDescription());
+            vo.setDiscount(withdrawInfo.getDiscount());
+            vo.setCloseTime(withdrawInfo.getCloseTime());
+            ScheduleItem scheduleItem=scheduleMapper.selectScheduleById(withdrawInfo.getScheduleId());
+            vo.setFilmFare(scheduleItem.getFare());
+            vo.setFilmStartTime(scheduleItem.getStartTime());
+            vo.setHallName(scheduleItem.getHallName());
+            vo.setFilmName(scheduleItem.getMovieName());
+            vo.setHallId(scheduleItem.getHallId());
+            vo.setScheduleId(scheduleItem.getId());
+            withdrawVOList.add(vo);
+        }
+        return withdrawVOList;
+    }
+
+    @Override
+    public ResponseVO addWithdrawInfo(withdrawInfoForm withdrawInfoForm){
+        try{
+            ResponseVO responseVO = precheck(withdrawInfoForm);
+            if(responseVO.getSuccess()){
+                withdrawMapper.insertWithdrawInfo(withdrawInfoForm);
+                return ResponseVO.buildSuccess("成功！");
+            }
+            else{
+                return ResponseVO.buildFailure(responseVO.getMessage());
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+
+    private ResponseVO precheck(withdrawInfoForm withdrawInfoForm){
+        Date movieStartTime = scheduleMapper.selectScheduleById(withdrawInfoForm.getScheduleId()).getStartTime();
+        Date closeTime = withdrawInfoForm.getCloseTime();
+        if(movieStartTime.before(closeTime)){
+            return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
+        }
+        if(withdrawMapper.selectWithdrawInfoByScheduleId(withdrawInfoForm.getScheduleId())!=null){
+            return ResponseVO.buildFailure("已存在该场次的退票信息，请不要重复添加！");
+        }
+        if(withdrawInfoForm.getDiscount()>1||withdrawInfoForm.getDiscount()<0){
+            return ResponseVO.buildFailure("退款比例请输入0-1之间的数值");
+        }
+        return ResponseVO.buildSuccess("成功!");
+
+    }
+
+    @Override
+    public ResponseVO updateWithdrawInfo(withdrawInfoForm withdrawInfoForm){
+        try{
+            ResponseVO responseVO = precheck1(withdrawInfoForm);
+            if(responseVO.getSuccess()){
+                withdrawMapper.updateWithdrawInfo(withdrawInfoForm);
+                return ResponseVO.buildSuccess("成功！");
+            }
+            else{
+                return ResponseVO.buildFailure(responseVO.getMessage());
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    private ResponseVO precheck1(withdrawInfoForm withdrawInfoForm){
+        Date movieStartTime = scheduleMapper.selectScheduleById(withdrawInfoForm.getScheduleId()).getStartTime();
+        Date closeTime = withdrawInfoForm.getCloseTime();
+        if(movieStartTime.before(closeTime)){
+            return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
+        }
+        if(withdrawInfoForm.getDiscount()>1||withdrawInfoForm.getDiscount()<0){
+            return ResponseVO.buildFailure("退款比例请输入0-1之间的数值");
+        }
+        return ResponseVO.buildSuccess("成功!");
+
+    }
 }

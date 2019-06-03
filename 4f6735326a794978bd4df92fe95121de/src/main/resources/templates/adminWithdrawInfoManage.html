@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>退票管理</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/adminWithdrawInfo.css"/>
+
+
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminWithdrawInfo.js"></script>
+
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" ><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation"><a href="/admin/vipInfo/manage"><i class="icon-credit-card"></i> 会员卡管理</a></li>
+            <li role="presentation" class="active"><a href="/admin/withdrawInfo/manage"><i class="icon-ticket"></i> 退票管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="content-header">
+            <span class="title gray-text">已发布退票信息</span>
+            <button type="button" class="btn btn-primary" data-backdrop="static"
+                    data-toggle="modal"
+                    data-target="#withdrawInfoModal">
+                <i class="icon-plus-sign"></i> 发布退票信息
+            </button>
+
+        </div>
+        <ul class="withdrawInfo-list">
+        </ul>
+    </div>
+</div>
+<div class="modal fade" id="withdrawInfoModal" tabindex="-1" role="dialog" aria-labelledby="VIPInfoModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="withdrawInfoLabel">新增退票信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <param id="withdrawInfoId" name = 'id' value="0">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="withdrawInfo-description-input"><span class="error-text">*</span>描述 </label>
+                        <div class="col-sm-10">
+                            <textarea rows="3" class="form-control" id="withdrawInfo-description-input" placeholder="请输入描述信息"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="withdrawInfo-closeTime-input"><span class="error-text">*</span>退票截止时间</label>
+                        <div class="col-sm-10">
+                            <input type="datetime-local" class="form-control" id="withdrawInfo-closeTime-input" placeholder="请选择退票截止时间">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="hall-select"><span class="error-text">*</span>选择影厅</label>
+                        <div class="col-sm-10">
+                            <select id="hall-select" class="form-control" style="display: inline-block;width: 180px;"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="date-input"><span class="error-text">*</span>选择电影日期</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="date-input" style="display: inline-block;width: 180px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="schedule-select"><span class="error-text">*</span>选择电影场次</label>
+                        <div class="col-sm-10">
+                            <select id="schedule-select" class="form-control" style="display: inline-block;width: 250px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="discount-input"><span class="error-text">*</span>退票折扣比例</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="discount-input" placeholder="请输入退票折扣比例">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="withdrawInfo-form-btn">确认</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="withdrawInfoEditModal" tabindex="-1" role="dialog" aria-labelledby="VIPInfoModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="withdrawInfoEditLabel">修改退票信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <param id="withdrawInfoEditId" name = 'id' value="0">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="withdrawInfo-description-edit-input"><span class="error-text">*</span>描述 </label>
+                        <div class="col-sm-10">
+                            <textarea rows="3" class="form-control" id="withdrawInfo-description-edit-input" placeholder="请输入描述信息"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="withdrawInfo-closeTime-edit-input"><span class="error-text">*</span>退票截止时间</label>
+                        <div class="col-sm-10">
+                            <input type="datetime-local" class="form-control" id="withdrawInfo-closeTime-edit-input" placeholder="请选择退票截止时间">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="hall-edit-select"><span class="error-text">*</span>选择影厅</label>
+                        <div class="col-sm-10">
+                            <select id="hall-edit-select" class="form-control" style="display: inline-block;width: 180px;"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="date-edit-input"><span class="error-text">*</span>选择电影日期</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="date-edit-input" style="display: inline-block;width: 180px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="schedule-edit-select"><span class="error-text">*</span>选择电影场次</label>
+                        <div class="col-sm-10">
+                            <select id="schedule-edit-select" class="form-control" style="display: inline-block;width: 250px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="discount-edit-input"><span class="error-text">*</span>退票折扣比例</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="discount-edit-input" placeholder="请输入退票折扣比例">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="withdrawInfo-form-edit-btn">修改</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

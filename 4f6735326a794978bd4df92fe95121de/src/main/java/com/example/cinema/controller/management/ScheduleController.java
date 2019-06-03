@@ -35,6 +35,12 @@ public class ScheduleController {
         return scheduleService.searchScheduleSevenDays(hallId, startDate);
     }
 
+    @RequestMapping(value = "/schedule/search/today", method = RequestMethod.GET)
+    public ResponseVO searchTodaySchedule(@RequestParam int hallId, @RequestParam Date startDate){
+        //这里传递startDate参数时，前端传的是用/分隔的时间，例如startDate=2019/04/12
+        return scheduleService.searchScheduleOneDay(hallId, startDate);
+    }
+
     @RequestMapping(value = "/schedule/search/audience", method = RequestMethod.GET)
     public ResponseVO searchAudienceSchedule(@RequestParam int movieId){
         return scheduleService.searchAudienceSchedule(movieId);
