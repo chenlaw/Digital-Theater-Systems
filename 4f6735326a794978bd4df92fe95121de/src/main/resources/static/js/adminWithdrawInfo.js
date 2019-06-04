@@ -26,15 +26,14 @@ $(document).ready(function (){
         list.forEach(function (withdrawVO) {
             withdrawInfoDomStr +=
                 "<div id='withdrawInfo-"+withdrawVO.id+"' class='withdrawInfo-item'>" +
-                "    <div data-withdrawinfo='"+JSON.stringify(withdrawVO)+"'>" +
-                "        <span class='title'>"+withdrawVO.id+"</span>"+
-                "        <span class='title'>"+withdrawVO.withdrawDescription+"</span>"+
-                "        <span class='title'>"+withdrawVO.hallName+"</span>" +
-                "        <span class='title'>"+withdrawVO.discount+"</span></span>" +
-                "        <span class='title'>"+withdrawVO.closeTime+"</span></span>" +
-                "        <span class='title'>"+withdrawVO.filmName+"</span></span>" +
-                "        <span class='title'>"+withdrawVO.filmStartTime+"</span></span>" +
-                "        <span class='title'>"+withdrawVO.filmFare+"</span></span>" +
+                "    <div class='withdrawInfo-content' data-withdrawinfo='"+JSON.stringify(withdrawVO)+"'>" +
+                "        <span class='withdrawInfo-text'>退票信息编号："+withdrawVO.id+"</span>"+
+                "        <span class='withdrawInfo-text'>退票信息描述："+withdrawVO.withdrawDescription+"</span>"+
+                "        <span class='withdrawInfo-text'>影厅："+withdrawVO.hallName+"</span>" +
+                "        <span class='withdrawInfo-text'>退票折价："+withdrawVO.discount+"</span>" +
+                "        <span class='withdrawInfo-text'>退票截止时间："+withdrawVO.closeTime.slice(0,16)+"</span>" +
+                "        <span class='withdrawInfo-text'>电影名称："+withdrawVO.filmName+"</span>" +
+                "        <span class='withdrawInfo-text'>电影开始时间："+withdrawVO.filmStartTime.slice(0,16)+"</span>" +
                 "    </div>" +
                 "</div>"
         });
