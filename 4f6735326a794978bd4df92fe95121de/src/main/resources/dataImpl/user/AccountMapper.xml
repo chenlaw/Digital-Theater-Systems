@@ -20,6 +20,10 @@
         select * from user
     </select>
 
+    <delete id="deleteUser">
+        delete from user where id = #{userId}
+    </delete>
+
     <update id="updateUser" parameterType="com.example.cinema.po.User">
         update user set
         username = #{username},

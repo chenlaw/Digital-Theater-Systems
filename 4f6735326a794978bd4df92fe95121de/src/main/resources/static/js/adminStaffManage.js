@@ -39,7 +39,7 @@ $(document).ready(function () {
         var username = $("#user-username-input").val();
         var password = $("#user-password-input").val();
         var level = $("#user-level-input").children("option:selected").val();
-        var userVO = {"id":0,"username":username,"password":password,"level":level};
+        var userVO = {"id": 0, "username": username, "password": password, "level": level};
         postRequest(
             "/staff/add/user",
             userVO,
@@ -56,10 +56,10 @@ $(document).ready(function () {
 
     });
     $("#modify-btn").click(function () {
-        var username = $("#userUpdate-id-input");
-        var password = $("#userUpdate-password-input");
-        var level = $("#userUpdate-level-input");
-        var userVO = {"id":userIdSave,"username":username,"password":password,"level":level}
+        var username = $("#userUpdate-id-input").val();
+        var password = $("#userUpdate-password-input").val();
+        var level = $("#userUpdate-level-input").children("option:selected").val();
+        var userVO = {"id": userIdSave, "username": username, "password": password, "level": level}
         postRequest(
             "/staff/update",
             userVO,
@@ -72,21 +72,10 @@ $(document).ready(function () {
                 alert(error);
             }
         );
-    });
-    $("#delete-btn").click(function () {
-        if (confirm("确认删除吗？")){
-            postRequest(
-                "/staff",
-                userIdSave,
-                function (res) {
-                    alert("成功")
-                    $('#user-list li').remove();
-                    getAllUser();
-                }
-            )
-        }
+        $('#userUpdateModal').modal("hide");
 
     });
+
 
     function renderUserInfo(user) {
         var userInfo = "";
@@ -104,25 +93,38 @@ $(document).ready(function () {
         }
         userInfo += "</div>";
         userInfo +=
-            "<button class='modifyBtn btn btn-primary' date-toggle='modal' data-target='#userUpdateModal' value=" + userInfo.id + ">修改"
-            + "</button>"
-            + "<button class='deleteBtn btn btn-danger' style='margin-left: 20px' value=" + userInfo.id + ">删除"
-            + "</button>"
+            "<a label='m'date-toggle='modal' data-target='#userUpdateModal' value=" + user.id + ">修改"
+            + "</a>"
+            + "<a label = 'd'style='margin-left: 20px' value=" + user.id + ">删除"
+            + "</a>"
             + "</li>";
         return userInfo;
     }
 
-    $(".modify-Btn").click(function () {
-        //check
-        alert(this.val());
-        userIdSave = this.val();
-    });
-    $(".deleteBtn").click(function () {
-        //check
-        alert("????;");
-        alert(this.val());
-        userIdSave = this.val();
-    });
 
+    $('ul').on('click', 'a', function () {
+
+        if ($(this).text()=="删除"){
+            if (confirm("确认删除吗？")) {
+                var userId =$(this).attr("value");
+                postRequest(
+                    "/staff/delete/user/"+userId,
+                    userId,
+                    function (res) {
+                        alert("成功")
+                        $('#user-list li').remove();
+                        getAllUser();
+                    },
+                    function (error) {
+                        alert(error);
+                    }
+                )
+            }
+        }
+        else {
+            userIdSave = $(this).attr("value"),
+            $('#userUpdateModal').modal("show");
+        }
+    });
 
 });

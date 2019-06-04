@@ -78,13 +78,19 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ResponseVO deleteUser(int userId) {
-        return null;
+        try{
+            accountMapper.deleteUser(userId);
+            return ResponseVO.buildSuccess();
+        }
+        catch(Exception e){
+            return ResponseVO.buildFailure("失败");
+        }
     }
 
     @Override
     public ResponseVO addUser(UserVO userVO) {
         try {
-            System.out.println("?");
+
             accountMapper.addUser(userVO.getUsername(),userVO.getPassword(),userVO.getLevel());
             return ResponseVO.buildSuccess();
         }catch (Exception e){

@@ -43,4 +43,6 @@ public interface AccountMapper {
     public ArrayList<User> getAllUser();
 
     public int addUser(@Param("username") String username, @Param("password") String password,@Param("level") int level);
+
+    public int deleteUser(int userId);
 }

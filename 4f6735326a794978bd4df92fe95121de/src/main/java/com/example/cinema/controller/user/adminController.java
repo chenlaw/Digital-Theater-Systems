@@ -15,8 +15,9 @@ public class adminController {
     public ResponseVO addUser(@RequestBody UserVO userVO){
         return adminService.addUser(userVO);
     }
-    @PostMapping("/delete/user")
-    public ResponseVO deleteUser(@RequestParam int userId){
+    @PostMapping("/delete/user/{userId}")
+    public ResponseVO deleteUser(@PathVariable int userId){
+        System.out.println(userId);
         return adminService.deleteUser(userId);
     }
     @PostMapping("/update")
