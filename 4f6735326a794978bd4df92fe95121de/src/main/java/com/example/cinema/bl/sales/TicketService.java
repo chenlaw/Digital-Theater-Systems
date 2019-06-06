@@ -69,4 +69,6 @@ public interface TicketService {
     ResponseVO addWithdrawInfo(withdrawInfoForm withdrawInfoForm);
 
     ResponseVO updateWithdrawInfo(withdrawInfoForm withdrawInfoForm);
+
+    ResponseVO deleteWithdrawInfo(int scheduleId);
 }

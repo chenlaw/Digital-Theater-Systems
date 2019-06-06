@@ -79,16 +79,19 @@ $(document).ready(function () {
 
     withdraw = function(e) {
         var id =$(e).attr("id")
-        getRequest(
-            "/ticket/withdraw?ticketId="+id,
-            function (res) {
-                alert(res.content)
-                location.reload()
-            },
-            function (err) {
-                alert("Error")
-            }
-        )
+        r = confirm("您确定要退票吗？")
+        if(r){
+            getRequest(
+                "/ticket/withdraw?ticketId="+id,
+                function (res) {
+                    alert(res.content)
+                    location.reload()
+                },
+                function (err) {
+                    alert("Error")
+                }
+            )
+        }
     }
 
 

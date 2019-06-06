@@ -274,7 +274,7 @@ public class  TicketServiceImpl implements TicketService {
                 balance+=discount*fare;
                 vipCardMapper.updateCardBalance(vipCard.getId(),balance);
             }
-            return ResponseVO.buildSuccess();
+            return ResponseVO.buildSuccess("退票成功！");
         }
     }
 
@@ -372,5 +372,12 @@ public class  TicketServiceImpl implements TicketService {
         }
         return ResponseVO.buildSuccess("成功!");
 
+    }
+
+
+    @Override
+    public ResponseVO deleteWithdrawInfo(int scheduleId){
+        withdrawMapper.deleteWithdrawInfo(scheduleId);
+        return ResponseVO.buildSuccess();
     }
 }

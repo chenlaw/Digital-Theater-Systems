@@ -210,4 +210,22 @@ $(document).ready(function (){
         );
     })
 
+    $("#withdrawInfo-form-delete-btn").click(function () {
+        var r = confirm("确定删除该退票信息吗？")
+        if(r){
+            getRequest(
+                "/ticket/withdraw/delete?scheduleId="+$("#schedule-edit-select").children('option:selected').val(),
+                function (res) {
+                    alert("删除成功！")
+                    $("#withdrawInfoEditModal").modal('hide');
+                    getAllWithdrawInfo()
+                },
+                function (error) {
+                    alert("出错啦！")
+                }
+            )
+        }
+
+    })
+
 })

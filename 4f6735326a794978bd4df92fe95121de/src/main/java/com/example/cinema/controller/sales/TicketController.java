@@ -58,4 +58,7 @@ public class TicketController {
 
     @PostMapping("/withdraw/update")
     public ResponseVO updateWithdrawInfo(@RequestBody withdrawInfoForm withdrawInfoForm){return ticketService.updateWithdrawInfo(withdrawInfoForm);}
+
+    @GetMapping("/withdraw/delete")
+    public ResponseVO deleteWithdrawInfo(@RequestParam int scheduleId){ return ticketService.deleteWithdrawInfo(scheduleId); }
 }

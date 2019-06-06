@@ -17,6 +17,8 @@ public interface WithdrawMapper {
 
     int updateWithdrawInfo(withdrawInfoForm withdrawInfoForm);
 
+    int deleteWithdrawInfo(int scheduleId);
+
     WithdrawInfo selectWithdrawInfoByScheduleId(int scheduleId);
 
     List<WithdrawInfo> selectAllWithdrawInfo();

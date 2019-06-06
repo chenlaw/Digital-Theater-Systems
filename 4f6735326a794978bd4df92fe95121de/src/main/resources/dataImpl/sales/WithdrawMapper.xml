@@ -22,6 +22,10 @@
         select * from withdraw
     </select>
 
+    <delete id="deleteWithdrawInfo">
+        delete from withdraw where schedule_id=#{scheduleId}
+    </delete>
+
     <resultMap id="WithdrawInfo" type="com.example.cinema.po.WithdrawInfo">
         <result column="schedule_id" property="scheduleId"></result>
         <result column="id" property="id"></result>
