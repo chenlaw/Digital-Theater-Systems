@@ -2,17 +2,11 @@ package com.example.cinema.blImpl.promotion;
 
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.data.promotion.VIPCardMapper;
-import com.example.cinema.data.promotion.VIPInfoMapper;
 import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.po.VIPCard;
-import com.example.cinema.po.VIPInfo;
 import com.example.cinema.vo.ResponseVO;
-import com.example.cinema.vo.VIPInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -22,57 +16,12 @@ import java.util.List;
 public class VIPServiceImpl implements VIPService {
     @Autowired
     VIPCardMapper vipCardMapper;
-    @Autowired
-    VIPInfoMapper vipInfoMapper;
 
     @Override
-    public ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO) {
-        try {
-            VIPInfo v= new VIPInfo(vipInfoVO);
-            vipInfoMapper.updateVIPInfo(v);
-            return ResponseVO.buildSuccess();
-        }catch (Exception e){
-            e.printStackTrace();
-            return  ResponseVO.buildFailure("失败");
-        }
-    }
-
-    @Override
-    public ResponseVO getAllVIPInfo() {
-        try {
-            List<VIPInfo> vipInfoList = vipInfoMapper.selectALLVIPInfo();
-            List<VIPInfoVO> vipInfoVOList = new ArrayList<VIPInfoVO>();
-            for (VIPInfo v:vipInfoList
-            ) {
-                vipInfoVOList.add(v.getVO());
-            }
-            return ResponseVO.buildSuccess(vipInfoVOList);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
-    }
-    
-    
-    @Override
-    //增加会员卡种类
-    public ResponseVO addVIPInfo(VIPInfoVO vipInfoVO) {
-        try {
-            VIPInfo v= new VIPInfo(vipInfoVO);
-            vipInfoMapper.insertVIPInfo(v);
-            return ResponseVO.buildSuccess();
-        }catch (Exception e){
-    	    e.printStackTrace();
-    	    return  ResponseVO.buildFailure("失败");
-        }
-    }
-    
-    @Override
-    public ResponseVO addVIPCard(int userId,int vipInfoId) {
+    public ResponseVO addVIPCard(int userId) {
         VIPCard vipCard = new VIPCard();
         vipCard.setUserId(userId);
         vipCard.setBalance(0);
-        vipCard.setVipInfoId(vipInfoId);
         try {
             int id = vipCardMapper.insertOneCard(vipCard);
             return ResponseVO.buildSuccess(vipCardMapper.selectCardById(id));
@@ -93,28 +42,13 @@ public class VIPServiceImpl implements VIPService {
     }
 
     @Override
-    public ResponseVO getVIPInfoByName(String name) {
-        try {
-            VIPInfoVO v = vipInfoMapper.selectVIPInfoByName(name).getVO();
-            return ResponseVO.buildSuccess(v);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return  ResponseVO.buildFailure("失败");
-        }
-
+    public ResponseVO getVIPInfo() {
+        VIPInfoVO vipInfoVO = new VIPInfoVO();
+        vipInfoVO.setDescription(VIPCard.description);
+        vipInfoVO.setPrice(VIPCard.price);
+        return ResponseVO.buildSuccess(vipInfoVO);
     }
 
-    @Override
-    public ResponseVO getVIPInfoById(int id) {
-        try {
-            VIPInfoVO v = vipInfoMapper.selectVIPInfoById(id).getVO();
-            return ResponseVO.buildSuccess(v);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return  ResponseVO.buildFailure("失败");
-        }
-    }
-    
     @Override
     public ResponseVO charge(VIPCardForm vipCardForm) {
 
@@ -122,17 +56,10 @@ public class VIPServiceImpl implements VIPService {
         if (vipCard == null) {
             return ResponseVO.buildFailure("会员卡不存在");
         }
-        VIPInfo vipInfo = vipInfoMapper.selectVIPInfoById(vipCard.getVipInfoId());
-        double balance = vipCard.calculate(vipCardForm.getAmount(),vipInfo.getMinimumCharge(),vipInfo.getExtraCharge());
-        System.out.println(balance);
-        System.out.println(vipCard.getBalance());
-        double amount = vipCard.getBalance() + balance;
-        vipCard.setBalance(amount);
-        vipCard.getBalance();
+        double balance = vipCard.calculate(vipCardForm.getAmount());
+        vipCard.setBalance(vipCard.getBalance() + balance);
         try {
-            System.out.println("id"+vipCardForm.getVipId());
             vipCardMapper.updateCardBalance(vipCardForm.getVipId(), vipCard.getBalance());
-            System.out.println(vipCardMapper.selectCardById(vipCardForm.getVipId()).getBalance());
             return ResponseVO.buildSuccess(vipCard);
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,7 +70,6 @@ public class VIPServiceImpl implements VIPService {
     @Override
     public ResponseVO getCardByUserId(int userId) {
         try {
-            System.out.println("开始前");
             VIPCard vipCard = vipCardMapper.selectCardByUserId(userId);
             if(vipCard==null){
                 return ResponseVO.buildFailure("用户卡不存在");
@@ -154,5 +80,6 @@ public class VIPServiceImpl implements VIPService {
             return ResponseVO.buildFailure("失败");
         }
     }
+
 
 }

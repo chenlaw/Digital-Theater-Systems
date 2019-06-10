@@ -30,7 +30,6 @@ $(document).ready(function () {
                 "<td>" + formatdate(startTime)+" "+formatTime(startTime)+ "</td>" +
                 "<td>"+ formatdate(endTime)+" "+formatTime(endTime)+"</td>"+
                 "<td>"+ticket.state+"</td>"+
-                "<td><button class='btn-default' onclick='withdraw(this)' "+"id='"+ticket.id+"'" + (!isValidatedlyWithdraw(ticket)?"style='color: #ac2925' disabled='disabled'>不可退票":"style='color: #1caf9a'>退票")+"</button></td>"+
                 "</tr>"
         });
 
@@ -62,37 +61,5 @@ $(document).ready(function () {
         day.length===1 && (day = '0'+day)
         return month+'月'+day+'日';
     }
-
-    function isValidatedlyWithdraw(ticket) {
-        if(ticket.state!=="已完成"){
-            return false;
-        }
-        var date=new Date();
-        if(date>new Date(ticket.schedule.startTime)){
-            return false
-        }
-        return true;
-    }
-
-
-
-
-    withdraw = function(e) {
-        var id =$(e).attr("id")
-        r = confirm("您确定要退票吗？")
-        if(r){
-            getRequest(
-                "/ticket/withdraw?ticketId="+id,
-                function (res) {
-                    alert(res.content)
-                    location.reload()
-                },
-                function (err) {
-                    alert("Error")
-                }
-            )
-        }
-    }
-
 
 });

@@ -52,12 +52,10 @@
             <div>成为VIP会员</div>
             <hr/>
         </div>
-        <select id="vipInfo-input" class="form-control" style="width: 200px">
-        </select>
         <div class="info">
             <div class="price"><b id="member-buy-price"></b>元/张</div>
             <div id="member-buy-description" class="description"></div>
-            <button id = "buyVIP" >立即购买</button>
+            <button onclick="buyClick()">立即购买</button>
         </div>
     </div>
 
@@ -78,21 +76,14 @@
                     <div id="member-id"></div>
                 </div>
                 <div class="line">
-                    <div><b>会员卡名：</b></div>
-                    <div id="member-cardName"></div>
-                </div>
-                <div class="line">
                     <div><b>入会日期：</b></div>
                     <div id="member-joinDate"></div>
                 </div>
                 <div class="line">
                     <div><b>充值优惠：</b></div>
-                    <div id="member-discount"></div>
-                </div>
-                <div class="line">
-                    <div><b>会员卡介绍：</b></div>
                     <div id="member-description"></div>
                 </div>
+
                 <hr/>
 
                 <div class="line">
@@ -100,7 +91,7 @@
                     <div id="member-balance"></div>
                 </div>
             </div>
-            <button id="vip-recharge">立即充值</button>
+            <button onclick="chargeClick()">立即充值</button>
         </div>
     </div>
 
@@ -140,7 +131,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="complete-buy-vip" type="button" class="btn btn-primary" onclick="confirmCommit()">确定</button>
+                <button type="button" class="btn btn-primary" onclick="confirmCommit()">确定</button>
             </div>
         </div>
     </div>

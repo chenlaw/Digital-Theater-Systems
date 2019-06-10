@@ -51,7 +51,7 @@ $(document).ready(function(){
 
     function getMovie() {
         getRequest(
-            '/movie/'+movieId + '/' + sessionStorage.getItem("id"),
+            '/movie/'+movieId + '/' + userId,
             function(res){
                 var data = res.content;
                 isLike = data.islike;
@@ -118,25 +118,14 @@ $(document).ready(function(){
            }
        )
     });
-    //wph 5.22
     $("#delete-btn").click(function () {
         //alert('交给你们啦，下架别忘记需要一个确认提示框，也别忘记下架之后要对用户有所提示哦');
         var r=confirm("确认下架电影？")
         if(r){
-            var formData = {movieId:[movieId]}; 
-            postRequest(
-                "/movie/off/batch",
-                formData,
-                function(){
-                    window.location.href="/admin/movie/manage";
-                },
-                function(error){
-                    alert(error);
-                }
-            )
+
         }
     });
-    //wph 5.22
+
     function getMovieForm() {
         return {
             id: movieId,

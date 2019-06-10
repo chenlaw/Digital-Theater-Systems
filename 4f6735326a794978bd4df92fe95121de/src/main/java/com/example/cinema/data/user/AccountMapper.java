@@ -30,5 +30,5 @@ public interface AccountMapper {
      * @param id
      * @return User
      */
-    public User getAccountById(@Param("id") int id);
+    public User getAccountByID(@Param("id") int id);
 }

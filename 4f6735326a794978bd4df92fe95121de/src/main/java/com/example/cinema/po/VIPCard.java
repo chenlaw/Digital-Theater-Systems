@@ -9,19 +9,10 @@ import java.sql.Timestamp;
 
 public class VIPCard {
 
-    public int getVipInfoId() {
-        return vipInfoId;
-    }
+    public static final double price = 25;
 
-    public void setVipInfoId(int vipInfoId) {
-        this.vipInfoId = vipInfoId;
-    }
+    public static final String description="满200送30";
 
-    /**
-     * VIP信息
-     */
-    private int vipInfoId;
-    
     /**
      * 用户id
      */
@@ -80,13 +71,8 @@ public class VIPCard {
         this.joinDate = joinDate;
     }
 
-    public double calculate(double amount,double minimumCharge,double extraCharge) {
-        System.out.println((int)(amount/minimumCharge)*extraCharge);
-        System.out.println(amount);
-        return (int)(amount/minimumCharge)*extraCharge+amount;
+    public double calculate(double amount) {
+        return (int)(amount/200)*30+amount;
 
     }
-    
-
-    
 }

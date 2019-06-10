@@ -11,7 +11,6 @@ import com.example.cinema.data.promotion.ActivityMapper;
 import com.example.cinema.data.promotion.CouponMapper;
 import com.example.cinema.data.promotion.VIPCardMapper;
 import com.example.cinema.data.sales.TicketMapper;
-import com.example.cinema.data.sales.WithdrawMapper;
 import com.example.cinema.po.*;
 import com.example.cinema.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by liying on 2019/4/16.
  */
 @Service
-public class  TicketServiceImpl implements TicketService {
+public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketMapper ticketMapper;
@@ -46,8 +44,6 @@ public class  TicketServiceImpl implements TicketService {
     ActivityMapper activityMapper;
     @Autowired
     ScheduleMapper scheduleMapper;
-    @Autowired
-    WithdrawMapper withdrawMapper;
 
     @Override
     @Transactional
@@ -252,132 +248,4 @@ public class  TicketServiceImpl implements TicketService {
         return TicketWithScheduleVOList;
     }
 
-    @Override
-    public ResponseVO withdrawTicket(int id){
-        Ticket ticket = ticketMapper.selectTicketById(id);
-        ScheduleItem scheduleItem = scheduleMapper.selectScheduleById(ticket.getScheduleId());
-        //Date startTime=scheduleItem.getStartTime();
-        double fare = scheduleItem.getFare();
-        WithdrawInfo withdrawInfo = withdrawMapper.selectWithdrawInfoByScheduleId(ticket.getScheduleId());
-        Date closeTime=withdrawInfo.getCloseTime();
-        Date currentTime = new Date();
-        if(currentTime.after(closeTime)){
-            return ResponseVO.buildFailure("已超过退票时间！");
-        }
-        else{
-            ticketMapper.updateTicketState(id,2);
-            int userId=ticket.getUserId();
-            VIPCard vipCard=vipCardMapper.selectCardByUserId(userId);
-            if(vipCard!=null){
-                double balance=vipCard.getBalance();
-                double discount=withdrawInfo.getDiscount();
-                balance+=discount*fare;
-                vipCardMapper.updateCardBalance(vipCard.getId(),balance);
-            }
-            return ResponseVO.buildSuccess("退票成功！");
-        }
-    }
-
-
-
-    @Override
-    public ResponseVO getAllWithdrawInfo(){
-        try {
-            return ResponseVO.buildSuccess(WithdrawInfo2withdrawVO(withdrawMapper.selectAllWithdrawInfo()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
-    }
-
-    private List<WithdrawVO> WithdrawInfo2withdrawVO(List<WithdrawInfo> withdrawInfoList){
-        List<WithdrawVO> withdrawVOList = new ArrayList<>();
-        for(WithdrawInfo withdrawInfo:withdrawInfoList){
-            WithdrawVO vo = new WithdrawVO();
-            vo.setId(withdrawInfo.getId());
-            vo.setWithdrawDescription(withdrawInfo.getWithdrawDescription());
-            vo.setDiscount(withdrawInfo.getDiscount());
-            vo.setCloseTime(withdrawInfo.getCloseTime());
-            ScheduleItem scheduleItem=scheduleMapper.selectScheduleById(withdrawInfo.getScheduleId());
-            vo.setFilmFare(scheduleItem.getFare());
-            vo.setFilmStartTime(scheduleItem.getStartTime());
-            vo.setHallName(scheduleItem.getHallName());
-            vo.setFilmName(scheduleItem.getMovieName());
-            vo.setHallId(scheduleItem.getHallId());
-            vo.setScheduleId(scheduleItem.getId());
-            withdrawVOList.add(vo);
-        }
-        return withdrawVOList;
-    }
-
-    @Override
-    public ResponseVO addWithdrawInfo(withdrawInfoForm withdrawInfoForm){
-        try{
-            ResponseVO responseVO = precheck(withdrawInfoForm);
-            if(responseVO.getSuccess()){
-                withdrawMapper.insertWithdrawInfo(withdrawInfoForm);
-                return ResponseVO.buildSuccess("成功！");
-            }
-            else{
-                return ResponseVO.buildFailure(responseVO.getMessage());
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
-    }
-
-
-    private ResponseVO precheck(withdrawInfoForm withdrawInfoForm){
-        Date movieStartTime = scheduleMapper.selectScheduleById(withdrawInfoForm.getScheduleId()).getStartTime();
-        Date closeTime = withdrawInfoForm.getCloseTime();
-        if(movieStartTime.before(closeTime)){
-            return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
-        }
-        if(withdrawMapper.selectWithdrawInfoByScheduleId(withdrawInfoForm.getScheduleId())!=null){
-            return ResponseVO.buildFailure("已存在该场次的退票信息，请不要重复添加！");
-        }
-        if(withdrawInfoForm.getDiscount()>1||withdrawInfoForm.getDiscount()<0){
-            return ResponseVO.buildFailure("退款比例请输入0-1之间的数值");
-        }
-        return ResponseVO.buildSuccess("成功!");
-
-    }
-
-    @Override
-    public ResponseVO updateWithdrawInfo(withdrawInfoForm withdrawInfoForm){
-        try{
-            ResponseVO responseVO = precheck1(withdrawInfoForm);
-            if(responseVO.getSuccess()){
-                withdrawMapper.updateWithdrawInfo(withdrawInfoForm);
-                return ResponseVO.buildSuccess("成功！");
-            }
-            else{
-                return ResponseVO.buildFailure(responseVO.getMessage());
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
-    }
-
-    private ResponseVO precheck1(withdrawInfoForm withdrawInfoForm){
-        Date movieStartTime = scheduleMapper.selectScheduleById(withdrawInfoForm.getScheduleId()).getStartTime();
-        Date closeTime = withdrawInfoForm.getCloseTime();
-        if(movieStartTime.before(closeTime)){
-            return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
-        }
-        if(withdrawInfoForm.getDiscount()>1||withdrawInfoForm.getDiscount()<0){
-            return ResponseVO.buildFailure("退款比例请输入0-1之间的数值");
-        }
-        return ResponseVO.buildSuccess("成功!");
-
-    }
-
-
-    @Override
-    public ResponseVO deleteWithdrawInfo(int scheduleId){
-        withdrawMapper.deleteWithdrawInfo(scheduleId);
-        return ResponseVO.buildSuccess();
-    }
 }

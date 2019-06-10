@@ -9,9 +9,9 @@ public class VIPCardForm {
      * vip卡id
      */
     private int vipId;
-    
+
     /**
-     * 付款金额s
+     * 付款金额
      */
     private int amount;
 
@@ -32,5 +32,5 @@ public class VIPCardForm {
         this.amount = amount;
     }
 
-    
+
 }

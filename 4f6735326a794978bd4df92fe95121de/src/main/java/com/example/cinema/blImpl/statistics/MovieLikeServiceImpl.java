@@ -32,7 +32,7 @@ public class MovieLikeServiceImpl implements MovieLikeService {
     public ResponseVO likeMovie(int userId, int movieId) {
 
         //todo: user 判空
-        if(accountMapper.getAccountById(new Integer(userId))==null){
+        if(accountMapper.getAccountByID(new Integer(userId))==null){
             return ResponseVO.buildFailure("没有该用户");
         }
         if (userLikeTheMovie(userId, movieId)) {

@@ -328,22 +328,4 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
         }
         return scheduleItemVOList;
     }
-
-    @Override
-    public ResponseVO searchScheduleOneDay(int hallId, Date startDate) {
-        try {
-            // 处理查询表单的起止时间
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            startDate = simpleDateFormat.parse(simpleDateFormat.format(startDate));
-            Date endDate = getNumDayAfterDate(startDate, 1);
-
-            // 按照日期整理ScheduleItem
-            List<ScheduleItem> scheduleItemList = scheduleMapper.selectSchedule(hallId, startDate, endDate);
-
-            return ResponseVO.buildSuccess(getScheduleVOList(1, startDate, scheduleItemList));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
-    }
 }

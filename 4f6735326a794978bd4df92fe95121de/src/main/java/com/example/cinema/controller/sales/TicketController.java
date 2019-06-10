@@ -4,7 +4,6 @@ import com.example.cinema.bl.sales.TicketService;
 import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.TicketForm;
 import com.example.cinema.vo.TicketInfoVO;
-import com.example.cinema.vo.withdrawInfoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,20 +44,9 @@ public class TicketController {
     public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId){
         return ticketService.cancelTicket(ticketId);
     }
-    @GetMapping("/withdraw")
-    public ResponseVO withdrawTicket(@RequestParam int ticketId){
-        return ticketService.withdrawTicket(ticketId);
-    }
 
-    @GetMapping("/withdraw/getAll")
-    public ResponseVO getAllWithdrawInfo(){ return ticketService.getAllWithdrawInfo();}
 
-    @PostMapping("/withdraw/add")
-    public ResponseVO addWithdrawInfo(@RequestBody withdrawInfoForm withdrawInfoForm){ return ticketService.addWithdrawInfo(withdrawInfoForm); }
 
-    @PostMapping("/withdraw/update")
-    public ResponseVO updateWithdrawInfo(@RequestBody withdrawInfoForm withdrawInfoForm){return ticketService.updateWithdrawInfo(withdrawInfoForm);}
 
-    @GetMapping("/withdraw/delete")
-    public ResponseVO deleteWithdrawInfo(@RequestParam int scheduleId){ return ticketService.deleteWithdrawInfo(scheduleId); }
+
 }
