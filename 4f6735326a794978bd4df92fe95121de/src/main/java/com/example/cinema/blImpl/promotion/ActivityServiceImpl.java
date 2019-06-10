@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * Created by liying on 2019/4/20.
  */
@@ -48,7 +50,12 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ResponseVO getActivities() {
         try {
-            return ResponseVO.buildSuccess(activityMapper.selectActivities().stream().map(Activity::getVO));
+            return ResponseVO.buildSuccess(activityMapper.selectActivities().stream().filter(e-> {
+              Date date=  new Date();
+              Date now=new Date();
+              date=e.getEndTime();
+              return now.before(date);
+            }).map(Activity::getVO));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
