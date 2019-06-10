@@ -87,4 +87,9 @@ public class ViewController {
     public String getUserMember() {
         return "userMember";
     }
+
+    @RequestMapping(value = "/admin/withdrawInfo/manage")
+    public String getAdminWithdrawInfoManage() {
+        return "adminWithdrawInfoManage";
+    }
 }

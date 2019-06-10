@@ -66,4 +66,6 @@ public interface ScheduleService {
      */
     ResponseVO searchAudienceSchedule(int movieId);
 
+    ResponseVO searchScheduleOneDay(int hallId, Date startDate);
+
 }

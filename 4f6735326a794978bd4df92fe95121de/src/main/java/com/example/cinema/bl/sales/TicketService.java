@@ -3,6 +3,7 @@ package com.example.cinema.bl.sales;
 import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.TicketForm;
 import com.example.cinema.vo.TicketInfoVO;
+import com.example.cinema.vo.withdrawInfoForm;
 
 import java.util.List;
 
@@ -61,4 +62,13 @@ public interface TicketService {
 
 
     ResponseVO withdrawTicket(int ticketId);
+
+
+    ResponseVO getAllWithdrawInfo();
+
+    ResponseVO addWithdrawInfo(withdrawInfoForm withdrawInfoForm);
+
+    ResponseVO updateWithdrawInfo(withdrawInfoForm withdrawInfoForm);
+
+    ResponseVO deleteWithdrawInfo(int scheduleId);
 }

@@ -1,0 +1,24 @@
+.content-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.withdrawInfo-item{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-around;
+    background-color:#fff;
+}
+
+.withdrawInfo-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #fff;
+}
+
+.withdrawInfo-text{
+    font-size: small;
+    color: rgb(100,100,100);
+}
