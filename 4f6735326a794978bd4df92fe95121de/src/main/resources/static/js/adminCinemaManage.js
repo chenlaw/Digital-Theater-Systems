@@ -1,10 +1,8 @@
 $(document).ready(function() {
 
-<<<<<<< HEAD
-=======
-    var canSeeDate = 0;
+
     var targetHallId = 0;
->>>>>>> pqy
+
 
     getCinemaHalls();
 
@@ -68,37 +66,9 @@ $(document).ready(function() {
         $('#hall-card').append(hallDomStr);
     }
 
-<<<<<<< HEAD
-=======
-    $('#canview-modify-btn').click(function () {
-       $("#canview-modify-btn").hide();
-       $("#canview-set-input").val(canSeeDate);
-       $("#canview-set-input").show();
-       $("#canview-confirm-btn").show();
-    });
 
-    $('#canview-confirm-btn').click(function () {
-        var dayNum = $("#canview-set-input").val();
-        // 验证一下是否为数字
-        postRequest(
-            '/schedule/view/set',
-            {day:dayNum},
-            function (res) {
-                if(res.success){
-                    getCanSeeDayNum();
-                    canSeeDate = dayNum;
-                    $("#canview-modify-btn").show();
-                    $("#canview-set-input").hide();
-                    $("#canview-confirm-btn").hide();
-                } else{
-                    alert(res.message);
-                }
-            },
-            function (error) {
-                alert(JSON.stringify(error));
-            }
-        );
-    })
+
+
 
     $("#hall-form-btn").click(function () {
         var formData = getHallForm();
@@ -197,7 +167,6 @@ $(document).ready(function() {
                 }
             );
         }
-    })
->>>>>>> pqy
+    });
 
 });
