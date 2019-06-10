@@ -52,6 +52,7 @@ public class TicketController {
 
     @GetMapping("/withdraw/getAll")
     public ResponseVO getAllWithdrawInfo(){ return ticketService.getAllWithdrawInfo();}
+    
 
     @PostMapping("/withdraw/add")
     public ResponseVO addWithdrawInfo(@RequestBody withdrawInfoForm withdrawInfoForm){ return ticketService.addWithdrawInfo(withdrawInfoForm); }
