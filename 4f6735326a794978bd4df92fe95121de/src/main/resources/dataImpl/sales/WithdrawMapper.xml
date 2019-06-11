@@ -11,7 +11,7 @@
     <update id="updateWithdrawInfo" parameterType="com.example.cinema.vo.withdrawInfoForm"
             useGeneratedKeys="true" keyProperty="id">
         update withdraw set withdraw_description = #{withdrawDescription},close_time = #{closeTime},discount=#{discount}
-                where schedule_id = #{scheduleId}
+        where schedule_id = #{scheduleId}
     </update>
 
     <select id="selectWithdrawInfoByScheduleId" resultMap="WithdrawInfo">

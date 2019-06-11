@@ -11,7 +11,37 @@
     <select id="getAccountById" resultMap="User">
         select * from user where id=#{id}
     </select>
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user(username,password,level)
+        values(#{username},#{password},#{level})
+    </insert>
+
+    <select id="getAllUser" resultMap="User">
+        select * from user
+    </select>
+
+    <delete id="deleteUser">
+        delete from user where id = #{userId}
+    </delete>
+
+    <update id="updateUser" parameterType="com.example.cinema.po.User">
+        update user set
+        username = #{username},
+        password = #{password},
+        level = #{level}
+        where id = #{id}
+    </update>
+    
+    <update id="updateUserLevel">
+        update user set
+        level = #{level}
+        where id = #{userId}
+    </update>
 
     <resultMap id="User" type="com.example.cinema.po.User">
+        <id column="id" property="id"></id>
+        <result column="password" property="password"></result>
+        <result column="username" property="username"></result>
+        <result column="level" property="level"></result>
     </resultMap>
 </mapper>

@@ -9,10 +9,12 @@ var colors = [
 ];
 
 $(document).ready(function() {
+    var canSeeDate = 0;
+    $("#canview-set-input").hide();
     var hallId,
         scheduleDate = formatDate(new Date()),
         schedules = [];
-
+    getCanSeeDayNum();
     initSelectAndDate();
 
     function getSchedules() {
@@ -227,7 +229,48 @@ $(document).ready(function() {
                 }
             );
         }
-    })
+    });
+    function getCanSeeDayNum() {
+        getRequest(
+            '/schedule/view',
+            function (res) {
+                canSeeDate = res.content;
+                $("#can-see-num").text(canSeeDate);
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            }
+        );
+    }
 
+    $('#canview-modify-btn').click(function () {
+        $("#canview-modify-btn").hide();
+        $("#canview-set-input").val(canSeeDate);
+        $("#canview-set-input").show();
+        $("#canview-confirm-btn").show();
+    });
+
+    $('#canview-confirm-btn').click(function () {
+        var dayNum = $("#canview-set-input").val();
+        // 验证一下是否为数字
+        postRequest(
+            '/schedule/view/set',
+            {day:dayNum},
+            function (res) {
+                if(res.success){
+                    getCanSeeDayNum();
+                    canSeeDate = dayNum;
+                    $("#canview-modify-btn").show();
+                    $("#canview-set-input").hide();
+                    $("#canview-confirm-btn").hide();
+                } else{
+                    alert(res.message);
+                }
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            }
+        );
+    });
 });
 

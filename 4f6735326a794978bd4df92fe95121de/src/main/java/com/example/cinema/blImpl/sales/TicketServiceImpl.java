@@ -388,4 +388,5 @@ public class  TicketServiceImpl implements TicketService {
         withdrawMapper.deleteWithdrawInfo(scheduleId);
         return ResponseVO.buildSuccess();
     }
+
 }

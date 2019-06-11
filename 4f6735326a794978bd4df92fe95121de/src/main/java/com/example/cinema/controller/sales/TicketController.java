@@ -61,4 +61,8 @@ public class TicketController {
 
     @GetMapping("/withdraw/delete")
     public ResponseVO deleteWithdrawInfo(@RequestParam int scheduleId){ return ticketService.deleteWithdrawInfo(scheduleId); }
+
+
+
+
 }

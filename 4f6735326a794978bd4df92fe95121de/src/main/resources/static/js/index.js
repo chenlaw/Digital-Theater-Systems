@@ -13,12 +13,17 @@ $(document).ready(function () {
                 if (res.success) {
                     sessionStorage.setItem('username', formData.username);
                     sessionStorage.setItem('id', res.content.id);
-                    if (formData.username == "root") {
+
+                    if (res.content.level == 2) {
                         sessionStorage.setItem('role', 'admin');
-                        window.location.href = "/admin/movie/manage"
-                    } else {
+                        window.location.href = "/admin/vipInfo/manage";
+                    } else if(res.content.level == 0){
                         sessionStorage.setItem('role', 'user');
-                        window.location.href = "/user/home"
+                        window.location.href = "/user/home";
+                    }
+                    else {
+                        sessionStorage.setItem('role', 'ticketSeller');
+                        window.location.href = "/ticketSeller/movie/manage";
                     }
                 } else {
                     alert(res.message);

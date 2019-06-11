@@ -274,6 +274,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
+  `level` int default 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id_uindex` (`id`),
   UNIQUE KEY `user_username_uindex` (`username`)
@@ -286,7 +287,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'testname','123456'),(3,'test','123456'),(5,'test1','123456'),(7,'test121','123456'),(8,'root','123456'),(10,'roottt','123123'),(12,'zhourui','123456'),(13,'abc123','abc123'),(15,'dd','123');
+INSERT INTO `user` VALUES (1,'testname','123456',0),(3,'test','123456',0),(5,'test1','123456',0),(7,'test121','123456',0),(8,'root','123456',2),(10,'roottt','123123',0),(12,'zhourui','123456',0),(13,'abc123','abc123',0),(15,'dd','123',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,6 +327,7 @@ CREATE TABLE `vip_card` (
   `user_id` int(11) DEFAULT NULL,
   `balance` float DEFAULT NULL,
   `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `vip_info_id` int(11) not null ,
   PRIMARY KEY (`id`),
   UNIQUE KEY `vip_card_user_id_uindex` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
@@ -337,13 +339,48 @@ CREATE TABLE `vip_card` (
 
 LOCK TABLES `vip_card` WRITE;
 /*!40000 ALTER TABLE `vip_card` DISABLE KEYS */;
-INSERT INTO `vip_card` VALUES (1,15,375,'2019-04-21 13:54:38'),(2,12,660,'2019-04-17 18:47:42');
+INSERT INTO `vip_card` VALUES (1,15,375,'2019-04-21 13:54:38',1),(2,12,660,'2019-04-17 18:47:42',1);
 /*!40000 ALTER TABLE `vip_card` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping events for database 'cinema'
 --
+
+
+DROP TABLE IF EXISTS `withdraw`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `withdraw` (
+                          `id` int(11) NOT NULL AUTO_INCREMENT,
+                          `withdraw_description` varchar(255) NOT NULL,
+                          `close_time` timestamp not null default current_timestamp,
+                          `schedule_id` int(11) DEFAULT NULL,
+                          `discount` double not null default 1.0,
+                          PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS `vip_info`;
+create table vip_info
+(
+  id             int unsigned auto_increment,
+  card_name      varchar(255)   default ''  null,
+  price          float unsigned default '0' null,
+  minimum_charge float unsigned default '0' null,
+  extra_charge   float unsigned default '0' null,
+  description    text                       null,
+  constraint idx_id
+    unique (id),
+  constraint unique_cardname
+    unique (card_name)
+);
+LOCK TABLES `vip_info` WRITE;
+/*!40000 ALTER TABLE `vip_info` DISABLE KEYS */;
+INSERT INTO `vip_info` VALUES (1,"test1",25,200,30,"测试会员卡");
+/*!40000 ALTER TABLE `vip_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Dumping routines for database 'cinema'

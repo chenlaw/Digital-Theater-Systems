@@ -1,8 +1,12 @@
 package com.example.cinema.data.user;
 
 import com.example.cinema.po.User;
+import com.example.cinema.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
 
 /**
  * @author huwen
@@ -31,4 +35,14 @@ public interface AccountMapper {
      * @return User
      */
     public User getAccountById(@Param("id") int id);
+
+    public int updateUser(User user);
+
+    public int updateUserLevel(int userId,int level);
+
+    public ArrayList<User> getAllUser();
+
+    public int addUser(@Param("username") String username, @Param("password") String password,@Param("level") int level);
+
+    public int deleteUser(int userId);
 }
