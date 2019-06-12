@@ -16,8 +16,12 @@ public class ConsumptionController {
     @GetMapping("/{userId}")
     public ResponseVO getConsumption(@PathVariable String userId){
         return consumptionService.getConsumtions(userId);}
-     @GetMapping("/{balance}")
-    public ResponseVO getCOnsumptionsByBalance(@PathVariable double balance){
+     @GetMapping("/money/{balance}")
+    public ResponseVO getConsumptionsByBalance(@PathVariable double balance){
         return ResponseVO.buildSuccess(consumptionService.getConsumtionsOrderByBalance(balance));
+     }
+     @GetMapping("/all")
+    public ResponseVO getAllCounsumption(){
+        return  consumptionService.getConsumtions();
      }
 }

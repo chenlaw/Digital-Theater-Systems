@@ -2,6 +2,7 @@ package com.example.cinema.controller.promotion;
 
 import com.example.cinema.bl.promotion.CouponService;
 import com.example.cinema.vo.ResponseVO;
+import com.example.cinema.vo.SendCouponVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,8 @@ public class CouponController {
         return couponService.getAllCoupon();
     }
     @RequestMapping(value = "/sendCoupons",method = RequestMethod.POST)
-    public ResponseVO sendCoupons(int[] usersId,int[] couponsId ){
-        return couponService.sendCoupons(usersId,couponsId);
+    public ResponseVO sendCoupons(@RequestBody SendCouponVO vo){
+       return couponService.sendCoupons(vo.getUsersId(),vo.getCouponsId());
+
     }
 }

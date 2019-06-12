@@ -19,13 +19,13 @@ $(document).ready(function () {
         list.forEach(function (recharge) {
             ticketsBodyStr +=
                 "<tr>" +
-                "<td>" + recharge.balance + "</td>" +
-                "<td>" + recharge.way+ "</td>" +
+                "<td>" + recharge.way + "</td>" +
+                "<td>" + -recharge.balance+ "</td>" +
                 "<td>" + formatdate(new Date(recharge.time))  + "</td>" +
                 "</tr>"
         });
 
-        $("#ticket-body").html(ticketsBodyStr);
+        $("#consumption-body").html(ticketsBodyStr);
 
 
         function formatdate(date) {

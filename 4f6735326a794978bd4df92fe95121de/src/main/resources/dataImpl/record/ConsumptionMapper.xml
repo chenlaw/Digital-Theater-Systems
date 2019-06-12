@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.cinema.data.record.ConsumptionMapper">
-    <insert id="insertComsuptionInfor" parameterType="com.example.cinema.vo.ConsumptionVO"
+    <insert id="insertCOnsumptionInfor" parameterType="com.example.cinema.vo.ConsumptionVO"
             useGeneratedKeys="true" keyProperty="id">
         insert into consumption(userId,balance, time,way)
         values(#{userId},#{balance},#{time},#{way})
@@ -12,4 +12,13 @@
     <select id="selectConsumptionsByOrder" resultType="com.example.cinema.po.Consumption">
         select userId,sum(balance) as balance,time,way from consumption where sum(balance) group by userId > #{balance} order by balance;
     </select>
+    <select id="getAllConsumptions" resultType="com.example.cinema.po.Consumption">
+        select userId,sum(balance) as balance,time,way from consumption where balance > 0 group by userId
+    </select>
+<!--    <resultMap id="Consumption" type="com.example.cinema.po.Consumption">-->
+<!--        <result column="userId" property="userId"></result>-->
+<!--        <result column="balance" property="balance"></result>-->
+<!--        <result column="time" property="time"></result>-->
+<!--        <result column="way" property="way"></result>-->
+<!--    </resultMap>-->
 </mapper>

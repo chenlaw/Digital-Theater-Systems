@@ -122,9 +122,10 @@ public class  TicketServiceImpl implements TicketService {
                 else{
                     totalPriceAfterCoupon -= coupon.getDiscountAmount();
                     couponMapper.deleteCouponUser(couponId,userID);
-                    consumptionService.recordRecharge(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"银行卡购买"));
                 }
+
             }
+            consumptionService.recordRecharge(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"银行卡购买电影票"));
             List<Activity> activities=activityMapper.selectActivitiesByMovie(movieId);
             if(activities.size()!=0){
                 Coupon bestCoupon=activities.get(0).getCoupon();
@@ -201,9 +202,9 @@ public class  TicketServiceImpl implements TicketService {
                 else{
                     totalPriceAfterCoupon -= coupon.getDiscountAmount();
                     couponMapper.deleteCouponUser(couponId,userID);
-                    consumptionService.recordRecharge(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"会员卡购买"));
                 }
             }
+            consumptionService.recordRecharge(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"会员卡购买电影票"));
             List<Activity> activities=activityMapper.selectActivitiesByMovie(movieId);
             if(activities.size()!=0){
                 Coupon bestCoupon=activities.get(0).getCoupon();

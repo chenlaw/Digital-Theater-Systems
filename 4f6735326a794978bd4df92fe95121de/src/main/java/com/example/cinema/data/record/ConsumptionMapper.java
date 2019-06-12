@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 @Mapper
 public interface  ConsumptionMapper {
-    List<Consumption> selectConsumptions();
+    List<Consumption> selectConsumptions(String userId);
     int insertCOnsumptionInfor(ConsumptionVO vo);
     List<Consumption> selectConsumptionsByOrder(double balance);
+
+    List<Consumption> getAllConsumptions();
 }

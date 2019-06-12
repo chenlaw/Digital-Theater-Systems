@@ -7,4 +7,6 @@ public interface ConsumptionService {
     ResponseVO recordRecharge(ConsumptionVO vo);
     ResponseVO getConsumtions(String userId);
     ResponseVO getConsumtionsOrderByBalance(double balance);
+
+    ResponseVO getConsumtions();
 }
