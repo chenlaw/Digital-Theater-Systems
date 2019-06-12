@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>购票</title>
-    <!-- Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
-    <!-- font-asesome图标库 -->
-    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <head>
+        <meta charset="UTF-8">
+        <title>消费记录</title>
+        <!-- Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+        <!-- font-asesome图标库 -->
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
 
-    <!-- 引入css样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/userBuy.css"/>
+        <!-- 引入css样式文件 -->
+        <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/userBuy.css"/>
 
-    <!-- 引入js脚本文件 -->
-    <!-- jquery -->
-    <script src="/js/jquery.js"></script>
-    <!-- Bootstrap 核心 JavaScript 文件 -->
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/request.js"></script>
-    <script src="/js/userBuy.js"></script>
+        <!-- 引入js脚本文件 -->
+        <!-- jquery -->
+        <script src="/js/jquery.js"></script>
+        <!-- Bootstrap 核心 JavaScript 文件 -->
+        <script src="/js/bootstrap.js"></script>
+        <script src="/js/request.js"></script>
+        <script src="/js/userConsumption.js"></script>
 
-</head>
+    </head>
+
 <body>
 <div class="nav-top-container">
     <div class="nav-logo title">NJU-Se电影购票系统</div>
@@ -34,7 +35,7 @@
             <span class="gray-text" style="vertical-align: middle">用户A&nbsp;<span class="caret"></span></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">电影票</a></li>
+            <li><a href="/user/movie">电影票</a></li>
             <li><a href="/user/member">卡包</a></li>
             <li><a href="/user/Recharge">充值记录</a> </li>
             <li><a href="/user/consumption">消费记录</a></li>
@@ -45,23 +46,19 @@
 <div class="content-container">
     <div class="card col-md-8 col-md-offset-2">
         <div class="header">
-            <span class="title">我的电影票</span>
+            <span class="title">消费记录</span>
         </div>
         <div class='table-wrapper'>
             <table class='table table-striped'>
                 <thead>
                 <tr>
-                    <th>电影名称</th>
-                    <th>影厅名</th>
-                    <th>座位</th>
-                    <th>放映时间</th>
-                    <th>预计结束时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <th>消费方式</th>
+                    <th>账户变动</th>
+                    <th>消费时间</th>
                 </tr>
                 </thead>
 
-                <tbody id ="ticket-body">
+                <tbody id ="consumption-body">
                 </tbody>
             </table>
         </div>

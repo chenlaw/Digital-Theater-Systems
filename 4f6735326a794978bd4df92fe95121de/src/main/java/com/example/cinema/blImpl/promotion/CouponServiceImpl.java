@@ -8,6 +8,8 @@ import com.example.cinema.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * Created by liying on 2019/4/17.
  */
@@ -56,4 +58,25 @@ public class CouponServiceImpl implements CouponService {
         }
 
     }
+
+    @Override
+    public ResponseVO getAllCoupon() {
+        return ResponseVO.buildSuccess(couponMapper.selectCoupons().stream().filter(e-> {
+            Date date=  new Date();
+            Date now=new Date();
+            date=e.getEndTime();
+            return now.before(date);
+        }));
+    }
+
+    @Override
+    public ResponseVO sendCoupons(int[] usersId, int[] couponsId) {
+        for (int i:usersId){
+            for(int j:couponsId){
+                issueCoupon(i,j);
+            }
+        }
+        return ResponseVO.buildSuccess();
+    }
+
 }
