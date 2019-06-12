@@ -84,8 +84,8 @@ $("#put-on").click(function () {
         var userInfo = "";
         userInfo +=
             "<li class=\"card\" style=\"margin:20px 0;padding:20px;\">" +
-           " <p><input type='checkbox' name='user' id="+user.userId+" />"+user.username+        "<span>" + user.balance + "</span>" +
-            "</span> </p></li>" ;
+           " <p><input type='checkbox' name='user' id="+user.userId+" style='width:20px'/>"+"<span>"+user.username+"</span><span style='padding:0 0 0 80%'>" + user.balance + "</span>" +
+            "</p></li>" ;
 
 
         return userInfo;
