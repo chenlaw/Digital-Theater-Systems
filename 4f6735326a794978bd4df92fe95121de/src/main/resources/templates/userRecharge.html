@@ -18,9 +18,10 @@
     <!-- Bootstrap 核心 JavaScript 文件 -->
     <script src="/js/bootstrap.js"></script>
     <script src="/js/request.js"></script>
-    <script src="/js/userBuy.js"></script>
+    <script src="/js/userRecharge.js"></script>
 
 </head>
+
 <body>
 <div class="nav-top-container">
     <div class="nav-logo title">NJU-Se电影购票系统</div>
@@ -34,7 +35,7 @@
             <span class="gray-text" style="vertical-align: middle">用户A&nbsp;<span class="caret"></span></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">电影票</a></li>
+            <li><a href="/user/movie">电影票</a></li>
             <li><a href="/user/member">卡包</a></li>
             <li><a href="/user/Recharge">充值记录</a> </li>
             <li><a href="/user/consumption">消费记录</a></li>
@@ -45,23 +46,18 @@
 <div class="content-container">
     <div class="card col-md-8 col-md-offset-2">
         <div class="header">
-            <span class="title">我的电影票</span>
+            <span class="title">充值记录</span>
         </div>
         <div class='table-wrapper'>
             <table class='table table-striped'>
                 <thead>
                 <tr>
-                    <th>电影名称</th>
-                    <th>影厅名</th>
-                    <th>座位</th>
-                    <th>放映时间</th>
-                    <th>预计结束时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <th>充值金额</th>
+                    <th>充值时间</th>
                 </tr>
                 </thead>
 
-                <tbody id ="ticket-body">
+                <tbody id ="recharge-body">
                 </tbody>
             </table>
         </div>

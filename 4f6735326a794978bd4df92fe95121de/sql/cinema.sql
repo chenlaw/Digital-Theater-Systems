@@ -382,6 +382,25 @@ INSERT INTO `vip_info` VALUES (1,"test1",25,200,30,"测试会员卡");
 UNLOCK TABLES;
 
 
+
+DROP TABLE IF EXISTS `consumption`;
+create table consumption
+(
+    userId  int          not null,
+    balance double       not null,
+    time    timestamp    not null,
+    way     varchar(255) null
+);
+
+
+DROP TABLE IF EXISTS `recharge`;
+create table recharge
+(
+    userId  int       not null,
+    balance double    not null,
+    time    timestamp not null
+);
+
 --
 -- Dumping routines for database 'cinema'
 --
