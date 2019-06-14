@@ -352,4 +352,9 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
     public List<ScheduleItem> selectScheduleByMovieId(int id) {
         return scheduleMapper.selectScheduleByMovieId(id);
     }
+
+    @Override
+    public List<ScheduleItem> selectSchedule(int hallId, Date startDate, Date endDate) {
+        return scheduleMapper.selectSchedule(hallId,startDate,endDate);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.cinema.blImpl.management.hall;
 
 import com.example.cinema.bl.management.HallService;
+import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
 import com.example.cinema.data.management.HallMapper;
 import com.example.cinema.data.management.ScheduleMapper;
 import com.example.cinema.po.Hall;
@@ -24,7 +25,7 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
     @Autowired
     private HallMapper hallMapper;
     @Autowired
-    private ScheduleMapper scheduleMapper;
+    private ScheduleServiceForBl scheduleService;
 
     @Override
     public ResponseVO searchAllHall() {
@@ -103,7 +104,7 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
         Date today = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
         Date endDate = getNumDayAfterDate(today,30);
         //该影厅接下来30天内没有排片
-        List<ScheduleItem> hallScheduleList = scheduleMapper.selectSchedule(hallId,today,endDate);
+        List<ScheduleItem> hallScheduleList = scheduleService.selectSchedule(hallId,today,endDate);
         if(hallScheduleList.size()!=0){
             return true;
         }
