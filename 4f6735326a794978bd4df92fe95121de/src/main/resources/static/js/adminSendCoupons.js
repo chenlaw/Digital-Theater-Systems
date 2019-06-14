@@ -27,6 +27,7 @@ $(document).ready(function () {
                 "/consumption/money/" + key,
                 function (res) {
                     var userList = res.content;
+                    $("#user-list").empty();
                     userList.forEach(function (consumption) {
                         $("#user-list").append(renderUserInfo(consumption));
                     });
