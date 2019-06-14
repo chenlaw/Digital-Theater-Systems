@@ -3,6 +3,8 @@ package com.example.cinema.blImpl.management.movie;
 import com.example.cinema.po.Movie;
 import com.example.cinema.vo.MovieVO;
 
+import java.util.List;
+
 /**
  * @author fjj
  * @date 2019/4/28 12:29 AM
@@ -14,4 +16,6 @@ public interface MovieServiceForBl {
      * @return
      */
     Movie getMovieById(int id);
+
+    List<Movie> selectOtherMoviesExcludeOff();
 }

@@ -154,4 +154,8 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
         return movieVOList;
     }
 
+    @Override
+    public List<Movie> selectOtherMoviesExcludeOff() {
+        return movieMapper.selectOtherMoviesExcludeOff();
+    }
 }

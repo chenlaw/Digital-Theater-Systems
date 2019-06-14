@@ -30,7 +30,7 @@ import java.util.List;
  * Created by liying on 2019/4/16.
  */
 @Service
-public class  TicketServiceImpl implements TicketService {
+public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
 
     @Autowired
     TicketMapper ticketMapper;
@@ -386,4 +386,8 @@ public class  TicketServiceImpl implements TicketService {
         return ResponseVO.buildSuccess();
     }
 
+    @Override
+    public List<Ticket> selectTicketsBySchedule(int id) {
+        return ticketMapper.selectTicketsBySchedule(id);
+    }
 }

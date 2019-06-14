@@ -347,4 +347,9 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
             return ResponseVO.buildFailure("失败");
         }
     }
+
+    @Override
+    public List<ScheduleItem> selectScheduleByMovieId(int id) {
+        return scheduleMapper.selectScheduleByMovieId(id);
+    }
 }

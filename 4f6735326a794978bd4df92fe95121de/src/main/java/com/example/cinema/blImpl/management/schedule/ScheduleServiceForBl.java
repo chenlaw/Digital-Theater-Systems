@@ -22,4 +22,6 @@ public interface ScheduleServiceForBl {
      * @return
      */
     ScheduleItem getScheduleItemById(int id);
+
+    List<ScheduleItem> selectScheduleByMovieId(int id);
 }
