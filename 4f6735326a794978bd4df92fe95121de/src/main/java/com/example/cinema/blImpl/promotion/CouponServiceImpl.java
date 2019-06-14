@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by liying on 2019/4/17.
  */
 @Service
-public class CouponServiceImpl implements CouponService {
+public class CouponServiceImpl implements CouponService,CouponServiceForBl {
 
     @Autowired
     CouponMapper couponMapper;
@@ -79,4 +80,23 @@ public class CouponServiceImpl implements CouponService {
         return ResponseVO.buildSuccess();
     }
 
+    @Override
+    public List<Coupon> selectCouponByUser(int userId){
+        return couponMapper.selectCouponByUser(userId);
+    }
+
+    @Override
+    public Coupon selectCouponById(int id){
+        return couponMapper.selectById(id);
+    }
+
+    @Override
+    public void deleteCouponUser(int couponId, int userId) {
+        couponMapper.deleteCouponUser(couponId,userId);
+    }
+
+    @Override
+    public void insertCouponUser(int couponId, int userId) {
+        couponMapper.insertCouponUser(couponId,userId);
+    }
 }

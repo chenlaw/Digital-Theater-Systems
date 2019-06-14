@@ -12,12 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by liying on 2019/4/20.
  */
 @Service
-public class ActivityServiceImpl implements ActivityService {
+public class ActivityServiceImpl implements ActivityService,ActivityServiceForBl {
 
     @Autowired
     ActivityMapper activityMapper;
@@ -62,4 +63,13 @@ public class ActivityServiceImpl implements ActivityService {
         }
     }
 
+    @Override
+    public List<Activity> selectActivities() {
+        return activityMapper.selectActivities();
+    }
+
+    @Override
+    public List<Activity> selectActivitiesByMovie(int movieId) {
+        return activityMapper.selectActivitiesByMovie(movieId);
+    }
 }

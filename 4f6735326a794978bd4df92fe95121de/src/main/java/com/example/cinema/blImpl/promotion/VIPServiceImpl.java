@@ -21,7 +21,7 @@ import java.util.List;
  * Created by liying on 2019/4/14.
  */
 @Service
-public class VIPServiceImpl implements VIPService {
+public class VIPServiceImpl implements VIPService,VIPServiceForBl {
     @Autowired
     VIPCardMapper vipCardMapper;
     @Autowired
@@ -163,4 +163,13 @@ public class VIPServiceImpl implements VIPService {
         }
     }
 
+    @Override
+    public VIPCard selectCardByUserId(int userId) {
+        return vipCardMapper.selectCardByUserId(userId);
+    }
+
+    @Override
+    public void updateCardBalance(int id, double balance) {
+        vipCardMapper.updateCardBalance(id,balance);
+    }
 }

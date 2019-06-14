@@ -1,13 +1,13 @@
 package com.example.cinema.blImpl.sales;
 
 import com.example.cinema.bl.promotion.CouponService;
-import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.bl.record.ConsumptionService;
-import com.example.cinema.bl.record.RechargeService;
 import com.example.cinema.bl.sales.TicketService;
 import com.example.cinema.blImpl.management.hall.HallServiceForBl;
-import com.example.cinema.blImpl.management.schedule.MovieServiceForBl;
 import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
+import com.example.cinema.blImpl.promotion.ActivityServiceForBl;
+import com.example.cinema.blImpl.promotion.CouponServiceForBl;
+import com.example.cinema.blImpl.promotion.VIPServiceForBl;
 import com.example.cinema.data.management.ScheduleMapper;
 import com.example.cinema.data.promotion.ActivityMapper;
 import com.example.cinema.data.promotion.CouponMapper;
@@ -39,15 +39,11 @@ public class  TicketServiceImpl implements TicketService {
     @Autowired
     HallServiceForBl hallService;
     @Autowired
-    CouponService couponService;
+    CouponServiceForBl couponService;
     @Autowired
-    CouponMapper couponMapper;
+    VIPServiceForBl vipService;
     @Autowired
-    VIPCardMapper vipCardMapper;
-    @Autowired
-    ActivityMapper activityMapper;
-    @Autowired
-    ScheduleMapper scheduleMapper;
+    ActivityServiceForBl activityService;
     @Autowired
     WithdrawMapper withdrawMapper;
     @Autowired
@@ -75,7 +71,7 @@ public class  TicketServiceImpl implements TicketService {
                 ticketList.add(ticket);
                 ticketMapper.insertTicket(ticket);
                 ticketVOList.add((ticketMapper.selectTicketByScheduleIdAndSeat(ticketForm.getScheduleId(),seatList.get(i).getColumnIndex(),seatList.get(i).getRowIndex())).getVO());
-                eachTicketPrice = scheduleMapper.selectScheduleById(ticket.getScheduleId()).getFare();
+                eachTicketPrice = scheduleService.getScheduleItemById(ticket.getScheduleId()).getFare();
                 total = total + eachTicketPrice;
             }
 //            if (ticketList.size()==1) {
@@ -86,8 +82,8 @@ public class  TicketServiceImpl implements TicketService {
 //            }
             TicketWithCouponVO ticketWithCouponVO = new TicketWithCouponVO();
             ticketWithCouponVO.setTicketVOList(ticketVOList);
-            ticketWithCouponVO.setActivities(activityMapper.selectActivities());
-            ticketWithCouponVO.setCoupons(couponMapper.selectCouponByUser(ticketVOList.get(0).getUserId()));
+            ticketWithCouponVO.setActivities(activityService.selectActivities());
+            ticketWithCouponVO.setCoupons(couponService.selectCouponByUser(ticketVOList.get(0).getUserId()));
             ticketWithCouponVO.setTotal(total);
             return ResponseVO.buildSuccess(ticketWithCouponVO);
         } catch (Exception e) {
@@ -108,25 +104,25 @@ public class  TicketServiceImpl implements TicketService {
             int userID = 0;
             for(int i=0;i<id.size();i++){
                 Ticket ticket = ticketMapper.selectTicketById(id.get(i));
-                totalPrice += scheduleMapper.selectScheduleById(ticket.getScheduleId()).getFare();
+                totalPrice += scheduleService.getScheduleItemById(ticket.getScheduleId()).getFare();
                 userID = ticket.getUserId();
-                movieId = scheduleMapper.selectScheduleById(ticket.getScheduleId()).getMovieId();
+                movieId = scheduleService.getScheduleItemById(ticket.getScheduleId()).getMovieId();
             }
             double totalPriceAfterCoupon = totalPrice;
             if(couponId!=0){
-                Coupon coupon = couponMapper.selectById(couponId);
+                Coupon coupon = couponService.selectCouponById(couponId);
                 double targetAmount = coupon.getTargetAmount();
                 if(totalPrice<targetAmount){
                     return ResponseVO.buildFailure("你没花够钱，还想用这张优惠券，真是个蔡徐坤！");
                 }
                 else{
                     totalPriceAfterCoupon -= coupon.getDiscountAmount();
-                    couponMapper.deleteCouponUser(couponId,userID);
+                    couponService.deleteCouponUser(couponId,userID);
                 }
 
             }
             consumptionService.recordRecharge(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"银行卡购买电影票"));
-            List<Activity> activities=activityMapper.selectActivitiesByMovie(movieId);
+            List<Activity> activities=activityService.selectActivitiesByMovie(movieId);
             if(activities.size()!=0){
                 Coupon bestCoupon=activities.get(0).getCoupon();
                 for (int i=0;i<activities.size();i++){
@@ -135,7 +131,7 @@ public class  TicketServiceImpl implements TicketService {
                         bestCoupon=coupon;
                     }
                 }
-                couponMapper.insertCouponUser(bestCoupon.getId(),userID);
+                couponService.insertCouponUser(bestCoupon.getId(),userID);
             }
             for(int i=0;i<id.size();i++){
                 ticketMapper.updateTicketState(id.get(i),1);
@@ -188,24 +184,24 @@ public class  TicketServiceImpl implements TicketService {
             int userID = 0;
             for(int i=0;i<id.size();i++){
                 Ticket ticket = ticketMapper.selectTicketById(id.get(i));
-                totalPrice += scheduleMapper.selectScheduleById(ticket.getScheduleId()).getFare();
+                totalPrice += scheduleService.getScheduleItemById(ticket.getScheduleId()).getFare();
                 userID = ticket.getUserId();
-                movieId = scheduleMapper.selectScheduleById(ticket.getScheduleId()).getMovieId();
+                movieId = scheduleService.getScheduleItemById(ticket.getScheduleId()).getMovieId();
             }
             double totalPriceAfterCoupon = totalPrice;
             if(couponId!=0){
-                Coupon coupon = couponMapper.selectById(couponId);
+                Coupon coupon = couponService.selectCouponById(couponId);
                 double targetAmount = coupon.getTargetAmount();
                 if(totalPrice<targetAmount){
                     return ResponseVO.buildFailure("你没花够钱，还想用这张优惠券，真是个蔡徐坤！");
                 }
                 else{
                     totalPriceAfterCoupon -= coupon.getDiscountAmount();
-                    couponMapper.deleteCouponUser(couponId,userID);
+                    couponService.deleteCouponUser(couponId,userID);
                 }
             }
             consumptionService.recordRecharge(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"会员卡购买电影票"));
-            List<Activity> activities=activityMapper.selectActivitiesByMovie(movieId);
+            List<Activity> activities=activityService.selectActivitiesByMovie(movieId);
             if(activities.size()!=0){
                 Coupon bestCoupon=activities.get(0).getCoupon();
                 for (int i=0;i<activities.size();i++){
@@ -214,9 +210,9 @@ public class  TicketServiceImpl implements TicketService {
                         bestCoupon=coupon;
                     }
                 }
-                couponMapper.insertCouponUser(bestCoupon.getId(),userID);
+                couponService.insertCouponUser(bestCoupon.getId(),userID);
             }
-            VIPCard vipCard=vipCardMapper.selectCardByUserId(userID);
+            VIPCard vipCard=vipService.selectCardByUserId(userID);
             double balance = vipCard.getBalance()-totalPriceAfterCoupon;
             if(balance<0){
                 return ResponseVO.buildFailure("余额不足");
@@ -225,7 +221,7 @@ public class  TicketServiceImpl implements TicketService {
                 for(int i=0;i<id.size();i++){
                     ticketMapper.updateTicketState(id.get(i),1);
                 }
-                vipCardMapper.updateCardBalance(vipCard.getId(),balance);
+                vipService.updateCardBalance(vipCard.getId(),balance);
             }
             return ResponseVO.buildSuccess();
         }catch(Exception e){
@@ -254,7 +250,7 @@ public class  TicketServiceImpl implements TicketService {
     private List<TicketWithScheduleVO> ticketList2TicketWithScheduleVOList(List<Ticket> ticketList){
         List<TicketWithScheduleVO> TicketWithScheduleVOList = new ArrayList<>();
         for(Ticket ticket : ticketList){
-            TicketWithScheduleVOList.add(ticket.getWithScheduleVO(scheduleMapper.selectScheduleById(ticket.getScheduleId())));
+            TicketWithScheduleVOList.add(ticket.getWithScheduleVO(scheduleService.getScheduleItemById(ticket.getScheduleId())));
         }
         Collections.reverse(TicketWithScheduleVOList);
         return TicketWithScheduleVOList;
@@ -263,7 +259,7 @@ public class  TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO withdrawTicket(int id){
         Ticket ticket = ticketMapper.selectTicketById(id);
-        ScheduleItem scheduleItem = scheduleMapper.selectScheduleById(ticket.getScheduleId());
+        ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticket.getScheduleId());
         //Date startTime=scheduleItem.getStartTime();
         double fare = scheduleItem.getFare();
         WithdrawInfo withdrawInfo = withdrawMapper.selectWithdrawInfoByScheduleId(ticket.getScheduleId());
@@ -275,12 +271,12 @@ public class  TicketServiceImpl implements TicketService {
         else{
             ticketMapper.updateTicketState(id,2);
             int userId=ticket.getUserId();
-            VIPCard vipCard=vipCardMapper.selectCardByUserId(userId);
+            VIPCard vipCard=vipService.selectCardByUserId(userId);
             double balance=vipCard.getBalance();
             double discount=withdrawInfo.getDiscount();
             balance+=discount*fare;
             if(vipCard!=null){
-                vipCardMapper.updateCardBalance(vipCard.getId(),balance);
+                vipService.updateCardBalance(vipCard.getId(),balance);
             }
             consumptionService.recordRecharge(new ConsumptionVO(userId,-discount*fare,new Date(),"退票成功"));
             return ResponseVO.buildSuccess("退票成功！");
@@ -307,7 +303,7 @@ public class  TicketServiceImpl implements TicketService {
             vo.setWithdrawDescription(withdrawInfo.getWithdrawDescription());
             vo.setDiscount(withdrawInfo.getDiscount());
             vo.setCloseTime(withdrawInfo.getCloseTime());
-            ScheduleItem scheduleItem=scheduleMapper.selectScheduleById(withdrawInfo.getScheduleId());
+            ScheduleItem scheduleItem=scheduleService.getScheduleItemById(withdrawInfo.getScheduleId());
             vo.setFilmFare(scheduleItem.getFare());
             vo.setFilmStartTime(scheduleItem.getStartTime());
             vo.setHallName(scheduleItem.getHallName());
@@ -338,7 +334,7 @@ public class  TicketServiceImpl implements TicketService {
 
 
     private ResponseVO precheck(withdrawInfoForm withdrawInfoForm){
-        Date movieStartTime = scheduleMapper.selectScheduleById(withdrawInfoForm.getScheduleId()).getStartTime();
+        Date movieStartTime = scheduleService.getScheduleItemById(withdrawInfoForm.getScheduleId()).getStartTime();
         Date closeTime = withdrawInfoForm.getCloseTime();
         if(movieStartTime.before(closeTime)){
             return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
@@ -371,7 +367,7 @@ public class  TicketServiceImpl implements TicketService {
     }
 
     private ResponseVO precheck1(withdrawInfoForm withdrawInfoForm){
-        Date movieStartTime = scheduleMapper.selectScheduleById(withdrawInfoForm.getScheduleId()).getStartTime();
+        Date movieStartTime = scheduleService.getScheduleItemById(withdrawInfoForm.getScheduleId()).getStartTime();
         Date closeTime = withdrawInfoForm.getCloseTime();
         if(movieStartTime.before(closeTime)){
             return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
