@@ -254,19 +254,34 @@ function renderOrder(orderInfo) {
     } else {
         coupons = orderInfo.coupons;
         for (let coupon of coupons) {
-            couponTicketStr += "<option>满" + coupon.targetAmount + "减" + coupon.discountAmount + "</option>"
+            if(parseFloat($('#order-total').text())>=coupon.targetAmount)
+                couponTicketStr += "<option>满" + coupon.targetAmount + "减" + coupon.discountAmount + "</option>"
+            else
+                coupons.splice(coupons.indexOf(coupon),1)
         }
+        couponTicketStr="<option>无</option>"+couponTicketStr
         $('#order-coupons').html(couponTicketStr);
         changeCoupon(0);
     }
 }
 
+
 function changeCoupon(couponIndex) {
-    order.couponId = coupons[couponIndex].id;
-    $('#order-discount').text("优惠金额： ¥" + coupons[couponIndex].discountAmount.toFixed(2));
-    var actualTotal = (parseFloat($('#order-total').text()) - parseFloat(coupons[couponIndex].discountAmount)).toFixed(2);
-    $('#order-actual-total').text(" ¥" + actualTotal);
-    $('#pay-amount').html("<div><b>金额：</b>" + actualTotal + "元</div>");
+    if(couponIndex==0){
+        order.couponId = 0;
+        $('#order-discount').text("优惠金额： ¥0");
+        var actualTotal = (parseFloat($('#order-total').text()));
+        $('#order-actual-total').text(" ¥" + actualTotal);
+        $('#pay-amount').html("<div><b>金额：</b>" + actualTotal + "元</div>");
+    }
+    else{
+        couponIndex-=1;
+        order.couponId = coupons[couponIndex].id;
+        $('#order-discount').text("优惠金额： ¥" + coupons[couponIndex].discountAmount.toFixed(2));
+        var actualTotal = (parseFloat($('#order-total').text()) - parseFloat(coupons[couponIndex].discountAmount)).toFixed(2);
+        $('#order-actual-total').text(" ¥" + actualTotal);
+        $('#pay-amount').html("<div><b>金额：</b>" + actualTotal + "元</div>");
+    }
 }
 
 function payConfirmClick() {

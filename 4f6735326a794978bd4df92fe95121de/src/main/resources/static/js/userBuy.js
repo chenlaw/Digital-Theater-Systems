@@ -79,7 +79,7 @@ $(document).ready(function () {
 
     withdraw = function(e) {
         var id =$(e).attr("id")
-        r = confirm("您确定要退票吗？")
+        r=confirm("您确定要退票吗？")
         if(r){
             getRequest(
                 "/ticket/withdraw?ticketId="+id,
@@ -88,7 +88,7 @@ $(document).ready(function () {
                     location.reload()
                 },
                 function (err) {
-                    alert("Error")
+                    alert("该电影场次不可退票")
                 }
             )
         }

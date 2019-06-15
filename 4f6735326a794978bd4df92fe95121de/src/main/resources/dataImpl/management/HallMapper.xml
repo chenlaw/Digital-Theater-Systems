@@ -8,6 +8,21 @@
         select * from hall where id = #{hallId}
     </select>
 
+    <insert id="insertOneHall" parameterType="com.example.cinema.vo.HallForm"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into hall(name,row,`column`)
+        values(#{name},#{row},#{column})
+    </insert>
+
+    <update id="updateHall" parameterType="com.example.cinema.vo.HallForm">
+        update hall set name = #{name},row=#{row},`column`=#{column}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHallById" parameterType="int">
+        delete from hall where id = #{hallId}
+    </delete>
+
     <resultMap id="Hall" type="com.example.cinema.po.Hall">
     </resultMap>
 

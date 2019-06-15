@@ -13,7 +13,7 @@ import java.util.List;
 public interface CouponMapper {
 
     int insertCoupon(Coupon coupon);
-
+    List<Coupon> selectCoupons();
     List<Coupon> selectCouponByUser(int userId);
 
     Coupon selectById(int id);

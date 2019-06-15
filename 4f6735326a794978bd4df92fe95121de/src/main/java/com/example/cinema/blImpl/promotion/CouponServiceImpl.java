@@ -8,11 +8,14 @@ import com.example.cinema.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by liying on 2019/4/17.
  */
 @Service
-public class CouponServiceImpl implements CouponService {
+public class CouponServiceImpl implements CouponService,CouponServiceForBl {
 
     @Autowired
     CouponMapper couponMapper;
@@ -55,5 +58,45 @@ public class CouponServiceImpl implements CouponService {
             return ResponseVO.buildFailure("失败");
         }
 
+    }
+
+    @Override
+    public ResponseVO getAllCoupon() {
+        return ResponseVO.buildSuccess(couponMapper.selectCoupons().stream().filter(e-> {
+            Date date=  new Date();
+            Date now=new Date();
+            date=e.getEndTime();
+            return now.before(date);
+        }));
+    }
+
+    @Override
+    public ResponseVO sendCoupons(int[] usersId, int[] couponsId) {
+        for (int i:usersId){
+            for(int j:couponsId){
+                issueCoupon(i,j);
+            }
+        }
+        return ResponseVO.buildSuccess();
+    }
+
+    @Override
+    public List<Coupon> selectCouponByUser(int userId){
+        return couponMapper.selectCouponByUser(userId);
+    }
+
+    @Override
+    public Coupon selectCouponById(int id){
+        return couponMapper.selectById(id);
+    }
+
+    @Override
+    public void deleteCouponUser(int couponId, int userId) {
+        couponMapper.deleteCouponUser(couponId,userId);
+    }
+
+    @Override
+    public void insertCouponUser(int couponId, int userId) {
+        couponMapper.insertCouponUser(couponId,userId);
     }
 }

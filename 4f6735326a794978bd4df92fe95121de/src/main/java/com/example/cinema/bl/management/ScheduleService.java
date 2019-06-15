@@ -66,12 +66,6 @@ public interface ScheduleService {
      */
     ResponseVO searchAudienceSchedule(int movieId);
 
-
-    /**
-     * 查询该日的排片信息
-     * @param  hallId
-     * @param startDate
-     * @return
-     */
     ResponseVO searchScheduleOneDay(int hallId, Date startDate);
+
 }

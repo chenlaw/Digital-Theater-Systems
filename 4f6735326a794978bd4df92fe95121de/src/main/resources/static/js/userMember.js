@@ -182,7 +182,7 @@ $(document).ready(function () {
                 if (res.success) {
                     var couponList = res.content;
                     var couponListContent = '';
-                    couponList.forEach(function (coupon) {
+                    couponList.foreach(function (coupon) {
                             couponListContent += '<div class="col-md-6 coupon-wrapper"><div class="coupon"><div class="content">' +
                                 '<div class="col-md-8 left">' +
                                 '<div class="name">' +

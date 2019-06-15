@@ -1,7 +1,6 @@
 package com.example.cinema.blImpl.management.movie;
 
 import com.example.cinema.bl.management.MovieService;
-import com.example.cinema.blImpl.management.schedule.MovieServiceForBl;
 import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
 import com.example.cinema.data.management.MovieMapper;
 import com.example.cinema.po.Movie;
@@ -155,4 +154,8 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
         return movieVOList;
     }
 
+    @Override
+    public List<Movie> selectOtherMoviesExcludeOff() {
+        return movieMapper.selectOtherMoviesExcludeOff();
+    }
 }

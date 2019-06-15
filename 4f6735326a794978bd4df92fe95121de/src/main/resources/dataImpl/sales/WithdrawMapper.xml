@@ -11,7 +11,7 @@
     <update id="updateWithdrawInfo" parameterType="com.example.cinema.vo.withdrawInfoForm"
             useGeneratedKeys="true" keyProperty="id">
         update withdraw set withdraw_description = #{withdrawDescription},close_time = #{closeTime},discount=#{discount}
-                where schedule_id = #{scheduleId}
+        where schedule_id = #{scheduleId}
     </update>
 
     <select id="selectWithdrawInfoByScheduleId" resultMap="WithdrawInfo">
@@ -26,6 +26,10 @@
         delete from withdraw where schedule_id=#{scheduleId}
     </delete>
 
+    <delete id="cleanExpiredWithdrawInfo">
+        delete from withdraw WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(close_time)>1800
+    </delete>
+
     <resultMap id="WithdrawInfo" type="com.example.cinema.po.WithdrawInfo">
         <result column="schedule_id" property="scheduleId"></result>
         <result column="id" property="id"></result>
@@ -33,5 +37,7 @@
         <result column="close_time" property="closeTime"></result>
         <result column="discount" property="discount"></result>
     </resultMap>
+
+
 
 </mapper>

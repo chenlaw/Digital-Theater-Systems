@@ -1,6 +1,10 @@
 package com.example.cinema.blImpl.statistics;
 
 import com.example.cinema.bl.statistics.StatisticsService;
+import com.example.cinema.blImpl.management.hall.HallServiceForBl;
+import com.example.cinema.blImpl.management.movie.MovieServiceForBl;
+import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
+import com.example.cinema.blImpl.sales.TicketServiceForBl;
 import com.example.cinema.data.management.HallMapper;
 import com.example.cinema.data.management.MovieMapper;
 import com.example.cinema.data.management.ScheduleMapper;
@@ -23,13 +27,13 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Autowired
     private StatisticsMapper statisticsMapper;
     @Autowired
-    private HallMapper hallMapper;
+    private HallServiceForBl hallService;
     @Autowired
-    private ScheduleMapper scheduleMapper;
+    private ScheduleServiceForBl scheduleService;
     @Autowired
-    private TicketMapper ticketMapper;
+    private TicketServiceForBl ticketService;
     @Autowired
-    private MovieMapper movieMapper;
+    private MovieServiceForBl movieService;
     @Override
     public ResponseVO getScheduleRateByDate(Date date) {
         try{
@@ -95,19 +99,19 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             List<MoviePlacingRateVO> moviePlacingRateList=new ArrayList<MoviePlacingRateVO>();
 
-            for(Movie movie:movieMapper.selectOtherMoviesExcludeOff()){
+            for(Movie movie:movieService.selectOtherMoviesExcludeOff()){
                 int tickets=0;
                 int seats=0;
                 List<ScheduleItemVO> scheduleOfDate=new ArrayList<ScheduleItemVO>();
-                for(ScheduleItemVO schedule:scheduleItemList2ScheduleItemVOList(scheduleMapper.selectScheduleByMovieId(movie.getId()))){
+                for(ScheduleItemVO schedule:scheduleItemList2ScheduleItemVOList(scheduleService.selectScheduleByMovieId(movie.getId()))){
                     if(schedule.getStartTime().after(requireDate)
                             &&schedule.getStartTime().before(nextDate)){
                         scheduleOfDate.add(schedule);
                     }
                 }
                 for(ScheduleItemVO schedule:scheduleOfDate){
-                    tickets+=ticketMapper.selectTicketsBySchedule(schedule.getId()).size();
-                    seats+= hallMapper.selectHallById(schedule.getHallId()).getColumn()*hallMapper.selectHallById(schedule.getHallId()).getRow();
+                    tickets+=ticketService.selectTicketsBySchedule(schedule.getId()).size();
+                    seats+= hallService.getHallById(schedule.getHallId()).getColumn()*hallService.getHallById(schedule.getHallId()).getRow();
                 }
                 moviePlacingRateList.add(new MoviePlacingRateVO(movie,requireDate,(double)tickets/seats));
 

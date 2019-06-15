@@ -3,6 +3,7 @@ import java.util.Date;
 
 import com.example.cinema.bl.management.ScheduleService;
 import com.example.cinema.blImpl.management.hall.HallServiceForBl;
+import com.example.cinema.blImpl.management.movie.MovieServiceForBl;
 import com.example.cinema.data.management.ScheduleMapper;
 import com.example.cinema.po.Movie;
 import com.example.cinema.po.ScheduleItem;
@@ -345,5 +346,15 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
         }
+    }
+
+    @Override
+    public List<ScheduleItem> selectScheduleByMovieId(int id) {
+        return scheduleMapper.selectScheduleByMovieId(id);
+    }
+
+    @Override
+    public List<ScheduleItem> selectSchedule(int hallId, Date startDate, Date endDate) {
+        return scheduleMapper.selectSchedule(hallId,startDate,endDate);
     }
 }

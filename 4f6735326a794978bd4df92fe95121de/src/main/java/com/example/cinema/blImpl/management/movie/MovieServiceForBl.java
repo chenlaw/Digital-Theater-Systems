@@ -1,7 +1,9 @@
-package com.example.cinema.blImpl.management.schedule;
+package com.example.cinema.blImpl.management.movie;
 
 import com.example.cinema.po.Movie;
 import com.example.cinema.vo.MovieVO;
+
+import java.util.List;
 
 /**
  * @author fjj
@@ -14,4 +16,6 @@ public interface MovieServiceForBl {
      * @return
      */
     Movie getMovieById(int id);
+
+    List<Movie> selectOtherMoviesExcludeOff();
 }
