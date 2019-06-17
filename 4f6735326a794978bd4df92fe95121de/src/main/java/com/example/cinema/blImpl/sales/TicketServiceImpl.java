@@ -263,6 +263,9 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
         //Date startTime=scheduleItem.getStartTime();
         double fare = scheduleItem.getFare();
         WithdrawInfo withdrawInfo = withdrawMapper.selectWithdrawInfoByScheduleId(ticket.getScheduleId());
+        if(withdrawInfo==null){
+            withdrawInfo=withdrawMapper.selectWithdrawInfoByScheduleId(0);
+        }
         Date closeTime=withdrawInfo.getCloseTime();
         Date currentTime = new Date();
         if(currentTime.after(closeTime)){
