@@ -24,8 +24,8 @@ public interface WithdrawMapper {
 
     List<WithdrawInfo> selectAllWithdrawInfo();
 
-    @Scheduled(cron = "0/1 * * * * ?")
-    void cleanExpiredWithdrawInfo();
+//    @Scheduled(cron = "0/1 * * * * ?")
+//    void cleanExpiredWithdrawInfo();
 
 }
 
