@@ -56,7 +56,7 @@ public class ViewController {
     }
 
     @RequestMapping(value = "/ticketSeller/movieDetail")
-    public String getAdminMovieDetail(@RequestParam int id) { return "adminMovieDetail"; }
+    public String getAdminMovieDetail(@RequestParam int id) { return "ticketSellerMovieDetail"; }
     @RequestMapping(value = "/admin/sendConpon")
     public String sendCouponsView(){return "adminSendCoupons";}
 

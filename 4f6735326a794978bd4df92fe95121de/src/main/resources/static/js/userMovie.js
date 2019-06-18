@@ -14,7 +14,7 @@ $(document).ready(function(){
     }
 
     function renderMovieList(list) {
-        $('.movie-on-list').empty();
+        $('.movie-list').empty();
         var movieDomStr = '';
         list.forEach(function (movie) {
             movie.description = movie.description || '';

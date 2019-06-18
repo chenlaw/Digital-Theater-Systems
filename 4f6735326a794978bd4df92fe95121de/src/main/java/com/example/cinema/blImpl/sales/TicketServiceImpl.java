@@ -307,12 +307,22 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
             vo.setDiscount(withdrawInfo.getDiscount());
             vo.setCloseTime(withdrawInfo.getCloseTime());
             ScheduleItem scheduleItem=scheduleService.getScheduleItemById(withdrawInfo.getScheduleId());
-            vo.setFilmFare(scheduleItem.getFare());
-            vo.setFilmStartTime(scheduleItem.getStartTime());
-            vo.setHallName(scheduleItem.getHallName());
-            vo.setFilmName(scheduleItem.getMovieName());
-            vo.setHallId(scheduleItem.getHallId());
-            vo.setScheduleId(scheduleItem.getId());
+            if(scheduleItem!=null){
+                vo.setFilmFare(scheduleItem.getFare());
+                vo.setFilmStartTime(scheduleItem.getStartTime());
+                vo.setHallName(scheduleItem.getHallName());
+                vo.setFilmName(scheduleItem.getMovieName());
+                vo.setHallId(scheduleItem.getHallId());
+                vo.setScheduleId(scheduleItem.getId());
+            }
+            else{
+                vo.setFilmFare(0);
+                vo.setFilmStartTime(new Date());
+                vo.setHallName("default");
+                vo.setFilmName("default");
+                vo.setHallId(0);
+                vo.setScheduleId(0);
+            }
             withdrawVOList.add(vo);
         }
         return withdrawVOList;

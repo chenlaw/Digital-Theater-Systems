@@ -64,3 +64,58 @@
     height: 400px;
     padding: 10px 20px;
 }
+
+.movie-list{
+    margin:-29px -15px 20px -15px;
+    overflow: hidden;
+}
+.movie-list dd{
+    margin:60px 0 30px 26px;
+    display:inline-block;
+    vertical-align:top;
+    position:relative
+}
+.panel-content{
+    overflow:hidden;
+    width:100%;
+    margin-top:23px
+}
+.movie-poster{
+    background-color:#fcfcfc;
+    width:160px;
+    height:220px;
+    overflow:hidden;
+    position:relative
+}
+.movie-poster img{
+    height: 100%;
+    width: 100%;
+}
+.movie-title{
+    font-size:16px;
+    line-height:22px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin:0 10px
+}
+.movie-title-padding{
+    margin-right:35px
+}
+.movie-poster .movie-overlay,.movie-poster img{
+    width:100%;
+    position:absolute;
+    top:0;left:0
+}
+.movie-poster .movie-overlay{
+    height:100%
+}
+.movie-overlay-bg{
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABQCAMAAACpg44GAAAAbFBMVEUiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiK2HsfSAAAAJHRSTlPMxr63q6OahzclHRULBgHCsZOOf3p1cGtmYVxXUk1IQz4wLBAszz8hAAAAhklEQVRo3u3OxY0DAAADsBxDmZn337FTVPIjnsAZ4/zgCOcHhzg/+MBlgPOD/zg/+Ifzg3dcbrj84vzgFZcLLmdcTrgccTngssdlh8sWlw0ua1xWuCxxWeDyg/ODc1xmuHzj/OAXzg9+4vzgFJcPnB98x/nBCS5vOD9YVVVVVVVVVVVVr/IEUdzLcLhtP2AAAAAASUVORK5CYII=) repeat-x bottom
+}
+.movie-overlay .movie-info{
+    color:#fff;
+    position:absolute;
+    bottom:7px;
+    width:100%
+}
