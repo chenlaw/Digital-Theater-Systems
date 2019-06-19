@@ -24,7 +24,19 @@ public interface ScheduleServiceForBl {
      */
     ScheduleItem getScheduleItemById(int id);
 
+    /**
+     *根据电影id查找排片信息
+     * @param id
+     * @return
+     */
     List<ScheduleItem> selectScheduleByMovieId(int id);
 
+    /**
+     * 筛选排片信息
+     * @param hallId
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     List<ScheduleItem> selectSchedule(int hallId, Date startDate, Date endDate);
 }
