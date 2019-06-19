@@ -1,5 +1,12 @@
+/**
+ * @author wph
+ */
 $(document).ready(function () {
     getAllVIPInfo();
+
+    /**
+     * 点击发布会员卡模态框确定按钮
+     */
     $("#vipInfo-form-btn").click(function () {
         var formData = getVIPInfoForm();
         if(!validateVIPInfoForm(formData)){
@@ -19,17 +26,32 @@ $(document).ready(function () {
         );
     });
 
-
+    /**
+     * 点击会员卡种类"修改"按钮
+     */
     $("#vipInfoUpdateModal").on("show.bs.modal",function (e) {
         var test = $(e.relatedTarget).data("vipinfoid");
+        //存储会员卡种类id到全局供使用
         window.sessionStorage.setItem("vipinfoid",test);
     });
+
+    /**
+     * 点击“修改会员卡模态框”的取消按钮
+     */
     $("#vipInfoUpdate-form-btn").on("hidden.bs.modal", function() {
         $(this).removeData("bs.modal");
     });
+
+    /**
+     * 点击“发布会员卡模态框”的取消按钮
+     */
     $("#vipInfo-form-btn").on("hidden.bs.modal", function() {
         $(this).removeData("bs.modal");
     });
+
+    /**
+     * 点击“修改会员卡模态框”的确定按钮
+     */
     $("#vipInfoUpdate-form-btn").click(function () {
         var id = window.sessionStorage.getItem("vipinfoid");
         alert(id);
@@ -50,6 +72,10 @@ $(document).ready(function () {
             }
         );
     });
+
+    /**
+     * 验证会员卡信息是否为空
+     */
     function validateVIPInfoForm(data) {
         var isValidate = true;
         if(!data.name) {
@@ -75,6 +101,11 @@ $(document).ready(function () {
         }
         return isValidate;
     }
+
+    /**
+     * 获取 “发布会员卡模态框”的输入信息
+     * @returns {{price: (*|jQuery|string|undefined), name: (*|jQuery|string|undefined), minimumCharge: (*|jQuery|string|undefined), description: (*|jQuery|string|undefined), extraCharge: (*|jQuery|string|undefined)}}
+     */
     function getVIPInfoForm() {
         return{
             price:$('#vipInfo-price-input').val(),
@@ -84,6 +115,12 @@ $(document).ready(function () {
             description:$('#vipInfo-description-input').val()
         };
     }
+
+    /**
+     * 获取 “修改会员卡模态框”的输入信息
+     * @param id
+     * @returns {{price: (*|jQuery|string|undefined), name: (*|jQuery|string|undefined), minimumCharge: (*|jQuery|string|undefined), description: (*|jQuery|string|undefined), id: *, extraCharge: (*|jQuery|string|undefined)}}
+     */
     function getVIPInfoUpdateForm(id) {
         return{
             id:id,
@@ -95,6 +132,9 @@ $(document).ready(function () {
         };
     }
 
+    /**
+     * 获取所有VIP卡种类信息
+     */
     function getAllVIPInfo() {
         getRequest(
             "/vip/getAllVIPInfo",
@@ -107,6 +147,10 @@ $(document).ready(function () {
         );
     }
 
+    /**
+     * 渲染会员卡种类信息表
+     * @param list
+     */
     function renderVIPInfoList(list) {
         $('.vipInfo-list').empty();
         var vipInfoDomStr = '';

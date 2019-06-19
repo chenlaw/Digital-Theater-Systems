@@ -16,17 +16,45 @@ public interface VIPService {
 
     ResponseVO getCardById(int id);
 
-    ResponseVO getVIPInfoByName(String name);//购买会员卡前 获取会员卡种类
-    
-    ResponseVO getVIPInfoById(int ID);//购买会员卡后 用户查看自己卡的信息
+    /**
+     * 购买会员卡前，获取会员卡各个种类信息
+     * @author wph
+     * @param name
+     * @return ResponseVO
+     */
+    ResponseVO getVIPInfoByName(String name);
+
+    /**
+     * 购买会员卡前，获取会员卡各个种类信息
+     * @author wph
+     * @param ID
+     * @return ResponseVO
+     */
+    ResponseVO getVIPInfoById(int ID);
 
     ResponseVO charge(VIPCardForm vipCardForm);
 
     ResponseVO getCardByUserId(int userId);
+    /**
+     * 增加会员卡种类
+     * @author wph
+     * @param vipInfoVO
+     * @return
+     */
+	ResponseVO addVIPInfo(VIPInfoVO vipInfoVO);
 
-	ResponseVO addVIPInfo(VIPInfoVO vipInfoVO);//增加会员卡种类
+    /**
+     * 取得所有会员卡种类信息
+     * @author wph
+     * @return ResponseVO
+     */
+	ResponseVO getAllVIPInfo();
 
-	ResponseVO getAllVIPInfo();//取得所有会员卡
-
-    ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO);//修改卡信息
+    /**
+     * 修改会员卡种类信息
+     * @author wph
+     * @param vipInfoVO
+     * @return ResponseVO
+     */
+    ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO);
 }

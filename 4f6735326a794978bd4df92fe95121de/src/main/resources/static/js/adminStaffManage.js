@@ -1,7 +1,13 @@
+/**
+ * @author wph
+ */
 $(document).ready(function () {
     var userIdSave;
     getAllUser();
 
+    /**
+     * 获取所有用户信息
+     */
     function getAllUser() {
         getRequest(
             "/staff/get/all",
@@ -17,6 +23,9 @@ $(document).ready(function () {
         );
     }
 
+    /**
+     * 点击搜索按钮
+     */
     $("#getOneUser").click(function () {
         var key = $("#user-searchInfo-input").val();
         if (key == "") {
@@ -35,6 +44,10 @@ $(document).ready(function () {
             );
         }
     });
+
+    /**
+     * 点击“新增用户模态框”的确定按钮
+     */
     $("#add-btn").click(function () {
         var username = $("#user-username-input").val();
         var password = $("#user-password-input").val();
@@ -55,6 +68,10 @@ $(document).ready(function () {
         $("#userModal").modal("hide");
 
     });
+
+    /**
+     * 点击“修改用户信息模态框”的确定按钮
+     */
     $("#modify-btn").click(function () {
         var username = $("#userUpdate-id-input").val();
         var password = $("#userUpdate-password-input").val();
@@ -73,10 +90,13 @@ $(document).ready(function () {
             }
         );
         $('#userUpdateModal').modal("hide");
-
     });
 
-
+    /**
+     * 渲染用户信息列表
+     * @param user
+     * @returns {string}
+     */
     function renderUserInfo(user) {
         var userInfo = "";
         userInfo +=
@@ -101,9 +121,25 @@ $(document).ready(function () {
         return userInfo;
     }
 
+    /**
+     * 点击“修改用户模态框”的取消按钮
+     */
+    $("#deleteM-btn").on("hidden.bs.modal", function() {
+        $(this).removeData("bs.modal");
+    });
 
+    /**
+     * 点击“新增用户模态框”的取消按钮
+     */
+    $("#delete2-btn").on("hidden.bs.modal", function() {
+        $(this).removeData("bs.modal");
+    });
+
+
+    /**
+     * 点击用户信息的删除按钮
+     */
     $('ul').on('click', 'a', function () {
-
         if ($(this).text()=="删除"){
             if (confirm("确认删除吗？")) {
                 var userId =$(this).attr("value");
@@ -126,5 +162,4 @@ $(document).ready(function () {
             $('#userUpdateModal').modal("show");
         }
     });
-
 });
