@@ -14,14 +14,38 @@ import java.util.List;
 @Mapper
 public interface WithdrawMapper {
 
+    /**
+     * 插入一条退票信息
+     * @param withdrawInfoForm
+     * @return
+     */
     int insertWithdrawInfo(withdrawInfoForm withdrawInfoForm);
 
+    /**
+     * 更新一条退票信息
+     * @param withdrawInfoForm
+     * @return
+     */
     int updateWithdrawInfo(withdrawInfoForm withdrawInfoForm);
 
+    /**
+     * 删除一条退票信息
+     * @param scheduleId
+     * @return
+     */
     int deleteWithdrawInfo(int scheduleId);
 
+    /**
+     * 根据电影场次查询退票信息
+     * @param scheduleId
+     * @return
+     */
     WithdrawInfo selectWithdrawInfoByScheduleId(int scheduleId);
 
+    /**
+     * 选择所有退票信息
+     * @return
+     */
     List<WithdrawInfo> selectAllWithdrawInfo();
 
 //    @Scheduled(cron = "0/1 * * * * ?")

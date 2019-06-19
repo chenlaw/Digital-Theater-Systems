@@ -5,8 +5,14 @@ import java.util.List;
 
 public class TicketInfoVO {
 
+    /**
+     * 电影票id
+     */
     private List<Integer> ticketId;
 
+    /**
+     * 优惠券id
+     */
     private  int couponId;
 
     public List<Integer> getTicketId() {

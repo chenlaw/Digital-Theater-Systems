@@ -6,14 +6,29 @@ import java.util.Date;
 
 public class WithdrawInfo {
 
+    /**
+     * 退票信息id
+     */
     private int id;
 
+    /**
+     * 退票信息描述
+     */
     private String withdrawDescription;
 
+    /**
+     * 退票截止时间
+     */
     private Date closeTime;
 
+    /**
+     * 场次id
+     */
     private int scheduleId;
 
+    /**
+     * 退票折扣
+     */
     private double discount;
 
     public double getDiscount() {

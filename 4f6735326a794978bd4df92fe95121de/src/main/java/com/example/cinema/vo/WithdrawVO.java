@@ -4,24 +4,54 @@ import java.util.Date;
 
 public class WithdrawVO {
 
+    /**
+     * 退票信息id
+     */
     private int id;
 
+    /**
+     * 退票描述
+     */
     private String withdrawDescription;
 
+    /**
+     * 退票截止时间
+     */
     private Date closeTime;
 
+    /**
+     * 退票折扣
+     */
     private double discount;
 
+    /**
+     * 电影名称
+     */
     private String filmName;
 
+    /**
+     * 电影开始时间
+     */
     private Date filmStartTime;
 
+    /**
+     * 电影价格
+     */
     private double filmFare;
 
+    /**
+     * 影厅名字
+     */
     private String hallName;
 
+    /**
+     * 影厅id
+     */
     private int hallId;
 
+    /**
+     * 场次id
+     */
     private int scheduleId;
 
     public int getScheduleId() {
