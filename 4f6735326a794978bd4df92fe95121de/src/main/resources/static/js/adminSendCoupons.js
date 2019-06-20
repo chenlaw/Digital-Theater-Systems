@@ -22,7 +22,10 @@ $(document).ready(function () {
         var key = $("#user-searchInfo-input").val();
         if (key == "") {
             getAllUser();
-        } else {
+        } else if(key<=0){
+            alert("请输入大于0的数据");
+        }
+        else{
             getRequest(
                 "/consumption/money/" + key,
                 function (res) {
@@ -84,9 +87,9 @@ $("#put-on").click(function () {
     function renderUserInfo(user) {
         var userInfo = "";
         userInfo +=
-            "<li class=\"card\" style=\"margin:20px 0;padding:20px;\">" +
-           " <p><input type='checkbox' name='user' id="+user.userId+" style='width:20px'/>"+"<span>"+user.username+"</span><span style='padding:0 0 0 80%'>" + user.balance + "</span>" +
-            "</p></li>" ;
+
+           " <tr><td><input type='checkbox' name='user' id="+user.userId+" </td><td>"+user.username+"</td><td>" + user.balance + "</td></tr>"
+             ;
 
 
         return userInfo;
@@ -96,7 +99,14 @@ $("#put-on").click(function () {
         var activitiesDomStr = "";
 
         activities.forEach(function (activity) {
-            var movieDomStr = "";
+            var movieDomStr="";
+            if(activity.movieList.length){
+                activity.movieList.forEach(function (movie) {
+                    movieDomStr += "<li class='activity-movie primary-text'>"+movie.name+"</li>";
+                });
+            }else{
+                movieDomStr = "<li class='activity-movie primary-text'>所有热映电影</li>";
+            }
             activitiesDomStr+=
                 "<div class='activity-container'>" +
                 "    <div class='activity-card card'>" +
@@ -115,8 +125,8 @@ $("#put-on").click(function () {
                 "    <div class='activity-coupon primary-bg'>" +
                 "        <span class='title'>优惠券："+activity.coupon.name+"</span>" +
                 "        <span class='title'>满"+activity.coupon.targetAmount+"减<span class='error-text title'>"+activity.coupon.discountAmount+"</span></span>" +
-                "        <span class='gray-text'>"+activity.coupon.description+"</span>" +
-                "    </div>" +"<input type='checkbox' name='coupon' id="+activity.coupon.id+" />"+
+                "<input type='checkbox' name='coupon' id="+activity.coupon.id+" />"+
+                "    </div>" +
                 "</div>";
         });
         $(".modal-body").append(activitiesDomStr);
