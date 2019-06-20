@@ -4,4 +4,5 @@ import com.example.cinema.vo.RechargeVO;
 
 public interface RechargeServiceForBl {
     public void recordRechargeForBl(RechargeVO vo);
+
 }
