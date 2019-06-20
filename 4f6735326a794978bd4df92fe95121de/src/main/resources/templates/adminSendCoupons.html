@@ -23,7 +23,7 @@
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation" ><a href="/admin/staff/manage"><i class="icon-cogs"></i> 用户管理</a></li>
             <li role="presentation"><a href="/admin/withdrawInfo/manage"><i class="icon-ticket">退票管理</i> </a></li>
-            <li role="presentation" class="active"><a href="/admin/sendConpon"><i class="">赠送优惠卷</i></a> </li>
+            <li role="presentation" ><a href="/admin/sendConpon"><i class="glyphicon-retweet"></i>赠送优惠卷</a> </li>
         </ul>
     </div>
     <div class="content-container">
@@ -49,8 +49,20 @@
                 </div>
             </div>
         </div>
-        <ul id="user-list">
-        </ul>
+        <div class='table-wrapper'>
+            <table class='table table-striped'>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>用户</th>
+                    <th>消费总金额</th>
+                </tr>
+                </thead>
+
+                <tbody id ="user-list">
+                </tbody>
+            </table>
+        </div>
 </div>
 </div>
 
