@@ -31,6 +31,13 @@ public interface CouponServiceForBl {
     void deleteCouponUser(int couponId,int userId);
 
     /**
+     * 赠送优惠卷给用户
+     * @param usersId
+     * @param couponsId
+     */
+    void sendCoupons(int[] usersId, int[] couponsId);
+
+    /**
      * 插入coupon_user信息
      * @param couponId
      * @param userId

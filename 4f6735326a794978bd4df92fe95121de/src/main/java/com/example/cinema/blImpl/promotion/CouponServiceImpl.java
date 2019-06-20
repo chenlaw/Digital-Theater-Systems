@@ -71,14 +71,15 @@ public class CouponServiceImpl implements CouponService,CouponServiceForBl {
     }
 
     @Override
-    public ResponseVO sendCoupons(int[] usersId, int[] couponsId) {
-        for (int i:usersId){
-            for(int j:couponsId){
-                issueCoupon(i,j);
+    public void sendCoupons(int[] usersId, int[] couponsId) {
+            for (int i:usersId){
+                for(int j:couponsId){
+                    issueCoupon(i,j);
+                }
             }
-        }
-        return ResponseVO.buildSuccess();
+
     }
+
 
     @Override
     public List<Coupon> selectCouponByUser(int userId){

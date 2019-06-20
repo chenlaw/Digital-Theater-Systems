@@ -1,4 +1,4 @@
-package test.com.example.cinema.blImpl.sales; 
+package test.com.example.cinema.blImpl.sales;
 
 import com.example.cinema.bl.sales.TicketService;
 import com.example.cinema.vo.SeatForm;
@@ -23,7 +23,7 @@ import java.util.List;
 
 /** 
 * TicketServiceImpl Tester. 
-* @author <Authors name> 
+* @author <Authors ttc>
 */ 
 
 @SpringBootTest(classes = CinemaApplication.class)
