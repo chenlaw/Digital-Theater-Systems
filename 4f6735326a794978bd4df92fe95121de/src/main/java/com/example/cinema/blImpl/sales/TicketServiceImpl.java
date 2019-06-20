@@ -298,6 +298,11 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
         }
     }
 
+    /**
+     * po转vo
+     * @param withdrawInfoList
+     * @return
+     */
     private List<WithdrawVO> WithdrawInfo2withdrawVO(List<WithdrawInfo> withdrawInfoList){
         List<WithdrawVO> withdrawVOList = new ArrayList<>();
         for(WithdrawInfo withdrawInfo:withdrawInfoList){
@@ -346,6 +351,11 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
     }
 
 
+    /**
+     * 新增退票信息表单检查
+     * @param withdrawInfoForm
+     * @return
+     */
     private ResponseVO precheck(withdrawInfoForm withdrawInfoForm){
         Date movieStartTime = scheduleService.getScheduleItemById(withdrawInfoForm.getScheduleId()).getStartTime();
         Date closeTime = withdrawInfoForm.getCloseTime();
@@ -379,6 +389,11 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
         }
     }
 
+    /**
+     * 更新退票信息表单检查
+     * @param withdrawInfoForm
+     * @return
+     */
     private ResponseVO precheck1(withdrawInfoForm withdrawInfoForm){
         Date movieStartTime = scheduleService.getScheduleItemById(withdrawInfoForm.getScheduleId()).getStartTime();
         Date closeTime = withdrawInfoForm.getCloseTime();
