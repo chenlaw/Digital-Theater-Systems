@@ -140,7 +140,7 @@ public class VIPServiceImpl implements VIPService,VIPServiceForBl {
             System.out.println(vipCardMapper.selectCardById(vipCardForm.getVipId()).getBalance());
             RechargeVO vo=new RechargeVO(vipCard.getUserId(),new Date(),vipCardForm.getAmount());
             rechargeService.recordRecharge(vo);
-            consumptionService.recordRecharge(new ConsumptionVO(vipCard.getUserId(),-balance,new Date(),"充值会员卡"));
+            consumptionService.recordConsumption(new ConsumptionVO(vipCard.getUserId(),-balance,new Date(),"充值会员卡"));
             return ResponseVO.buildSuccess(vipCard);
         } catch (Exception e) {
             e.printStackTrace();

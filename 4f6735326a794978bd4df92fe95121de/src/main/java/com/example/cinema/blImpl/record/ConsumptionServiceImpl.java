@@ -21,8 +21,8 @@ public class ConsumptionServiceImpl implements ConsumptionService {
     AccountMapper accountMapper;
 
     @Override
-    //todo:找到使用到的地方
-    public ResponseVO recordRecharge(ConsumptionVO vo) {
+
+    public ResponseVO recordConsumption(ConsumptionVO vo) {
         return ResponseVO.buildSuccess(consumtionMapper.insertCOnsumptionInfor(vo));
     }
 
