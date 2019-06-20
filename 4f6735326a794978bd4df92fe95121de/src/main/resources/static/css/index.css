@@ -1,17 +1,24 @@
 body{
-	background: linear-gradient(to bottom right, #1caf9a, #1caaaa);
+	/*background: linear-gradient(to bottom right, #1caf9a, #1caaaa);*/
+	background-image:url("http://img22.mtime.cn/up/2011/11/13/103325.18336795_o.jpg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #CCCCCC;
 }
 
 #main-container {
-	background: url("https://account.talkingdata.com/images/bg-regist.png") top center no-repeat;
+	/*background: url("https://account.talkingdata.com/images/bg-regist.png") top center no-repeat;*/
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+
 #login-container {
-	/*background: rgba(0, 0, 0, 0.6);*/
-	border-radius: 3px;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 15px;
 	padding: 20px;
 	width: 400px;
 }
