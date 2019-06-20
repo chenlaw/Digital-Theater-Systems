@@ -4,6 +4,10 @@ import com.example.cinema.po.Coupon;
 
 import java.util.List;
 
+
+/**
+ * @author ttc
+ */
 public interface CouponServiceForBl {
     /**
      * 根据用户选择优惠券

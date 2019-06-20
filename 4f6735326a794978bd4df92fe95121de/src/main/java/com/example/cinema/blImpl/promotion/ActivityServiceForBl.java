@@ -4,6 +4,9 @@ import com.example.cinema.po.Activity;
 
 import java.util.List;
 
+/**
+ * @author ttc
+ */
 public interface ActivityServiceForBl {
 
     /**

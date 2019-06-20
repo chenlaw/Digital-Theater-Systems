@@ -2,6 +2,9 @@ package com.example.cinema.vo;
 
 import java.util.Date;
 
+/**
+ * @author ttc
+ */
 public class WithdrawVO {
 
     /**

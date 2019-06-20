@@ -4,6 +4,9 @@ package com.example.cinema.po;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * @author ttc
+ */
 public class WithdrawInfo {
 
     /**
