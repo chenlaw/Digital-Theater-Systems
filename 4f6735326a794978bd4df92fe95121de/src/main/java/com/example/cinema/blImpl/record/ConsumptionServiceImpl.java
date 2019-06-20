@@ -14,14 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ConsumptionServiceImpl implements ConsumptionService {
+public class ConsumptionServiceImpl implements ConsumptionService,ConsumptionServiceForBl{
     @Autowired
     ConsumptionMapper consumtionMapper;
     @Autowired
     AccountMapper accountMapper;
 
     @Override
-
+    public void recordConsumptionForBl(ConsumptionVO vo) {
+        consumtionMapper.insertCOnsumptionInfor(vo);
+    }
+    @Override
     public ResponseVO recordConsumption(ConsumptionVO vo) {
         return ResponseVO.buildSuccess(consumtionMapper.insertCOnsumptionInfor(vo));
     }

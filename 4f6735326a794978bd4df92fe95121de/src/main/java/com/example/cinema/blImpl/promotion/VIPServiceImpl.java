@@ -1,14 +1,13 @@
 package com.example.cinema.blImpl.promotion;
 
 import com.example.cinema.bl.promotion.VIPService;
-import com.example.cinema.bl.record.ConsumptionService;
-import com.example.cinema.bl.record.RechargeService;
+import com.example.cinema.blImpl.record.ConsumptionServiceForBl;
+import com.example.cinema.blImpl.record.RechargeServiceForBl;
 import com.example.cinema.data.promotion.VIPCardMapper;
 import com.example.cinema.data.promotion.VIPInfoMapper;
-import com.example.cinema.po.Recharge;
-import com.example.cinema.vo.*;
 import com.example.cinema.po.VIPCard;
 import com.example.cinema.po.VIPInfo;
+import com.example.cinema.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +26,9 @@ public class VIPServiceImpl implements VIPService,VIPServiceForBl {
     @Autowired
     VIPInfoMapper vipInfoMapper;
     @Autowired
-    RechargeService rechargeService;
+    RechargeServiceForBl rechargeService;
     @Autowired
-    ConsumptionService consumptionService;
+    ConsumptionServiceForBl consumptionService;
     @Override
     public ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO) {
         try {
@@ -139,8 +138,8 @@ public class VIPServiceImpl implements VIPService,VIPServiceForBl {
             vipCardMapper.updateCardBalance(vipCardForm.getVipId(), vipCard.getBalance());
             System.out.println(vipCardMapper.selectCardById(vipCardForm.getVipId()).getBalance());
             RechargeVO vo=new RechargeVO(vipCard.getUserId(),new Date(),vipCardForm.getAmount());
-            rechargeService.recordRecharge(vo);
-            consumptionService.recordConsumption(new ConsumptionVO(vipCard.getUserId(),-balance,new Date(),"充值会员卡"));
+            rechargeService.recordRechargeForBl(vo);
+            consumptionService.recordConsumptionForBl(new ConsumptionVO(vipCard.getUserId(),-balance,new Date(),"充值会员卡"));
             return ResponseVO.buildSuccess(vipCard);
         } catch (Exception e) {
             e.printStackTrace();
