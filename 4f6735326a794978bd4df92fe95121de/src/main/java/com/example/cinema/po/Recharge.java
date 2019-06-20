@@ -5,7 +5,13 @@ import lombok.Data;
 import java.util.Date;
 
 public class Recharge {
+    /**
+     * 消费金额
+     */
     private double balance;
+    /**
+     * 消费金额
+     */
     private Date time;
 
     public double getBalance() {
