@@ -23,7 +23,7 @@ import java.util.List;
 
 /** 
 * TicketServiceImpl Tester. 
-* @author <Authors ttc>
+* @author ttc
 */ 
 
 @SpringBootTest(classes = CinemaApplication.class)
@@ -38,7 +38,6 @@ public class TicketServiceImplTest {
 
 @Test
 public void testAddTicket() throws Exception { 
-//TODO: Test goes here...
     TicketForm ticketForm=new TicketForm();
     ticketForm.setUserId(13);
     ticketForm.setScheduleId(71);

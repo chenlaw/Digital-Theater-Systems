@@ -99,6 +99,12 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
         return hallVOList;
     }
 
+    /**
+     * 检查影厅是否在使用中
+     * @param hallId
+     * @return
+     * @throws ParseException
+     */
     private boolean isOnSchedule(Integer hallId) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date today = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
@@ -112,6 +118,12 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
         return false;
     }
 
+    /**
+     * 获得n日后的日期
+     * @param oldDate
+     * @param num
+     * @return
+     */
     Date getNumDayAfterDate(Date oldDate, int num){
         Calendar calendarTime = Calendar.getInstance();
         calendarTime.setTime(oldDate);
