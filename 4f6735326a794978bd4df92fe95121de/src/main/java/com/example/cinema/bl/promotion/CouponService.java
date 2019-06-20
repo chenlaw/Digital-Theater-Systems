@@ -16,5 +16,5 @@ public interface CouponService {
 
     ResponseVO getAllCoupon();
 
-    void sendCoupons(int[] usersId, int[] couponsId);
+    ResponseVO sendCoupons(int[] usersId, int[] couponsId);
 }
