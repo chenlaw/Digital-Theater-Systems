@@ -4,6 +4,9 @@ import com.example.cinema.po.Ticket;
 
 import java.util.List;
 
+/**
+ * @author ttc
+ */
 public interface TicketServiceForBl {
 
     /**

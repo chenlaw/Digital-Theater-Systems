@@ -56,6 +56,7 @@ public interface TicketService {
 
     /**
      * 用户退票
+     * @author ttc
      * @param ticketId
      * @return
      */
@@ -63,6 +64,7 @@ public interface TicketService {
 
     /**
      * 获得所有退票信息
+     * @author ttc
      * @return
      */
     ResponseVO getAllWithdrawInfo();
@@ -76,6 +78,7 @@ public interface TicketService {
 
     /**
      * 更新退票信息
+     * @author ttc
      * @param withdrawInfoForm
      * @return
      */
@@ -83,6 +86,7 @@ public interface TicketService {
 
     /**
      * 删除退票信息
+     * @author ttc
      * @param scheduleId
      * @return
      */

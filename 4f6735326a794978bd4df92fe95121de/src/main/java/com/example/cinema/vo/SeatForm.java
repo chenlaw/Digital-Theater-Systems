@@ -13,6 +13,11 @@ public class SeatForm {
      */
     private int rowIndex;
 
+    public SeatForm(int columnIndex, int rowIndex) {
+        this.columnIndex = columnIndex;
+        this.rowIndex = rowIndex;
+    }
+
     public int getColumnIndex() {
         return columnIndex;
     }
