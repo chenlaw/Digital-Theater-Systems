@@ -1,8 +1,8 @@
 package com.example.cinema.blImpl.record;
 
 import com.example.cinema.bl.record.ConsumptionService;
+import com.example.cinema.blImpl.user.AccountServiceForBl;
 import com.example.cinema.data.record.ConsumptionMapper;
-import com.example.cinema.data.user.AccountMapper;
 import com.example.cinema.po.Consumption;
 import com.example.cinema.po.UserTotalConsumption;
 import com.example.cinema.vo.ConsumptionVO;
@@ -14,14 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ConsumptionServiceImpl implements ConsumptionService {
+public class ConsumptionServiceImpl implements ConsumptionService,ConsumptionServiceForBl{
     @Autowired
     ConsumptionMapper consumtionMapper;
     @Autowired
-    AccountMapper accountMapper;
+    AccountServiceForBl accountService;
 
     @Override
-
+    public void recordConsumptionForBl(ConsumptionVO vo) {
+        consumtionMapper.insertCOnsumptionInfor(vo);
+    }
+    @Override
     public ResponseVO recordConsumption(ConsumptionVO vo) {
         return ResponseVO.buildSuccess(consumtionMapper.insertCOnsumptionInfor(vo));
     }
@@ -50,7 +53,7 @@ public class ConsumptionServiceImpl implements ConsumptionService {
             UserTotalConsumption consumption1=new UserTotalConsumption();
             consumption1.setBalance(consumption.getBalance());
             consumption1.setUserId(consumption.getUserId());
-            consumption1.setUsername(accountMapper.getAccountById(consumption.getUserId()).getUsername());
+            consumption1.setUsername(accountService.getAccountById(consumption.getUserId()).getUsername());
             userTotalConsumptions.add(consumption1);
         }
         return userTotalConsumptions;
