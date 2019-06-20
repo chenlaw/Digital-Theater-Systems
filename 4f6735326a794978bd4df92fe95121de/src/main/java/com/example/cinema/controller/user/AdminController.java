@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/staff")
-public class adminController {
+public class AdminController {
     @Autowired
     private AdminService adminService;
     @PostMapping("/add/user")

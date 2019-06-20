@@ -39,5 +39,4 @@
         <result column="start_time" property="startTime"></result>
         <result column="end_time" property="endTime"></result>
     </resultMap>
-
 </mapper>

@@ -1,17 +1,12 @@
 package com.example.cinema.blImpl.sales;
 
-import com.example.cinema.bl.promotion.CouponService;
-import com.example.cinema.bl.record.ConsumptionService;
 import com.example.cinema.bl.sales.TicketService;
 import com.example.cinema.blImpl.management.hall.HallServiceForBl;
 import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
 import com.example.cinema.blImpl.promotion.ActivityServiceForBl;
 import com.example.cinema.blImpl.promotion.CouponServiceForBl;
 import com.example.cinema.blImpl.promotion.VIPServiceForBl;
-import com.example.cinema.data.management.ScheduleMapper;
-import com.example.cinema.data.promotion.ActivityMapper;
-import com.example.cinema.data.promotion.CouponMapper;
-import com.example.cinema.data.promotion.VIPCardMapper;
+import com.example.cinema.blImpl.record.ConsumptionServiceForBl;
 import com.example.cinema.data.sales.TicketMapper;
 import com.example.cinema.data.sales.WithdrawMapper;
 import com.example.cinema.po.*;
@@ -47,7 +42,7 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
     @Autowired
     WithdrawMapper withdrawMapper;
     @Autowired
-    ConsumptionService consumptionService;
+    ConsumptionServiceForBl consumptionService;
     @Override
     @Transactional
     public ResponseVO addTicket(TicketForm ticketForm) {
@@ -121,7 +116,7 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
                 }
 
             }
-            consumptionService.recordConsumption(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"银行卡购买电影票"));
+            consumptionService.recordConsumptionForBl(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"银行卡购买电影票"));
             List<Activity> activities=activityService.selectActivitiesByMovie(movieId);
             if(activities.size()!=0){
                 Coupon bestCoupon=activities.get(0).getCoupon();
@@ -200,7 +195,7 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
                     couponService.deleteCouponUser(couponId,userID);
                 }
             }
-            consumptionService.recordConsumption(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"会员卡购买电影票"));
+            consumptionService.recordConsumptionForBl(new ConsumptionVO(ticketMapper.selectTicketById(ticketInfoVO.getTicketId().get(0)).getUserId(),totalPriceAfterCoupon,new Date(),"会员卡购买电影票"));
             List<Activity> activities=activityService.selectActivitiesByMovie(movieId);
             if(activities.size()!=0){
                 Coupon bestCoupon=activities.get(0).getCoupon();
@@ -281,7 +276,7 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
             if(vipCard!=null){
                 vipService.updateCardBalance(vipCard.getId(),balance);
             }
-            consumptionService.recordConsumption(new ConsumptionVO(userId,-discount*fare,new Date(),"退票成功"));
+            consumptionService.recordConsumptionForBl(new ConsumptionVO(userId,-discount*fare,new Date(),"退票成功"));
             return ResponseVO.buildSuccess("退票成功！");
         }
     }

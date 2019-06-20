@@ -26,8 +26,7 @@ public class CouponController {
     }
     @RequestMapping(value = "/sendCoupons",method = RequestMethod.POST)
     public ResponseVO sendCoupons(@RequestBody SendCouponVO vo){
-        couponService.sendCoupons(vo.getUsersId(),vo.getCouponsId());
-       return ResponseVO.buildSuccess();
+       return couponService.sendCoupons(vo.getUsersId(),vo.getCouponsId());
 
     }
 }
