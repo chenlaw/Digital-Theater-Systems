@@ -16,7 +16,8 @@ $(document).ready(function(){
     function renderMovieList(list) {
         $('.movie-list').empty();
         var movieDomStr = '';
-        list.forEach(function (movie) {
+        a=list.reverse();
+        a.forEach(function (movie) {
             movie.description = movie.description || '';
             movieDomStr +=
                 "<li class='movie-item card'>" +

@@ -16,6 +16,7 @@ $(document).ready(function () {
     
     function renderMovieList(list) {
         $('.movie-on-list').empty();
+        list=list.reverse();
         var movieDomStr = '';
         var i=0;
         var j=0
