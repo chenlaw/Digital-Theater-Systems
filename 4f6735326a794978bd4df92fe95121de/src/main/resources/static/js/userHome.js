@@ -56,9 +56,8 @@ $(document).ready(function () {
     }
 
     function getUrl(id){
-        postRequest(
-            '/movie/{id}',
-            {id:id},
+        getRequest(
+            '/movie/id?id='+id,
             function(res){
                 return res.posterUrl;
             },
@@ -68,33 +67,49 @@ $(document).ready(function () {
     }
 
     function renderMovieRanking(list){
-        $('.panel-container').empty();
-        var movieDomStr = '';
+        $('#movie-ranking').empty();
         if(list.length>5){
             list=list.slice(0,5)
         }
         var movieTop=list[0];
-        movieDomStr +=
+        var movieDomStr =
             "<ul class='ranking-wrapper ranking-box'>"+
             "   <li class='ranking-item ranking-top ranking-index-1'>"+
             "       <a href='/user/movieDetail?id="+ movieTop.movieId +"'>"+
             "           <div class='ranking-top-left'>"+
             "               <i class='ranking-top-icon'></i>"+
-            "               <img class='ranking-img  default-img' src='"+(getUrl(movieTop.movieId) || "../images/defaultAvatar.jpg")+"'>"+
+            "               <img class='ranking-img  default-img' src='"+( getUrl(parseInt(movieTop.movieId)) || "../images/defaultAvatar.jpg")+"'>"+
             "           </div>"+
             "           <div class='ranking-top-right'>"+
             "               <div class='ranking-top-right-main'>"+
             "                   <span class='ranking-top-moive-name'>"+movieTop.name+"</span>"+
             "                   <p class='ranking-top-wish'>"+
-            "                       <span class='stonefont'>"+movieTop.boxOffice+"</span>"+
+            "                       <span class='stonefont'>"+movieTop.boxOffice+"</span>元"+
             "                   </p>"+
             "               </div>"+
             "           </div>"+
             "       </a>"+
-            "   </li>"+
+            "   </li>"
+        var i=2;
+        list.slice(1,10).forEach(function(movie){
+            movieDomStr+=
+                "<li class='ranking-item ranking-index-"+i+"'>" +
+                "      <a href='/user/movieDetail?id="+ movie.movieId +"'>" +
+                "          <span class='normal-link'>" +
+                "            <i class='ranking-index'>"+i+"</i>" +
+                "            <span class='ranking-movie-name'>"+movie.name+"</span>" +
+                "            <span class='ranking-num-info'>" +
+                "                <span class='stonefont'>"+movie.boxOffice+"</span>元" +
+                "            </span>" +
+                "          </span>" +
+                "      </a>" +
+                "    </li>"
+            i+=1;
+        })
+        movieDomStr+=
             "</ul>"
 
-        $('.panel-container').append(movieDomStr);
+        $('#movie-ranking').append(movieDomStr);
     }
 
 })
