@@ -28,7 +28,7 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
     private ScheduleServiceForBl scheduleServiceForBl;
 
     @Override
-    public ResponseVO searchMovieById(Integer id){
+    public ResponseVO searchMovieById(int id){
         try{
             return ResponseVO.buildSuccess(movieMapper.selectMovieById(id));
         }catch (Exception e) {

@@ -76,8 +76,8 @@ public class MovieController {
         return movieService.updateMovie(updateMovieForm);
     }
 
-    @RequestMapping(value = "/movie/{id}", method = RequestMethod.POST)
-    public ResponseVO searchMovieById(@PathVariable Integer id){
+    @RequestMapping(value = "/movie/id", method = RequestMethod.GET)
+    public ResponseVO searchMovieById(@RequestParam int id){
         return movieService.searchMovieById(id);
     }
 

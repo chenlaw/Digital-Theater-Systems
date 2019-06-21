@@ -1,4 +1,4 @@
-package java.com.example.cinema.blImpl.record;
+package com.example.cinema.blImpl.record;
 
 import com.example.cinema.CinemaApplication;
 import com.example.cinema.bl.record.ConsumptionService;
@@ -21,14 +21,14 @@ public class ConsumptionImplTest {
     ConsumptionService consumptionService;
     @Test
     public void recordConsumption(){
-        Assert.assertEquals(true,consumptionService.recordConsumption(ConsumptionStub.insertConsumption()));
+        Assert.assertEquals(true,consumptionService.recordConsumption(com.example.cinema.blImpl.record.ConsumptionStub.insertConsumption()).getSuccess());
     }
     @Test
     public void getConsumptionByBalanceTest(){
-        Assert.assertEquals(true,consumptionService.getConsumtionsOrderByBalance(34));
+        Assert.assertEquals(true,consumptionService.getConsumtionsOrderByBalance(34).getSuccess());
     }
     @Test
     public void getConsumptionByIdTest(){
-        Assert.assertEquals(true,consumptionService.getConsumtions("3"));
+        Assert.assertEquals(true,consumptionService.getConsumtions("3").getSuccess());
     }
 }

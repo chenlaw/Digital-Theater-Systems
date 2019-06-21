@@ -88,7 +88,7 @@ $("#put-on").click(function () {
         var userInfo = "";
         userInfo +=
 
-           " <tr><td><input type='checkbox' name='user' id="+user.userId+" </td><td>"+user.username+"</td><td>" + user.balance + "</td></tr>"
+           " <tr><td><input type='checkbox' name='user'  style='width:5mm' id="+user.userId+" </td><td>"+user.username+"</td><td>" + user.balance + "</td></tr>"
              ;
 
 
