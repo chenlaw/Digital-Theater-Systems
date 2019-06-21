@@ -76,7 +76,10 @@ public class MovieController {
         return movieService.updateMovie(updateMovieForm);
     }
 
-
+    @RequestMapping(value = "/movie/{id}", method = RequestMethod.POST)
+    public ResponseVO searchMovieById(@PathVariable Integer id){
+        return movieService.searchMovieById(id);
+    }
 
 
 }
