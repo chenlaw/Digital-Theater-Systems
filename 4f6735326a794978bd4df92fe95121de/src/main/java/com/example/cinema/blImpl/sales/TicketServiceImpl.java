@@ -232,8 +232,9 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
     	 * Created by wph on 2019/5/8.
     	 */
         try {
-        	for (int i = 0; i < id.size();i++) {
-        		ticketMapper.updateTicketState(id.get(i), 2);
+        	for (int i :id) {
+                System.out.println(id);
+        		ticketMapper.updateTicketState(i, 2);
         	}
         	return ResponseVO.buildSuccess();
         } catch (Exception e) {
