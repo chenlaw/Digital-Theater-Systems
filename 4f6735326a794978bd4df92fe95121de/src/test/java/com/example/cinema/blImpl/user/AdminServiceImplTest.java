@@ -42,15 +42,16 @@ public class AdminServiceImplTest {
 
     @Test
     public void updateUserLevel() {
-        Assert.assertEquals(true,adminService.updateUser(UserStub.postUpdateUserInfo()).getSuccess());
+        Assert.assertEquals(true,adminService.updateUserLevel(1,2).getSuccess());
     }
 
     @Test
     public void deleteUser() {
+        Assert.assertEquals(true,adminService.deleteUser(1));
     }
 
     @Test
     public void addUser() {
-        Assert.assertEquals();
+        Assert.assertEquals(true,adminService.addUser(UserStub.postAddUserInfo()));
     }
 }
