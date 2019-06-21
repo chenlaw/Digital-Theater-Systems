@@ -28,6 +28,16 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
     private ScheduleServiceForBl scheduleServiceForBl;
 
     @Override
+    public ResponseVO searchMovieById(Integer id){
+        try{
+            return ResponseVO.buildSuccess(movieMapper.selectMovieById(id));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    @Override
     public ResponseVO addMovie(MovieForm addMovieForm) {
         try {
             movieMapper.insertOneMovie(addMovieForm);

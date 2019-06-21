@@ -17,6 +17,13 @@ public interface MovieService {
     ResponseVO addMovie(MovieForm addMovieForm);
 
     /**
+     * 根据id搜索电影
+     * @param id
+     * @return
+     */
+    ResponseVO searchMovieById(Integer id);
+
+    /**
      * 根据id和userid搜索电影，可以知道这个用户是否点过想看这部电影
      * @param id
      * @param userId
