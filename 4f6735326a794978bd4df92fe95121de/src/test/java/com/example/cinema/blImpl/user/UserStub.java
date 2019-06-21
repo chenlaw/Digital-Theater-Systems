@@ -20,7 +20,7 @@ public class UserStub {
 
     public static UserVO  postAddUserInfo(){
         UserVO test = new UserVO();
-        test.setUsername("testname");
+        test.setUsername("testadd");
         test.setLevel(2);
         test.setPassword("testtest");
         return test;

@@ -1,4 +1,4 @@
-package java.com.example.cinema.blImpl.user;
+package com.example.cinema.blImpl.user;
 
 import com.example.cinema.CinemaApplication;
 import com.example.cinema.bl.user.AdminService;
@@ -52,6 +52,6 @@ public class AdminServiceImplTest {
 
     @Test
     public void addUser() {
-        Assert.assertEquals(true,adminService.addUser(com.example.cinema.blImpl.user.UserStub.postAddUserInfo()).getSuccess());
+        Assert.assertEquals(true,adminService.addUser(UserStub.postAddUserInfo()).getSuccess());
     }
 }

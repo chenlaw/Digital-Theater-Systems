@@ -1,4 +1,4 @@
-package test.com.example.cinema.blImpl.sales;
+package com.example.cinema.blImpl.sales;
 
 import com.example.cinema.CinemaApplication;
 import com.example.cinema.bl.sales.TicketService;
@@ -34,46 +34,9 @@ public class TicketServiceImplTest {
 
 
     @Test
-    public void testAddTicket() throws Exception {
-//TODO: Test goes here...
-        TicketForm ticketForm=new TicketForm();
-        ticketForm.setUserId(13);
-        ticketForm.setScheduleId(71);
-        List<SeatForm> list=new ArrayList<>();
-        list.add(new SeatForm(1,2));
-        ticketForm.setSeats(list);
-        Assert.assertTrue(ticketService.addTicket(ticketForm).getSuccess());
-    }
-
-    @Test
-    public void testCompleteTicket() throws Exception {
-//TODO: Test goes here...
-    }
-
-    @Test
-    public void testGetBySchedule() throws Exception {
-//TODO: Test goes here...
-    }
-
-    @Test
-    public void testGetTicketByUser() throws Exception {
-//TODO: Test goes here...
-    }
-
-    @Test
-    public void testCompleteByVIPCard() throws Exception {
-//TODO: Test goes here...
-    }
-
-    @Test
-    public void testCancelTicket() throws Exception {
-//TODO: Test goes here...
-    }
-
-    @Test
     public void testWithdrawTicket() throws Exception {
-        Assert.assertTrue(ticketService.withdrawTicket(1).getSuccess());
 
+        Assert.assertEquals(true,ticketService.withdrawTicket(1).getSuccess());
     }
 
     @Test
@@ -99,28 +62,5 @@ public class TicketServiceImplTest {
 
     }
 
-    @Test
-    public void testSelectTicketsBySchedule() throws Exception {
-//TODO: Test goes here...
-    }
-
-
-    @Test
-    public void testTicketList2TicketWithScheduleVOList() throws Exception {
-//TODO: Test goes here...
-    }
-
-    @Test
-    public void testWithdrawInfo2withdrawVO() throws Exception {
-//TODO: Test goes here...
-    }
-
-    @Test
-    public void testPrecheck() throws Exception {
-    }
-
-    @Test
-    public void testPrecheck1() throws Exception {
-    }
 
 }
