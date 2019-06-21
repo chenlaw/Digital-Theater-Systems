@@ -400,6 +400,7 @@ body{
 }
 
 .panel {
+    background:rgba(255,255,255,0);
     margin: 10px
 }
 
@@ -1165,7 +1166,7 @@ ul li {
 
 .ranking-box .ranking-top-left .ranking-img,
 .ranking-top100 .ranking-top-left .ranking-img {
-    width: 100%;
+    width: 60%;
     height: 100%
 }
 

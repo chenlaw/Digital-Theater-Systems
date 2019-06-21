@@ -59,7 +59,7 @@ $(document).ready(function () {
         getRequest(
             '/movie/id?id='+id,
             function(res){
-                return res.posterUrl;
+                return res.content.posterUrl;
             },
             function(error){
                 alert(error);
