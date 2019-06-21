@@ -2,6 +2,7 @@ package test.com.example.cinema.blImpl.sales;
 
 import com.example.cinema.CinemaApplication;
 import com.example.cinema.bl.sales.TicketService;
+import com.example.cinema.blImpl.sales.WithdrawInfoStub;
 import com.example.cinema.vo.SeatForm;
 import com.example.cinema.vo.TicketForm;
 import org.junit.Assert;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,27 +72,31 @@ public class TicketServiceImplTest {
 
     @Test
     public void testWithdrawTicket() throws Exception {
-//TODO: Test goes here...
+        Assert.assertTrue(ticketService.withdrawTicket(1).getSuccess());
+
     }
 
     @Test
     public void testGetAllWithdrawInfo() throws Exception {
-//TODO: Test goes here...
+        Assert.assertTrue(ticketService.getAllWithdrawInfo().getSuccess());
     }
 
     @Test
     public void testAddWithdrawInfo() throws Exception {
-//TODO: Test goes here...
+        Assert.assertEquals(false,ticketService.addWithdrawInfo(WithdrawInfoStub.postAddWithdrawInfo()).getSuccess());
+
+
     }
 
     @Test
     public void testUpdateWithdrawInfo() throws Exception {
-//TODO: Test goes here...
+        Assert.assertEquals(true,ticketService.addWithdrawInfo(WithdrawInfoStub.postUpdateWithdrawInfo()).getSuccess());
     }
 
     @Test
     public void testDeleteWithdrawInfo() throws Exception {
-//TODO: Test goes here...
+        Assert.assertEquals(false,ticketService.deleteWithdrawInfo(1).getSuccess());
+
     }
 
     @Test
@@ -111,12 +117,10 @@ public class TicketServiceImplTest {
 
     @Test
     public void testPrecheck() throws Exception {
-//TODO: Test goes here...
     }
 
     @Test
     public void testPrecheck1() throws Exception {
-//TODO: Test goes here...
     }
 
 }
