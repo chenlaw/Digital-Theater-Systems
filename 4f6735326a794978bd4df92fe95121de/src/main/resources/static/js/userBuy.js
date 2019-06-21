@@ -30,6 +30,7 @@ $(document).ready(function () {
                 "<td>" + formatdate(startTime)+" "+formatTime(startTime)+ "</td>" +
                 "<td>"+ formatdate(endTime)+" "+formatTime(endTime)+"</td>"+
                 "<td>"+ticket.state+"</td>"+
+                "<td><button class='btn-default' onclick='cancel(this)' "+"id='"+ticket.id+"'" + (!isValidatedlyCancel(ticket)?"style='color: #ac2925' disabled='disabled'>不可取消":"style='color: #1caf9a'>取消")+"</button></td>"+
                 "<td><button class='btn-default' onclick='withdraw(this)' "+"id='"+ticket.id+"'" + (!isValidatedlyWithdraw(ticket)?"style='color: #ac2925' disabled='disabled'>不可退票":"style='color: #1caf9a'>退票")+"</button></td>"+
                 "</tr>"
         });
@@ -63,6 +64,14 @@ $(document).ready(function () {
         return month+'月'+day+'日';
     }
 
+    function isValidatedlyCancel(ticket) {
+        if(ticket.state!=="未完成"){
+            return false;
+        }
+        return true;
+    }
+
+
     function isValidatedlyWithdraw(ticket) {
         if(ticket.state!=="已完成"){
             return false;
@@ -74,7 +83,25 @@ $(document).ready(function () {
         return true;
     }
 
+    cancel = function(e) {
+        var id =$(e).attr("id")
+        r=confirm("您确定要取消订单吗？")
 
+        if(r){
+            postRequest(
+                "/ticket/cancel/"+id,
+                {},
+                function (res) {
+                    alert("取消成功");
+                    location.reload();
+                },
+                function (err) {
+                    alert("该订单不可取消");
+                    location.reload();
+                }
+            )
+        }
+    }
 
 
     withdraw = function(e) {
@@ -84,11 +111,12 @@ $(document).ready(function () {
             getRequest(
                 "/ticket/withdraw?ticketId="+id,
                 function (res) {
-                    alert(res.content)
-                    location.reload()
+                    alert("退票成功");;
+                    location.reload();
                 },
                 function (err) {
-                    alert("该电影场次不可退票")
+                    alert("该电影场次不可退票");
+                    location.reload();
                 }
             )
         }

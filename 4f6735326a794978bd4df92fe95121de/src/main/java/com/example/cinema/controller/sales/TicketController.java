@@ -8,6 +8,7 @@ import com.example.cinema.vo.withdrawInfoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,8 +42,11 @@ public class TicketController {
     public ResponseVO getOccupiedSeats(@RequestParam int scheduleId){
         return ticketService.getBySchedule(scheduleId);
     }
-    @PostMapping("/cancel")
-    public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId){
+
+    @PostMapping("/cancel/{id}")
+    public ResponseVO cancelTicket(@PathVariable int id){
+        List<Integer> ticketId = new ArrayList<Integer>();
+        ticketId.add(id);
         return ticketService.cancelTicket(ticketId);
     }
     @GetMapping("/withdraw")
