@@ -23,6 +23,6 @@ public class CouponImplTest {
     public void sendCouponTest(){
         int[] user={3,5};
         int[] coupon={1,8,9};
-        Assert.assertEquals(true,couponService.sendCoupons(user,coupon));
+        Assert.assertEquals(true,couponService.sendCoupons(user,coupon).getSuccess());
     }
 }
