@@ -353,16 +353,18 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
      * @return
      */
     private ResponseVO precheck(withdrawInfoForm withdrawInfoForm){
-        Date movieStartTime = scheduleService.getScheduleItemById(withdrawInfoForm.getScheduleId()).getStartTime();
-        Date closeTime = withdrawInfoForm.getCloseTime();
-        if(movieStartTime.before(closeTime)){
-            return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
-        }
-        if(withdrawMapper.selectWithdrawInfoByScheduleId(withdrawInfoForm.getScheduleId())!=null){
-            return ResponseVO.buildFailure("已存在该场次的退票信息，请不要重复添加！");
-        }
-        if(withdrawInfoForm.getDiscount()>1||withdrawInfoForm.getDiscount()<0){
-            return ResponseVO.buildFailure("退款比例请输入0-1之间的数值");
+        if(withdrawInfoForm.getScheduleId()!=0){
+            Date movieStartTime = scheduleService.getScheduleItemById(withdrawInfoForm.getScheduleId()).getStartTime();
+            Date closeTime = withdrawInfoForm.getCloseTime();
+            if(movieStartTime.before(closeTime)){
+                return ResponseVO.buildFailure("退票截止时间不能晚于电影开始时间！");
+            }
+            if(withdrawMapper.selectWithdrawInfoByScheduleId(withdrawInfoForm.getScheduleId())!=null){
+                return ResponseVO.buildFailure("已存在该场次的退票信息，请不要重复添加！");
+            }
+            if(withdrawInfoForm.getDiscount()>1||withdrawInfoForm.getDiscount()<0){
+                return ResponseVO.buildFailure("退款比例请输入0-1之间的数值");
+            }
         }
         return ResponseVO.buildSuccess("成功!");
 
@@ -406,6 +408,9 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
 
     @Override
     public ResponseVO deleteWithdrawInfo(int scheduleId){
+        if(withdrawMapper.selectWithdrawInfoByScheduleId(scheduleId)==null){
+            return ResponseVO.buildFailure("失败");
+        }
         withdrawMapper.deleteWithdrawInfo(scheduleId);
         return ResponseVO.buildSuccess();
     }

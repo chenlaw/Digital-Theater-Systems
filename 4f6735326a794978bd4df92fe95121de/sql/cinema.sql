@@ -359,6 +359,7 @@ CREATE TABLE `withdraw` (
                           `discount` double not null default 1.0,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+INSERT INTO `movie` VALUES(1,'default','2020-04-23 13:50:52',0,0.8);
 
 
 DROP TABLE IF EXISTS `vip_info`;
