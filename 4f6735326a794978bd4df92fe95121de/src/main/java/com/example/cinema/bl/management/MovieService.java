@@ -21,7 +21,7 @@ public interface MovieService {
      * @param id
      * @return
      */
-    ResponseVO searchMovieById(Integer id);
+    ResponseVO searchMovieById(int id);
 
     /**
      * 根据id和userid搜索电影，可以知道这个用户是否点过想看这部电影
