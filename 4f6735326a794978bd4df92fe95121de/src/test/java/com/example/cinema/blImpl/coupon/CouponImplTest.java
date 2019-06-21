@@ -1,4 +1,4 @@
-package java.com.example.cinema.blImpl.coupon;
+package com.example.cinema.blImpl.coupon;
 
 import com.example.cinema.CinemaApplication;
 import com.example.cinema.bl.promotion.CouponService;

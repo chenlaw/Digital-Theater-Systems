@@ -1,4 +1,4 @@
-package java.com.example.cinema.blImpl.record;
+package com.example.cinema.blImpl.record;
 
 import com.example.cinema.vo.RechargeVO;
 
