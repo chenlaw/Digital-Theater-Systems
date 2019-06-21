@@ -271,10 +271,10 @@ public class  TicketServiceImpl implements TicketService,TicketServiceForBl {
             ticketMapper.updateTicketState(id,2);
             int userId=ticket.getUserId();
             VIPCard vipCard=vipService.selectCardByUserId(userId);
-            double balance=vipCard.getBalance();
             double discount=withdrawInfo.getDiscount();
-            balance+=discount*fare;
             if(vipCard!=null){
+                double balance=vipCard.getBalance();
+                balance+=discount*fare;
                 vipService.updateCardBalance(vipCard.getId(),balance);
             }
             consumptionService.recordConsumptionForBl(new ConsumptionVO(userId,-discount*fare,new Date(),"退票成功"));
