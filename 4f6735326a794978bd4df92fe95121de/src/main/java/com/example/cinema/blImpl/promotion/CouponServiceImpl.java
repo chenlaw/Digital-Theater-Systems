@@ -74,7 +74,7 @@ public class CouponServiceImpl implements CouponService,CouponServiceForBl {
     public ResponseVO sendCoupons(int[] usersId, int[] couponsId) {
         for (int i:usersId){
             for(int j:couponsId){
-                issueCoupon(i,j);
+                issueCoupon(j,i);
             }
         }
         return ResponseVO.buildSuccess();

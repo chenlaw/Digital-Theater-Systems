@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     getMovieList('');
     getMovieRanking();
-
+    
     function getMovieList(keyword) {
         getRequest(
             '/movie/search?keyword='+keyword,
@@ -13,7 +13,7 @@ $(document).ready(function () {
                 alert(error);
             });
     }
-
+    
     function renderMovieList(list) {
         $('.movie-on-list').empty();
         var movieDomStr = '';
@@ -71,7 +71,7 @@ $(document).ready(function () {
         $('#movie-list1').append(movieDomStr);
         $('#movie-list2').append(movieDomStr1);
     }
-
+    
     function getMovieRanking(){
         getRequest(
             '/statistics/boxOffice/total',
@@ -82,7 +82,7 @@ $(document).ready(function () {
                 alert(error);
             });
     }
-
+    
     function getUrl(id){
         getRequest(
             '/movie/id?id='+id,
@@ -95,7 +95,7 @@ $(document).ready(function () {
         });
 
     }
-
+    
     function renderMovieRanking(list){
         $('#movie-ranking').empty();
         var movieTop=list[0];
@@ -137,7 +137,7 @@ $(document).ready(function () {
         })
         movieDomStr+=
             "</ul>"
-
+    
         $('#movie-ranking').append(movieDomStr);
     }
 
