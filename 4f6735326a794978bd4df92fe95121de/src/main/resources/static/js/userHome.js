@@ -17,31 +17,59 @@ $(document).ready(function () {
     function renderMovieList(list) {
         $('.movie-on-list').empty();
         var movieDomStr = '';
-        if(list.length>5){
-            list=list.slice(0,5)
-        }
+        var i=0;
+        var j=0
         list.forEach(function (movie) {
-            movieDomStr+=
-                "<dd>" +
-                "    <div class='movie-item'>" +
-                "        <a href='/user/movieDetail?id="+ movie.id +"'>" +
-                "        <div class='movie-poster'>" +
-                "        <img src='"+(movie.posterUrl || "../images/defaultAvatar.jpg")+"'>" +
-                "        <div class='movie-overlay movie-overlay-bg'>" +
-                "        <div class='movie-info'>" +
-                "        <div class='movie-title movie-title-padding'>"+movie.name+"</div>" +
-                "    </div>" +
-                "    </div>" +
-                "    </div>" +
-                "    </a>" +
-                "    <div class='movie-detail movie-detail-strong movie-sale'>" +
-                // "<a href='/cinemas?movieId="+movie.id+"' class='active' target='_blank' data-act='salePlayingMovie-click' data-val='{movie.id:"+movie.id+"}'>购 票</a>"+
-                "        <a href='/user/movieDetail?id="+ movie.id + "' class='active'>购 票</a>" +
-                "    </div>" +
-                "    </div>" +
-                "</dd>"
+            if(i<=4&&movie.status==0&&(new Date(movie.startDate).getTime())<(new Date().getTime())){
+                movieDomStr+=
+                    "<dd>" +
+                    "    <div class='movie-item'>" +
+                    "        <a href='/user/movieDetail?id="+ movie.id +"'>" +
+                    "        <div class='movie-poster'>" +
+                    "        <img src='"+(movie.posterUrl || "../images/defaultAvatar.jpg")+"'>" +
+                    "        <div class='movie-overlay movie-overlay-bg'>" +
+                    "        <div class='movie-info'>" +
+                    "        <div class='movie-title movie-title-padding'>"+movie.name+"</div>" +
+                    "    </div>" +
+                    "    </div>" +
+                    "    </div>" +
+                    "    </a>" +
+                    "    <div class='movie-detail movie-detail-strong movie-sale'>" +
+                    // "<a href='/cinemas?movieId="+movie.id+"' class='active' target='_blank' data-act='salePlayingMovie-click' data-val='{movie.id:"+movie.id+"}'>购 票</a>"+
+                    "        <a href='/user/movieDetail?id="+ movie.id + "' class='active'>购 票</a>" +
+                    "    </div>" +
+                    "    </div>" +
+                    "</dd>"
+                i+=1
+            }
         })
-        $('.movie-list').append(movieDomStr);
+        var movieDomStr1=''
+        list.forEach(function (movie) {
+            if(j<=4&&(new Date(movie.startDate).getTime())>(new Date().getTime())){
+                movieDomStr1+=
+                    "<dd>" +
+                    "    <div class='movie-item'>" +
+                    "        <a href='/user/movieDetail?id="+ movie.id +"'>" +
+                    "        <div class='movie-poster'>" +
+                    "        <img src='"+(movie.posterUrl || "../images/defaultAvatar.jpg")+"'>" +
+                    "        <div class='movie-overlay movie-overlay-bg'>" +
+                    "        <div class='movie-info'>" +
+                    "        <div class='movie-title movie-title-padding'>"+movie.name+"</div>" +
+                    "    </div>" +
+                    "    </div>" +
+                    "    </div>" +
+                    "    </a>" +
+                    "    <div class='movie-detail movie-detail-strong movie-sale'>" +
+                    // "<a href='/cinemas?movieId="+movie.id+"' class='active' target='_blank' data-act='salePlayingMovie-click' data-val='{movie.id:"+movie.id+"}'>购 票</a>"+
+                    "        <a href='/user/movieDetail?id="+ movie.id + "' class='active'>购 票</a>" +
+                    "    </div>" +
+                    "    </div>" +
+                    "</dd>"
+                j+=1
+            }
+        })
+        $('#movie-list1').append(movieDomStr);
+        $('#movie-list2').append(movieDomStr1);
     }
 
     function getMovieRanking(){
@@ -59,26 +87,27 @@ $(document).ready(function () {
         getRequest(
             '/movie/id?id='+id,
             function(res){
-                return res.posterUrl;
+                var url=res.content.posterUrl;
+                return url
             },
             function(error){
                 alert(error);
         });
+
     }
 
     function renderMovieRanking(list){
         $('#movie-ranking').empty();
-        if(list.length>5){
-            list=list.slice(0,5)
-        }
         var movieTop=list[0];
+        var url=getUrl(parseInt(movieTop.movieId))
+        console.log(url)
         var movieDomStr =
             "<ul class='ranking-wrapper ranking-box'>"+
             "   <li class='ranking-item ranking-top ranking-index-1'>"+
             "       <a href='/user/movieDetail?id="+ movieTop.movieId +"'>"+
             "           <div class='ranking-top-left'>"+
             "               <i class='ranking-top-icon'></i>"+
-            "               <img class='ranking-img  default-img' src='"+( getUrl(parseInt(movieTop.movieId)) || "../images/defaultAvatar.jpg")+"'>"+
+            "               <img class='ranking-img  default-img' src='"+( url || "../images/defaultAvatar.jpg")+"'>"+
             "           </div>"+
             "           <div class='ranking-top-right'>"+
             "               <div class='ranking-top-right-main'>"+
